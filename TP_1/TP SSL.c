@@ -4,7 +4,7 @@
 #define INICIAL 0
 #define ESTADO1 1
 #define ESTADO2 2
-#define ESATDO3 3
+#define ESTADO3 3
 #define ESTADO4 4
 #define ERROR 5
 
@@ -67,7 +67,7 @@ int main(int argc, char const *argv[])
             }
             break;
             
-         case ESATDO3:
+         case ESTADO3:
             if (actualChar >= '0' && actualChar <= '9' && actualChar >= 'a' && actualChar <= 'f' && actualChar >= 'A' && actualChar <= 'F')
             {
                estado = ESTADO4;
@@ -105,7 +105,7 @@ int main(int argc, char const *argv[])
          }
          else if (estado == ESTADO1)
          {
-            printf ("%s  es un numero decimal " , buffer);
+            printf ("%s  es un numero decimal" , buffer);
             strcpy(buffer , ""); 
          }
          else if (estado == ESTADO2)
