@@ -59,7 +59,7 @@ int main(int argc, char const *argv[])
             }
             else if (actualChar == 'x'  || actualChar == 'X')
             {
-               estado = ESATDO3;
+               estado = ESTADO3;
             }
             else
             {
