@@ -1,16 +1,35 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 #define INICIAL 0
 #define ESTADO1 1
 #define ESTADO2 2
 #define ESTADO3 3
 #define ESTADO4 4
-#define ERROR 5
+#define ERROR 6
+#define ESTADO5 5
+
+char *concatenar(char *cadena, char caracter)
+{
+   int i;
+
+   /* Encontrar el fin de cadena */
+   for (i = 0; cadena[i] != '\0'; i++)
+      ;
+
+   /* Añadimos el caracter */
+   cadena[i++] = caracter;
+
+   /* Añadimos el caracter de fin de cadena */
+   cadena[i] = '\0';
+
+   return cadena;
+}
 
 int main(int argc, char const *argv[])
 {
-   int estado = INICIAL;     
+   int estado = INICIAL;
    int actualChar = 0 ;
    char buffer[30];
    FILE* f = fopen( argv[1] , "r" );  // abro archivo a para leer
@@ -22,8 +41,8 @@ int main(int argc, char const *argv[])
 
       while( actualChar != ',' || actualChar != EOF ) // itero hasta que salga ',' o se termine el archivo
       {
-         strcat( buffer , actualChar ); //concateno letra al final de buffer
-         
+         concatenar( buffer , actualChar ); //concateno letra al final de buffer
+
          switch (estado)  // me fijo el estado actual y lo llevo al estado siguiente
          {
          case INICIAL:
@@ -33,7 +52,7 @@ int main(int argc, char const *argv[])
             }
             else if (actualChar >= '1' && actualChar <= '9')
             {
-               estado = ESTADO1;           
+               estado = ESTADO1;
             }
             else
             {
@@ -49,7 +68,7 @@ int main(int argc, char const *argv[])
             else
             {
                estado = ERROR;
-            } 
+            }
             break;
 
          case ESTADO2:
@@ -66,7 +85,7 @@ int main(int argc, char const *argv[])
                estado = ERROR;
             }
             break;
-            
+
          case ESTADO3:
             if (actualChar >= '0' && actualChar <= '9' || actualChar >= 'a' && actualChar <= 'f' || actualChar >= 'A' && actualChar <= 'F')
             {
@@ -77,7 +96,7 @@ int main(int argc, char const *argv[])
                estado = ERROR;
             }
             break;
-            
+
          case ESTADO4:
             if (actualChar >= '0' && actualChar <= '9' || actualChar >= 'a' && actualChar <= 'f' || actualChar >= 'A' && actualChar <= 'F')
             {
@@ -90,7 +109,7 @@ int main(int argc, char const *argv[])
             break;
 
          case ERROR:
-            
+
             break;
          }
 
@@ -101,22 +120,22 @@ int main(int argc, char const *argv[])
          if(estado == ERROR)
          {
             printf ("%s  no es una palabra válida" , buffer);
-            strcpy(buffer , "");           
+            strcpy(buffer , "");
          }
          else if (estado == ESTADO1)
          {
             printf ("%s  es un numero decimal" , buffer);
-            strcpy(buffer , ""); 
+            strcpy(buffer , "");
          }
          else if (estado == ESTADO2)
          {
             printf ("%s  es un numero octal" , buffer);
-            strcpy(buffer , ""); 
+            strcpy(buffer , "");
          }
           else if (estado == ESTADO4)
          {
             printf ("%s  es un numero hexadecimal" , buffer);
-            strcpy(buffer , ""); 
+            strcpy(buffer , "");
          }
 
          //vuelvo al estado inicial
