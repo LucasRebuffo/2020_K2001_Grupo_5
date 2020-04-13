@@ -87,7 +87,7 @@ int main(int argc, char const *argv[])
             break;
 
          case ESTADO3:
-            if (actualChar >= '0' && actualChar <= '9' || actualChar >= 'a' && actualChar <= 'f' || actualChar >= 'A' && actualChar <= 'F')
+            if ((actualChar >= '0' && actualChar <= '9') || (actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
             {
                estado = ESTADO4;
             }
@@ -98,7 +98,7 @@ int main(int argc, char const *argv[])
             break;
 
          case ESTADO4:
-            if (actualChar >= '0' && actualChar <= '9' || actualChar >= 'a' && actualChar <= 'f' || actualChar >= 'A' && actualChar <= 'F')
+            if ( (actualChar >= '0' && actualChar <= '9') ||(actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
             {
                estado = ESTADO4;
             }
