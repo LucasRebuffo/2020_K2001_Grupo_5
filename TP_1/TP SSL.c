@@ -7,8 +7,9 @@
 #define ESTADO2 2
 #define ESTADO3 3
 #define ESTADO4 4
-#define ERROR 6
 #define ESTADO5 5
+#define ERROR 6
+
 
 char *concatenar(char *cadena, char caracter)
 {
@@ -27,12 +28,15 @@ char *concatenar(char *cadena, char caracter)
    return cadena;
 }
 
-int main(int argc, char const *argv[])
+int main()
 {
    int estado = INICIAL;
+
    int actualChar = 0 ;
-   char buffer[30];
-   FILE* f = fopen( argv[1] , "r" );  // abro archivo a para leer
+
+   char buffer[100+1];
+
+   FILE* f = fopen( "entrada.txt" , "r" );  // abro archivo a para leer
 
 
    while( actualChar != EOF )  //lee hasta que sea final de archivo
@@ -74,11 +78,11 @@ int main(int argc, char const *argv[])
          case ESTADO2:
             if (actualChar >= '0' && actualChar <= '7')
             {
-               estado = ESTADO2;
+               estado = ESTADO3;
             }
             else if (actualChar == 'x'  || actualChar == 'X')
             {
-               estado = ESTADO3;
+               estado = ESTADO4;
             }
             else
             {
@@ -87,9 +91,19 @@ int main(int argc, char const *argv[])
             break;
 
          case ESTADO3:
+            if(actualChar >= '0' && actualChar <= '7')
+            {
+                estado = ESTADO3;
+            }
+            else
+            {
+                estado =ERROR;
+            }
+
+         case ESTADO4:
             if ((actualChar >= '0' && actualChar <= '9') || (actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
             {
-               estado = ESTADO4;
+               estado = ESTADO5;
             }
             else
             {
@@ -97,10 +111,10 @@ int main(int argc, char const *argv[])
             }
             break;
 
-         case ESTADO4:
+         case ESTADO5:
             if ( (actualChar >= '0' && actualChar <= '9') ||(actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
             {
-               estado = ESTADO4;
+               estado = ESTADO5;
             }
             else
             {
@@ -127,7 +141,7 @@ int main(int argc, char const *argv[])
             printf ("%s  es un numero decimal" , buffer);
             strcpy(buffer , "");
          }
-         else if (estado == ESTADO2)
+         else if (estado == ESTADO3)
          {
             printf ("%s  es un numero octal" , buffer);
             strcpy(buffer , "");
