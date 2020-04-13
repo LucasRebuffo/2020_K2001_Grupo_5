@@ -32,18 +32,24 @@ int main()
 {
    int estado = INICIAL;
 
-   int actualChar = 0 ;
+   int actualChar ;
 
    char buffer[100+1];
 
-   FILE* f = fopen( "entrada.txt" , "r" );  // abro archivo a para leer
+   FILE* f = fopen( "entrada.txt" , "rb" );  // abro archivo a para leer
 
+   if(f == NULL)
+   {
+       perror("Error en la apertura de archivo");
+       return 1;
 
-   while( actualChar != EOF )  //lee hasta que sea final de archivo
+   }
+
+   while( feof(f) )  //lee hasta que sea final de archivo
    {
       actualChar = getc( f );  // tomo primer caracter del archivo
 
-      while( actualChar != ',' || actualChar != EOF ) // itero hasta que salga ',' o se termine el archivo
+      while( actualChar != ',' || feof(f) ) // itero hasta que salga ',' o se termine el archivo
       {
          concatenar( buffer , actualChar ); //concateno letra al final de buffer
 
@@ -151,6 +157,8 @@ int main()
             printf ("%s  es un numero hexadecimal" , buffer);
             strcpy(buffer , "");
          }
+
+        system("pause");
 
          //vuelvo al estado inicial
          estado = INICIAL;
