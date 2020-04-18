@@ -32,7 +32,7 @@ int main()
 {
    int estado = INICIAL;
 
-   int actualChar ;
+   int actualChar = 0 ;
 
    char buffer[100+1];
 
@@ -45,7 +45,7 @@ int main()
 
    }
 
-   while( feof(f) )  //lee hasta que sea final de archivo
+   while( actualChar != EOF )  //lee hasta que sea final de archivo
    {
       actualChar = getc( f );  // tomo primer caracter del archivo
 
