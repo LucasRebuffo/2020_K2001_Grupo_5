@@ -12,93 +12,32 @@
 #define FILA 6
 #define COL 5
 
+
+
 int buscarEnTabla(int tabla[][COL] , int estado , int actualChar ) // busca en tabla el siguiente estado dado un estado actual y un caracter
 {
    int res;
-   for (int i = 0; i < COL; i++)
+   if(actualChar == '0')
    {
-      switch (tabla[estado][i])  // me fijo el estado actual y lo llevo al estado siguiente
-         {
-         case INICIAL:
-            if (actualChar == '0')
-            {
-               res = ESTADO2;
-            }
-            else if (actualChar >= '1' && actualChar <= '9')
-            {
-               res = ESTADO1;
-            }
-            else
-            {
-               res = ERROR;
-            }
-            break;
-
-         case ESTADO1:
-            if (actualChar >= '0' && actualChar <= '9')
-            {
-               res = ESTADO1;
-            }
-            else
-            {
-               res = ERROR;
-            }
-            break;
-
-         case ESTADO2:
-            if (actualChar >= '0' && actualChar <= '7')
-            {
-               res = ESTADO3;
-            }
-            else if (actualChar == 'x'  || actualChar == 'X')
-            {
-               res = ESTADO4;
-            }
-            else
-            {
-               res = ERROR;
-            }
-            break;
-
-         case ESTADO3:
-            if(actualChar >= '0' && actualChar <= '7')
-            {
-                res = ESTADO3;
-            }
-            else
-            {
-                res =ERROR;
-            }
-
-         case ESTADO4:
-            if ((actualChar >= '0' && actualChar <= '9') || (actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
-            {
-               res = ESTADO5;
-            }
-            else
-            {
-               res = ERROR;
-            }
-            break;
-
-         case ESTADO5:
-            if ( (actualChar >= '0' && actualChar <= '9') ||(actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
-            {
-               res = ESTADO5;
-            }
-            else
-            {
-               res = ERROR;
-            }
-            break;
-
-         case ERROR:
-
-               res = ERROR;
-            break;
-         
-         }
+      res = tabla[estado][0];
    }
+   else if (actualChar >= '1' && actualChar <= '7')
+   {
+      res = tabla[estado][1];
+   }
+   else if (actualChar >= '8' && actualChar <= '9')
+   {
+      res = tabla[estado][2];
+   }
+   else if (actualChar == 'x' && actualChar <= 'X')
+   {
+      res = tabla[estado][3];
+   }
+   else if ((actualChar >= 'a' && actualChar <= 'f') || (actualChar >= 'A' && actualChar <= 'F'))
+   {
+      res = tabla[estado][4];
+   }
+
    return res;
 }
 
@@ -127,9 +66,14 @@ int main()
 
    while( actualChar != EOF )  //lee hasta que sea final de archivo
    {
-      while (actualChar != ',') //leo hasta que aparezca una coma
+      while (actualChar != ',' || actualChar != EOF) //leo hasta que aparezca una coma
       {
          estado = buscarEnTabla(tabla , estado ,actualChar); //busco proximo estado
+                  // si el estado es ERROR se sale del ciclo
+         if (estado == ERROR)
+         {
+            break;            
+         }
 
          putc ( actualChar , w); //imprimo en archivo salida
 
