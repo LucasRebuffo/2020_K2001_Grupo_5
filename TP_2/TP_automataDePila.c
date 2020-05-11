@@ -16,7 +16,7 @@ int buscarEnTabla (struct Stack* pila , int estado , int caracter , int tabla []
     int res;
 
 
-   if ((pila ->array [pila -> top]) == pilaVacia)
+   if ((peek(pila)) == pilaVacia)
         {
             if(caracter == '0')
             {
@@ -62,25 +62,25 @@ int buscarEnTabla (struct Stack* pila , int estado , int caracter , int tabla []
             {
                 res = tabla[1][estado][0];
                 pop(pila);
-                push(pila, pilaVacia);
+                push(pila, pilaNoVacia);
             }
             else if (caracter >= '1' && caracter <= '9')
             {
                 res = tabla[1][estado][1];
                 pop(pila);
-                push(pila, pilaVacia);
+                push(pila, pilaNoVacia);
             }
             else if (caracter=='+' | caracter=='-' | caracter=='*' | caracter=='/')
             {
                 res = tabla[1][estado][2];
                 pop(pila);
-                push(pila, pilaVacia);
+                push(pila, pilaNoVacia);
             }
             else if (caracter=='(')
             {
                res = tabla[1][estado][3];
                pop(pila);
-               push(pila, pilaVacia);
+               push(pila, pilaNoVacia);
                push(pila , pilaNoVacia);
 
             }
@@ -114,15 +114,16 @@ int main()
    
    scanf("%s" , buffer);
 
-   for (int i = 0; i != '\0'; i++)
+while(buffer != "terminar")
+{
+   for (int i = 0; buffer[i] != '\0'; i++)
    {
        estado = buscarEnTabla(pila , estado , buffer[i], tabla);
 
        if(estado == rechazo)
        {
            break;
-       } 
-      
+       }      
    }
 
     if((estado == estado1 && pop(pila) == pilaVacia) | (estado == estado2 && pop(pila) == pilaVacia) )
@@ -133,9 +134,11 @@ int main()
     {
         printf("%s no es una expresion valida\n" , buffer);
     }
-    
+
+    pila = createStack(20);
+    push(pila, pilaVacia);
     printf("Ingrese una expresion aritmetica.\n");
     scanf("%s" , buffer);
-
+}
    return 0;                    
 }

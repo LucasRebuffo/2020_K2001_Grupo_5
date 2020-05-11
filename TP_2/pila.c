@@ -32,21 +32,22 @@ int isEmpty(struct Stack* stack)
 
 void push(struct Stack* stack, int item) 
 { 
-    if (isFull(stack)) 
-        return; 
-    stack->array[++stack->top] = item;  
+    if (isFull(stack)) {
+        return; } 
+    stack->array[++stack->top] = item; 
+    
 } 
 
 int pop(struct Stack* stack) 
 { 
-    if (isEmpty(stack)) 
-        return 0; 
+    if (isEmpty(stack)) {
+        return 0; }
     return stack->array[stack->top--]; 
 } 
 
 int peek(struct Stack* stack) 
 { 
-    if (isEmpty(stack)) 
-        return 0; 
+    if (isEmpty(stack)){ 
+        return 0; }
     return stack->array[stack->top]; 
 } 
