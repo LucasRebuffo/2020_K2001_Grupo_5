@@ -123,7 +123,8 @@ while(buffer != "terminar")
        if(estado == rechazo)
        {
            break;
-       }      
+       } 
+      
    }
 
     if((estado == estado1 && pop(pila) == pilaVacia) | (estado == estado2 && pop(pila) == pilaVacia) )
