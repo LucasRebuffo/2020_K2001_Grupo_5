@@ -55,16 +55,19 @@ int main()
                      {ESTADO5,ESTADO5,ESTADO5,ERROR,ESTADO5}};
 
    FILE* f = fopen( "entrada.txt" , "rb" );  // abro archivo a para leer
-   FILE* w = fopen( "salida.txt" , "w");  //abro archivo para escribir
+   FILE* w = fopen( "salida.txt" , "wb");  //abro archivo para escribir
+
+
    if(f == NULL)
    {
        perror("Error en la apertura de archivo");
        return 1;
    }
+   
 
    actualChar = getc(f); //leo un caracter
 
-   while( actualChar != EOF )  //lee hasta que sea final de archivo
+   while( feof(f))  //lee hasta que sea final de archivo
    {
       while (actualChar != ',' || actualChar != EOF) //leo hasta que aparezca una coma
       {
