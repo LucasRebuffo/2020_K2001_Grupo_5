@@ -50,8 +50,8 @@ comentarios                   \/\/(.)*
 %%
 
 int main() {
-    yyin =  ; 
-    yyout = ;
+    yyin = fopen("entrada.txt", "r"); 
+    yyout = fopen("salida.txt", "w");
     yylex();
 
 return 0;
