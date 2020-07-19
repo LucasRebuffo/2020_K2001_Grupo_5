@@ -4,19 +4,17 @@
 #include <string.h>
 #include "lib.h"
 
-//* falta nombre en donde estan las comillas
-
-struct "" ** listaIdentificadores = NULL; 
-struct "" ** listaLiteralesCadenas = NULL;
-struct "" ** listaPalabrasReservadas = NULL;
-struct "" ** listaConstDecimales = NULL;
-struct "" ** listaConstOctales = NULL;
-struct "" ** listaConstHexadecimales = NULL;
-struct "" ** listaConstReales = NULL;
-struct "" ** listaOperadoresDeC = NULL;
-struct "" ** listaCaracteresDePuntuacion = NULL;
-struct "" ** listaComentarios = NULL;
-struct "" ** listaOtros = NULL;
+struct ListaCant ** listaIdentificadores = NULL;
+struct ListaLong ** listaLiteralesCadenas = NULL;
+struct ListaOrden ** listaPalabrasReservadas = NULL;
+struct ListaInts ** listaConstDecimales = NULL;
+struct ListaInts ** listaConstOctales = NULL;
+struct ListaInts ** listaConstHexadecimales = NULL;
+struct ListaFloats ** listaConstReales = NULL;
+struct ListaCant ** listaOperadoresDeC = NULL;
+struct ListaCant ** listaCaracteresDePuntuacion = NULL;
+struct ListaLinea ** listaComentarios = NULL;
+struct ListaNoRecon ** listaOtros = NULL;
 
 int i = 0;
 %}
