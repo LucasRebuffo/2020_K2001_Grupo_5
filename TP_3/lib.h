@@ -1,6 +1,9 @@
 /*
  Lib.h
  */
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef struct {
     char * var;

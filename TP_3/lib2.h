@@ -1,6 +1,9 @@
 /*
  Lib2.h
  */
+#include <math.h>
+#include <stdio.h>
+#include <string.h>
 
 typedef struct {
     char * var;
@@ -14,7 +17,8 @@ typedef struct  {
 } NodoListaOtros;
 
 
-Nodo * crearNodoCant(char * var){
+Nodo * crearNodoCant(char * var)
+{
     NodoCant * nuevoNodo = (NodoCant *) malloc (sizeof (NodoCant));
     nuevoNodo->var = valor;
     nuevoNodo->apariciones = 1;
