@@ -4,17 +4,17 @@
 #include <string.h>
 #include "lib.h"
 
-struct ListaCant ** listaIdentificadores = NULL;
-struct ListaLong ** listaLiteralesCadenas = NULL;
-struct ListaOrden ** listaPalabrasReservadas = NULL;
-struct ListaInts ** listaConstDecimales = NULL;
-struct ListaInts ** listaConstOctales = NULL;
-struct ListaInts ** listaConstHexadecimales = NULL;
-struct ListaFloats ** listaConstReales = NULL;
-struct ListaCant ** listaOperadoresDeC = NULL;
-struct ListaCant ** listaCaracteresDePuntuacion = NULL;
-struct ListaLinea ** listaComentarios = NULL;
-struct ListaNoRecon ** listaOtros = NULL;
+struct NodoListaCant * listaIdentificadores = NULL;
+struct NodoListaOtros * listaLiteralesCadenas = NULL;
+struct NodoListaOtros * listaPalabrasReservadas = NULL;
+struct NodoListaOtros * listaConstDecimales = NULL;
+struct NodoListaOtros * listaConstOctales = NULL;
+struct NodoListaOtros * listaConstHexadecimales = NULL;
+struct NodoListaOtros * listaConstReales = NULL;
+struct NodoListaCant * listaOperadoresDeC = NULL;
+struct NodoListaCant * listaCaracteresDePuntuacion = NULL;
+struct NodoListaOtros * listaComentarios = NULL;
+struct NodoListaOtros * listaNoReconocidos = NULL;
 
 int i = 0;
 %}
@@ -30,7 +30,7 @@ identificadores               [_a-zA-Z][_a-zA-Z0-9]*
 caracteresDePuntuacion        [,\.;:\?\(\)\[\]\{\}]
 operadoresDeC                 [=!&\*\+\-/|%><\?]
 comentarios                   \/\/(.)*
- 
+
 %%
 
 {identificadores}             agregarAListaCant(yytext, listaIdentificadores);
