@@ -2,40 +2,126 @@
  Lib.h
  */
 
-
-struct ListaCant {
+typedef struct {
     char * var;
     int apariciones;
-    struct ListaCant * sig;
-};
+    NodoCant * sig;
+} NodoCant;
 
-struct ListaLong {
+typedef struct {
+    NodoCant * head;
+} ListaCant;
+
+typedef struct  {
     char * var;
-    struct ListaLong * sig;
-};
+    struct NodoOtros * sig;
+} NodoOtros;
 
-struct ListaOrden {
-    char * var;
-    struct ListaOrden * sig;
-};
+typedef struct  {
+    struct NodoOtros * head;
+} ListaOtros;
 
-struct ListaInts {
-    int var;
-    struct ListaInts * sig;
-};
 
-struct ListaFloats {
-    float var;
-    struct ListaFloats * sig;
-};
 
-struct ListaLinea {
-    char * var;
-    struct ListaLinea * sig;
-};
+Nodo * crearNodoCant(char * var){
+    NodoCant * nuevoNodo = (NodoCant *) malloc (sizeof (NodoCant));
+    nuevoNodo->var = valor;
+    nuevoNodo->apariciones = 1;
+    nuevoNodo->sig = NULL;  
+}
 
-struct ListaNoRecon {
-    char * var;
-    struct ListaNoRecon * sig;
-};
+Nodo * crearNodoInts(char * var){
+    NodoInts * nuevoNodo = (NodoInts *) malloc (sizeof (NodoInts));
+    nuevoNodo->var = valor;
+    nuevoNodo->sig = NULL;
+}
 
+Nodo * crearNodoFloats(char * var){
+    NodoFloats * nuevoNodo = (NodoFloats *) malloc (sizeof (NodoFloats));
+    nuevoNodo->var = valor;
+    nuevoNodo->sig = NULL;
+}
+
+Nodo * crearNodoOtros(char * var){
+    NodoOtros * nuevoNodo = (NodoOtros *) malloc (sizeof (NodoOtros));
+    nuevoNodo->var = valor;
+    nuevoNodo->sig = NULL;
+}
+
+void InsertarPrincipioCant(ListaCant * lista, char * var){
+    Nodo * nodo = crearNodoCant(var);
+    nodo->sig = lista->head;
+    lista->head = nodo;
+}
+void InsertarPrincipioOtros(ListaOtros * lista, char * var){
+    Nodo * nodo = crearNodoOtros(var);
+    nodo->sig = lista->head;
+    lista->head = nodo;
+}
+
+void InsertarFinalCant(ListaCant * lista, char * var){
+    Nodo * nodo = crearNodoCant(var);
+    if (lista->head == NULL) {
+        lista->head = nodo;
+    } else {
+        Nodo * puntero = lista->head;
+        while (puntero->sig) {
+            puntero = puntero->sig;
+        }
+        puntero->sig = nodo;
+    }
+}
+
+void InsertarFinalOtros(ListaOtros * lista, char * var){
+    Nodo * nodo = crearNodoOtros(var);
+    if (lista->head == NULL) {
+        lista->head = nodo;
+    } else {
+        Nodo * puntero = lista->head;
+        while (puntero->sig) {
+            puntero = puntero->sig;
+        }
+        puntero->sig = nodo;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+void agregarElementoAListaCant (char * valor, NodoListaCant){
+    NodoListaCant * = lista;
+    while ( = ){
+        if (->var == valor){
+            ->apariciones++;
+           
+        }
+        return;
+        valor = valor->sig;
+    }
+    NodoListaCant * nuevoNodo = NULL;
+    nuevoNodo = (NodoListaCant *) malloc (sizeof (NodoListaCant));
+    nuevoNodo->var = valor;
+    nuevoNodo->apariciones = 1;
+    nuevoNodo->sig = lista;
+    
+}
+
+
+
+
+
+void imprimirLista ()
