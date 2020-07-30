@@ -8,10 +8,17 @@
 
 int main(int argc, char *argv[]) 
 {
-  int result= hexadecimalToDecimal("A");
-  printf("%d\n" , result);
+  Lista lista = NULL;
+
+  insertarFinal(&lista , "hola");
+  insertarFinal(&lista , "56464");
+  insertarFinal(&lista , "6454");
+  insertarFinal(&lista , "645");
+  insertarFinal(&lista , "andaaaaaaa");
+
+  mostrarEnumerado(&lista);
+
 
   system("pause");
   return 0;
 }
-

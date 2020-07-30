@@ -13,7 +13,7 @@ struct Nodo
 typedef struct Nodo* Lista;
 
 
-void insertar(Lista * list , char* cadena)
+void insertarInicio(Lista * list , char* cadena)
 {
     struct Nodo* nuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
     strcpy(nuevo->cadena , cadena);
@@ -23,20 +23,49 @@ void insertar(Lista * list , char* cadena)
     printf ( "Se agrego la cadena %s a las lista \n", nuevo->cadena);
 }
 
-void mostrar(Lista list)
+void insertarFinal(Lista* lista , char* cadena)
 {
-    if ( list != NULL)
+    struct Nodo* nuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
+    strcpy(nuevo->cadena , cadena);
+    nuevo->next = NULL;
+    if(*lista == NULL )
     {
-        while(list !=  NULL )
-        {
-            printf("%s\n", list->cadena);
-            list = list->next;
-        }
+        nuevo->next =*lista;
+        *lista = nuevo;
+        printf ( "Se agrego la cadena %s a la lista \n", nuevo->cadena);
     }
     else
     {
-        printf("La lista esta vacia \n");
+        struct Nodo * aux = *lista;
+        while(aux->next != NULL)
+        {
+            aux = aux->next;
+        }
+        aux->next = nuevo;
+        printf ( "Se agrego la cadena %s a la lista \n", nuevo->cadena);
     }
+}
+
+void mostrar(Lista *list)
+{
+    struct Nodo* aux = *list;
+        while(aux !=  NULL )
+        {
+            printf("%s\n", aux->cadena);
+            aux = aux->next;
+        }
+}
+
+void mostrarEnumerado(Lista *list)
+{
+    int cont = 1;
+    struct Nodo* aux = *list;
+        while(aux !=  NULL )
+        {
+            printf("%d . %s\n", cont, aux->cadena);
+            cont++;
+            aux = aux->next;
+        }
 }
 
 void borrarLista (Lista * list)
@@ -60,7 +89,7 @@ int hexadecimalToDecimal(char * hexVal)
     int dec_val = 0; 
       
     // Extracting characters as digits from last character 
-    for (int i=len-1; i>=0; i--) 
+    for (int i=len-1; i>=2; i--) 
     {    
         // if character lies in '0'-'9', converting  
         // it to integral 0-9 by subtracting 48 from 
@@ -88,3 +117,36 @@ int hexadecimalToDecimal(char * hexVal)
     return dec_val; 
 } 
 
+int octalToDecimal (char* octalVal)
+{
+    int len = strlen(octalVal);
+
+    int base = 1;
+
+    int dec_val = 0;
+
+    for (int i=len-1; i>=1; i--) 
+    {
+         dec_val += (octalVal[i] - 48)*base; 
+                  
+            
+        base = base * 8; 
+    }
+    return dec_val;
+}
+
+
+char * sacarParteEntera(char nro[])
+{
+    char delimitador[] = ".";
+    char * retorno = strtok(nro, delimitador); 
+    return retorno;
+}
+
+char * sacarMantisa(char nro[])
+{
+    char delimitador[] = ".";
+    char * retorno = strtok(nro, delimitador); 
+    retorno = strtok(NULL, delimitador);
+    return retorno;
+}
