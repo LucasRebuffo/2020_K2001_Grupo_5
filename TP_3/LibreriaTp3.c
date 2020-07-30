@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
+#include "LibreriaTp3.h"
 
 struct Nodo 
 {
@@ -11,35 +12,40 @@ struct Nodo
 
 typedef struct Nodo* Lista;
 
-struct Nodo* crearNodo ( char* cadena )
+
+void insertar(Lista * list , char* cadena)
 {
-    struct Nodo* nuevo = malloc(sizeof(struct Nodo));
+    struct Nodo* nuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
     strcpy(nuevo->cadena , cadena);
-    nuevo->next = NULL; 
+    nuevo->next =*list; 
+    *list = nuevo;
 
-    return nuevo;
-}
-
-void insertar(Lista * list , struct Nodo * nuevo)
-{
-    nuevo->next = list;
-    list = nuevo;
-
-    printf ( "Se agrego la cadena %s a las lista", nuevo->cadena);
+    printf ( "Se agrego la cadena %s a las lista \n", nuevo->cadena);
 }
 
 void mostrar(Lista list)
 {
     if ( list != NULL)
     {
-        while(list->next !=  NULL )
+        while(list !=  NULL )
         {
-            printf("%s", list->next);
+            printf("%s\n", list->cadena);
             list = list->next;
         }
     }
     else
     {
-        printf("La lista esta vacia");
+        printf("La lista esta vacia \n");
+    }
+}
+
+void borrarLista (Lista * list)
+{
+    struct Nodo* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->next;
+        free(current);
     }
 }

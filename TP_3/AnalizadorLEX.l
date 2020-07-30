@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-#include "lib.h"
+#include "LibreriaTp3.h"
 
 struct NodoListaCant * listaIdentificadores = NULL;
 struct NodoListaOtros * listaLiteralesCadenas = NULL;
