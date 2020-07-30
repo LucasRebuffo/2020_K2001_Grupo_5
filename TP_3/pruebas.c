@@ -6,18 +6,12 @@
 #include <stdlib.h>
 #include "LibreriaTp3.h"
 
-
-
 int main(int argc, char *argv[]) 
 {
-  Lista lista = NULL;
-  insertar( &lista , "Hola");
-  insertar( &lista , "Como");
-  insertar( &lista , "Estas?");
+  int result= hexadecimalToDecimal("A");
+  printf("%d\n" , result);
 
-  mostrar (lista);
-  
- system("pause");
+  system("pause");
   return 0;
 }
 

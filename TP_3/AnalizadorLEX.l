@@ -7,17 +7,17 @@
 #include <stdlib.h>
 #include "LibreriaTp3.h"
 
-struct NodoListaCant * listaIdentificadores = NULL;
-struct NodoListaOtros * listaLiteralesCadenas = NULL;
-struct NodoListaOtros * listaPalabrasReservadas = NULL;
-struct NodoListaOtros * listaConstDecimales = NULL;
-struct NodoListaOtros * listaConstOctales = NULL;
-struct NodoListaOtros * listaConstHexadecimales = NULL;
-struct NodoListaOtros * listaConstReales = NULL;
-struct NodoListaCant * listaOperadoresDeC = NULL;
-struct NodoListaCant * listaCaracteresDePuntuacion = NULL;
-struct NodoListaOtros * listaComentarios = NULL;
-struct NodoListaOtros * listaNoReconocidos = NULL;
+Lista listaIdentificadores = NULL;
+Lista listaLiteralesCadenas = NULL;
+Lista listaPalabrasReservadas = NULL;
+Lista listaConstDecimales = NULL;
+Lista listaConstOctales = NULL;
+Lista listaConstHexadecimales = NULL;
+Lista listaConstReales = NULL;
+Lista listaOperadoresDeC = NULL;
+Lista listaCaracteresDePuntuacion = NULL;
+Lista listaComentarios = NULL;
+Lista listaNoReconocidos = NULL;
 
 int i = 0;
 %}
@@ -41,7 +41,7 @@ comentarios                   \/\/(.)*
 {palabrasReservadas}          agregarAListaOrden(yytext, listaPalabrasReservadas);
 {constDecimales}              agregarAListaInts(atoi(yytext), listaConstDecimales);
 {constOctales}                agregarAListaInts(atoi(yytext), listaConstOctales);
-{constHexadecimales}          agregarAListaInts(atof(yytext), listaConstHexadecimales);
+{constHexadecimales}          agregarAListaInts(yytext, listaConstHexadecimales);
 {constReales}                 agregarAListaFloats(atof(yytext), listaConstReales);
 {operadoresDeC}               agregarAListaCant(yytext, listaOperadoresDeC);
 {caracteresDePuntuacion}      agregarAListaCant(yytext, listaCaracteresDePuntuacion);
