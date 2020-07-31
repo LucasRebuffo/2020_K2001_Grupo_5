@@ -135,18 +135,18 @@ int octalToDecimal (char* octalVal)
     return dec_val;
 }
 
-
-char * sacarParteEntera(char nro[])
+int sacarParteEntera(char *numero)
 {
-    char delimitador[] = ".";
-    char * retorno = strtok(nro, delimitador); 
+    float real = atof(numero);
+    float parteEntera;
+    modff(real, &parteEntera);
+    int retorno = (int)parteEntera;
     return retorno;
 }
 
-char * sacarMantisa(char nro[])
+float sacarMantisa(char * numero)
 {
-    char delimitador[] = ".";
-    char * retorno = strtok(nro, delimitador); 
-    retorno = strtok(NULL, delimitador);
-    return retorno;
+    float real = atof(numero);
+    float parteDeciamal = modff(real,NULL);
+    return parteDeciamal;
 }

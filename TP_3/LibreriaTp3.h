@@ -9,8 +9,8 @@ void mostrar(Lista *list);
 void borrarLista (Lista * list);
 int hexadecimalToDecimal(char * hexVal);
 int octalToDecimal (char* octalVal);
-char * sacarParteEntera(char nro[]);
-char * sacarMantisa(char nro[]);
+int sacarParteEntera(char* numero);
+float sacarMantisa(char * numero);
 
 #include "LibreriaTp3.c"
 #endif

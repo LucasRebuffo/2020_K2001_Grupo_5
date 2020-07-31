@@ -8,17 +8,9 @@
 
 int main(int argc, char *argv[]) 
 {
-  Lista lista = NULL;
-
-  insertarFinal(&lista , "hola");
-  insertarFinal(&lista , "56464");
-  insertarFinal(&lista , "6454");
-  insertarFinal(&lista , "645");
-  insertarFinal(&lista , "andaaaaaaa");
-
-  mostrarEnumerado(&lista);
-
-
+  printf("Encontramos un token: %f\n", sacarMantisa("100.23"));
+  
   system("pause");
   return 0;
 }
+
