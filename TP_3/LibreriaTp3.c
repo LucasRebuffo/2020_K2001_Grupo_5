@@ -12,7 +12,6 @@ struct Nodo
 
 typedef struct Nodo* Lista;
 
-
 void insertarInicio(Lista * list , char* cadena)
 {
     struct Nodo* nuevo = (struct Nodo*) malloc(sizeof(struct Nodo));
@@ -77,6 +76,33 @@ void borrarLista (Lista * list)
         *list = (*list)->next;
         free(current);
     }
+}
+
+void buscarLista(Lista *lista, char* valor)
+{
+    struct Nodo* aux = *lista;
+    int ok = 0;
+    while(aux != NULL && !ok)
+    {
+        if (strcmp(aux->cadena ,valor) == 0) 
+        {
+        ok = 1;
+        } 
+        else 
+        {
+        aux=aux->next;
+        }
+    }
+
+    if(ok == 1)
+    {
+        printf("Se encontro la cadena %s\n", aux->cadena);
+    }
+    else
+    {
+        printf("No se encontro la cadena\n");
+    }
+
 }
 
 int hexadecimalToDecimal(char * hexVal) 
@@ -149,4 +175,30 @@ float sacarMantisa(char * numero)
     float real = atof(numero);
     float parteDeciamal = modff(real,NULL);
     return parteDeciamal;
+}
+
+void insertaOrdenado(Lista *lista, char *x) 
+{
+  struct Nodo *nuevo = (struct Nodo*)malloc(sizeof(struct Nodo));
+  strcpy(nuevo->cadena, x);
+  nuevo->next = NULL;
+
+  if(*lista == NULL || strcmp(nuevo->cadena , (*lista)->cadena) < 0 )
+  {
+      nuevo->next = *lista;
+      *lista = nuevo;
+  }
+  else
+  {
+      struct Nodo *aux = *lista;
+      while(aux->next != NULL && strcmp(aux->next->cadena , nuevo->cadena) < 0)
+      {
+          aux = aux->next;
+      }
+      if(aux->next != NULL)
+      {
+          nuevo->next = aux->next;
+      }
+      aux->next = nuevo;
+  }
 }

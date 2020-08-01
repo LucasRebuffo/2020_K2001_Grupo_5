@@ -11,6 +11,8 @@ int hexadecimalToDecimal(char * hexVal);
 int octalToDecimal (char* octalVal);
 int sacarParteEntera(char* numero);
 float sacarMantisa(char * numero);
+void buscarLista(Lista *lista, char* valor);
+void insertaOrdenado(Lista *lista, char *x);
 
 #include "LibreriaTp3.c"
 #endif
