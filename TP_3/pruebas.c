@@ -8,21 +8,22 @@
 
 int main(int argc, char *argv[]) 
 {
-  Lista6 lista = NULL;
+  Lista7 lista = NULL;
   int cont;
-  double numero;
-  // char cadena[100+1];
+  char *caracter;
   printf("Ingrese cantidad de elementos de la lista\n");
   scanf("%d",&cont);
   for (int i = 0; i < cont; i++)
   {
     printf("Ingrese una cadena\n");
-    scanf("%lf", &numero);
-    insertarEnLista6(&lista , numero);
+    scanf("%s" , caracter);
+    insertarEnLista7(&lista , caracter);
   }
 
+  
+
   printf("Su lista es: \n");
-  mostrarLista6(&lista);
+  mostrarLista7(&lista);
 
   
   

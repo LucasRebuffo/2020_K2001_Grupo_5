@@ -343,7 +343,7 @@ void mostrarLista2(Lista2 *list)
     struct Nodo2* aux = *list;
         while(aux !=  NULL )
         {
-            printf("El literal cadena %s tiene longitud %d\n", aux->literalCadena, aux->longitudDeLiteralCadena);
+            printf("El literal cadena |%s| tiene longitud %d\n", aux->literalCadena, aux->longitudDeLiteralCadena);
             aux = aux->sig;
         }
 }
@@ -557,4 +557,77 @@ void mostrarLista6(Lista6 *lista)
 
 // ------------------------------------------------------
 // Lista de constantes caracter 
+
+struct Nodo7 
+{
+    char constanteCaracter[1+1];
+    struct Nodo7 * sig;
+};
+
+typedef struct Nodo7 * Lista7;
+
+struct Nodo7 * crearNodo7(char *constanteCaracter)
+{
+    struct Nodo7 *nuevo = (struct Nodo7 *)malloc(sizeof(struct Nodo7));
+    strcpy(nuevo->constanteCaracter , constanteCaracter);
+    nuevo->sig = NULL;
+    return nuevo;
+}
+
+int estaEnLista7(Lista7 *lista , char *constanteCaracter)
+{
+    struct Nodo7* aux = *lista;
+    int ok = 0;
+    while(aux != NULL && !ok)
+    {
+        if (strcmp(aux->constanteCaracter ,constanteCaracter) == 0) 
+        {
+        ok = 1;
+        } 
+        else 
+        {
+        aux=aux->sig;
+        }
+    }
+    return ok;
+    
+}
+
+void insertarEnLista7(Lista7 *lista , char *constanteCaracter)
+{
+    if (estaEnLista7(lista , constanteCaracter) == 0)
+    {
+        struct Nodo7 * nuevo = crearNodo7(constanteCaracter);
+
+        if(*lista == NULL )
+        {
+            nuevo->sig =*lista;
+            *lista = nuevo;
+        }
+        else
+        {
+            struct Nodo7 * aux = *lista;
+            while(aux->sig != NULL)
+            {
+                aux = aux->sig;
+            }
+            aux->sig = nuevo;
+        }
+    } 
+}
+
+void mostrarLista7(Lista7 *list)
+{
+    int cont = 1;
+    struct Nodo7* aux = *list;
+        while(aux !=  NULL )
+        {
+            printf("%d . %s\n", cont, aux->constanteCaracter);
+            cont++;
+            aux = aux->sig;
+        }
+}
+
+// --------------------------------------------------------------------------------
+// Lista de operedores y cacracteres de puntuacion
 
