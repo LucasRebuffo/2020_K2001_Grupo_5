@@ -9,8 +9,8 @@ void mostrar(Lista *list);
 void borrarLista (Lista * list);
 int hexadecimalToDecimal(char * hexVal);
 int octalToDecimal (char* octalVal);
-int sacarParteEntera(char* numero);
-float sacarMantisa(char * numero);
+int sacarParteEntera(float numero);
+float sacarMantisa(float numero);
 void buscarLista(Lista *lista, char* valor);
 void insertaOrdenado(Lista *lista, char *x);
 
