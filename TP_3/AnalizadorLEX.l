@@ -19,7 +19,7 @@ Lista listaCaracteresDePuntuacion = NULL;
 Lista listaComentarios = NULL;
 Lista listaNoReconocidos = NULL;
 
-int i = 0;
+int numeroDeLinea = 0;
 %}
 
 constDecimales                [1-9][0-9]*
@@ -33,20 +33,22 @@ identificadores               [_a-zA-Z][_a-zA-Z0-9]*
 caracteresDePuntuacion        [,\.;:\?\(\)\[\]\{\}]
 operadoresDeC                 [=!&\*\+\-/|%><\?]
 comentarios                   \/\*(\*+[^\*\/]|[^\*])*\*+\/
+saltoDeLinea                  \n
 
 %%
 
-{identificadores}             agregarAListaCant(yytext, listaIdentificadores);
-{literalCadena}               agregarAListaLong(yytext, listaLiteralesCadenas);
-{palabrasReservadas}          agregarAListaOrden(yytext, listaPalabrasReservadas);
-{constDecimales}              agregarAListaInts(atoi(yytext), listaConstDecimales);
-{constOctales}                agregarAListaInts(atoi(yytext), listaConstOctales);
-{constHexadecimales}          agregarAListaInts(yytext, listaConstHexadecimales);
-{constReales}                 agregarAListaFloats(atof(yytext), listaConstReales);
-{operadoresDeC}               agregarAListaCant(yytext, listaOperadoresDeC);
-{caracteresDePuntuacion}      agregarAListaCant(yytext, listaCaracteresDePuntuacion);
-{comentarios}                 agregarAListaLinea(yytext, listaComentarios);
-{otros}                       agregarAListaNoRecon(yytext, listaOtros);
+{identificadores}             {agregarAListaCant(yytext, listaIdentificadores);}
+{literalCadena}               {agregarAListaLong(yytext, listaLiteralesCadenas);}
+{palabrasReservadas}          {agregarAListaOrden(yytext, listaPalabrasReservadas);}
+{constDecimales}              {agregarAListaInts(atoi(yytext), listaConstDecimales);}
+{constOctales}                {agregarAListaInts(atoi(yytext), listaConstOctales);}
+{constHexadecimales}          {agregarAListaInts(yytext, listaConstHexadecimales);}
+{constReales}                 {agregarAListaFloats(atof(yytext), listaConstReales);}
+{operadoresDeC}               {agregarAListaCant(yytext, listaOperadoresDeC);}
+{caracteresDePuntuacion}      {agregarAListaCant(yytext, listaCaracteresDePuntuacion);}
+{comentarios}                 {agregarAListaLinea(yytext, listaComentarios);}
+{saltoDeLinea}                {numeroDeLinea++;}  
+{otros}                       {agregarAListaNoRecon(yytext, listaOtros);}
 
 %%
 

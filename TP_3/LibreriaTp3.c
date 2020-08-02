@@ -774,3 +774,21 @@ void mostrarLista9(Lista9 *lista)
 // -------------------------------------------------------------------------------------------------
 // Lista de caracteres no reconocidos
 
+struct Nodo10
+{
+    char noReconocido[200+1];
+    int nroDeLinea;
+    struct Nodo10 *sig;
+};
+
+typedef struct Nodo10 * Lista10;
+
+struct Nodo10 * crearNodo10(char *noReconocido , int nroDeLinea)
+{
+    struct Nodo10 * nuevo = (struct Nodo10 *)malloc(sizeof(struct Nodo10));
+    strcpy(nuevo->noReconocido , noReconocido);
+    nuevo->nroDeLinea = nroDeLinea;
+    nuevo->sig = NULL;
+    return nuevo;    
+}
+
