@@ -32,7 +32,7 @@ palabrasReservadas            auto|break|case|char|const|continue|default|do|dou
 identificadores               [_a-zA-Z][_a-zA-Z0-9]*
 caracteresDePuntuacion        [,\.;:\?\(\)\[\]\{\}]
 operadoresDeC                 [=!&\*\+\-/|%><\?]
-comentarios                   \/\/(.)*|\/\*(.)*\*\/
+comentarios                   \/\*(\*+[^\*\/]|[^\*])*\*+\/
 
 %%
 

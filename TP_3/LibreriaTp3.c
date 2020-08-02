@@ -631,3 +631,146 @@ void mostrarLista7(Lista7 *list)
 // --------------------------------------------------------------------------------
 // Lista de operedores y cacracteres de puntuacion
 
+struct Nodo8 
+{
+    char operador_caracterPutnc[1+1];
+    int repeticiones;
+    struct Nodo8 * sig;
+};
+
+typedef struct Nodo8 * Lista8;
+
+struct Nodo8 * crearNodo8(char *caracter)
+{
+    struct Nodo8 * nuevo = (struct Nodo8 *)malloc(sizeof(struct Nodo8));
+    strcpy(nuevo->operador_caracterPutnc, caracter);
+    nuevo->repeticiones = 1;
+    nuevo->sig = NULL;
+    return nuevo;
+}
+
+int estaEnLista8(Lista8 *lista , char *caracter)
+{
+    struct Nodo8* aux = *lista;
+    int ok = 0;
+    while(aux != NULL && !ok)
+    {
+        if (strcmp(aux->operador_caracterPutnc ,caracter) == 0) 
+        {
+        ok = 1;
+        } 
+        else 
+        {
+        aux=aux->sig;
+        }
+    }
+
+    return ok;
+}
+
+void insertarEnLista8(Lista8 *lista , char *caracter)
+{
+    if (estaEnLista8(lista , caracter) == 0)
+    {
+        struct Nodo8 * nuevo = crearNodo8(caracter);
+
+        if(*lista == NULL )
+        {
+            nuevo->sig =*lista;
+            *lista = nuevo;
+        }
+        else
+        {
+            struct Nodo8 * aux = *lista;
+            while(aux->sig != NULL)
+            {
+                aux = aux->sig;
+            }
+            aux->sig = nuevo;
+        }      
+
+    }
+    else
+    {
+        struct Nodo8* aux = *lista;
+        while(strcmp(aux->operador_caracterPutnc, caracter) != 0)
+        {
+            aux = aux->sig;
+        }
+        aux->repeticiones++;
+    }
+}
+
+void mostrarLista8(Lista8 *lista)
+{
+    struct Nodo8* aux = *lista;
+        while(aux !=  NULL )
+        {
+            printf("El caracter de puntuacion/operador |%s| se repite |%d| veces\n", aux->operador_caracterPutnc , aux->repeticiones);
+            aux = aux->sig;
+        }   
+}
+
+// -------------------------------------------------------------------------------------------------
+// Lista de comentarios 
+
+struct Nodo9
+{
+    char comentario[300+1];
+    char tipo[14+1];
+    struct Nodo9 * sig;
+};
+
+typedef struct Nodo9 * Lista9;
+
+struct Nodo9 * crearNodo9(char *comentario)
+{
+    struct Nodo9 * nuevo = (struct Nodo9 *)malloc(sizeof(struct Nodo9));
+    strcpy(nuevo->comentario, comentario);
+    if(comentario[1] == '*' && comentario[0] == '/')
+    {
+        strcpy(nuevo->tipo, "multiple linea");
+    }
+    else
+    {
+        strcpy(nuevo->tipo , "simple");
+    }
+    nuevo->sig = NULL;
+    return nuevo;
+}
+
+void insertarEnLista9(Lista9 *lista, char *comentario)
+{
+    struct Nodo9 * nuevo = crearNodo9(comentario);
+
+    if(*lista == NULL )
+    {
+        nuevo->sig =*lista;
+        *lista = nuevo;
+        
+    }
+    else
+    {
+        struct Nodo9 * aux = *lista;
+        while(aux->sig != NULL)
+        {
+            aux = aux->sig;
+        }
+        aux->sig = nuevo;
+        
+    }
+}
+
+void mostrarLista9(Lista9 *lista)
+{
+    struct Nodo9* aux = *lista;
+        while(aux !=  NULL )
+        {
+            printf("El comentario |%s| es |%s|\n", aux->comentario , aux->tipo);
+            aux = aux->sig;
+        } 
+}
+
+// -------------------------------------------------------------------------------------------------
+// Lista de caracteres no reconocidos
+
