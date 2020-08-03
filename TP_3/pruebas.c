@@ -8,7 +8,7 @@
 
 int main(int argc, char *argv[]) 
 {
-  Lista10 lista = NULL;
+  Lista5 lista = NULL;
   int cont;
   char caracter[300+1];
   printf("Ingrese cantidad de elementos de la lista\n");
@@ -16,14 +16,15 @@ int main(int argc, char *argv[])
   for (int i = 0; i < cont; i++)
   {
     printf("Ingrese una cadena\n");
+    fflush(stdin);
     gets(caracter);
-    insertarEnLista10(&lista , caracter , rand());
+    insertarEnLista5(&lista , caracter);
   }
-
+  
   
 
   printf("Su lista es: \n");
-  mostrarLista10(&lista);
+  mostrarLista5(&lista);
 
   
   

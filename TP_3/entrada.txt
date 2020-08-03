@@ -1,0 +1,14 @@
+int main(int argc, char *argv[]) 
+{
+    /* se declara una variable de
+     tipo char* */
+
+    char* hello = "Hello World!";
+
+    // se imprime la cadena 
+    printf("%s", hello);
+
+    /* Otro bloque */
+
+    return 0;
+}

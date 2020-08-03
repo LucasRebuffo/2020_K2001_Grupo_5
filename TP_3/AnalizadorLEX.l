@@ -7,49 +7,44 @@
 #include <stdlib.h>
 #include "LibreriaTp3.h"
 
-Lista listaIdentificadores = NULL;
-Lista listaLiteralesCadenas = NULL;
-Lista listaPalabrasReservadas = NULL;
-Lista listaConstDecimales = NULL;
-Lista listaConstOctales = NULL;
-Lista listaConstHexadecimales = NULL;
-Lista listaConstReales = NULL;
-Lista listaOperadoresDeC = NULL;
-Lista listaCaracteresDePuntuacion = NULL;
-Lista listaComentarios = NULL;
-Lista listaNoReconocidos = NULL;
+int numeroDeLinea = 1;
 
-int numeroDeLinea = 0;
+//([0-9]*\.[0-9]+([eE][\+\-]?[0-9]+)?)|([0-9]+\.([eE][\+\-]?[0-9]+)?)|([0-9]([eE][\+\-]?[0-9]+)?)
 %}
 
+
+DECIMAL [0-9]
 constDecimales                [1-9][0-9]*
 constOctales                  0[0-7]*
 constHexadecimales            0[xX][0-9a-fA-F]+
-constReales                   [0-9]*\.[0-9]+([eE][\+\-]?[0-9]+)?|[0-9]+\.([eE][\+\-]?[0-9]+)?|[0-9]([eE][\+\-]?[0-9]+)?
-constCaracter                 '[ -~]'|'\\[abefnrtv\\\'\"\?]'
+constReales                   ([0-9]*\.[0-9]+([eE][\+\-]?[0-9]+)?)|([0-9]+\.([eE][\+\-]?[0-9]+)?)|([0-9]([eE][\+\-]?[0-9]+)?)
+constCaracter                 \'(.|\n)\'
 literalCadena                 \"[ -~]*\"
 palabrasReservadas            auto|break|case|char|const|continue|default|do|double|else|enum|extern|float|for|goto|if|int|long|register|return|short|signed|sizeof|static|struct|switch|typedef|union|unsigned|void|volatile|while
 identificadores               [_a-zA-Z][_a-zA-Z0-9]*
 caracteresDePuntuacion        [,\.;:\?\(\)\[\]\{\}]
 operadoresDeC                 [=!&\*\+\-/|%><\?]
-comentarios                   \/\*(\*+[^\*\/]|[^\*])*\*+\/
+comentariosMultiple           \/\*(\*+[^\*\/]|[^\*])*\*+\/
+comentariosSimple              "//".*  
 saltoDeLinea                  \n
-otros                         .
+otros                         [.]*
 
 %%
 
-{identificadores}             {printf("Se encontro un identificador");}
-{literalCadena}               {printf("Se encontro un literal cadena");}
-{palabrasReservadas}          {printf("Se encontro una palabra reservada");}
-{constDecimales}              {printf("Se encontro una constante decimal");}
-{constOctales}                {printf("Se encontro una constante octal");}
-{constHexadecimales}          {printf("Se encontro una constante hexa");}
-{constReales}                 {printf("Se encontro una constante real");}
-{operadoresDeC}               {printf("Se encontro un operador");}
-{caracteresDePuntuacion}      {printf("Se encontro un caracter de puntuacion");}
-{comentarios}                 {printf("Se encontro un comentario");}
-{saltoDeLinea}                {numeroDeLinea++ ; printf("Pasamos a la linea %d",numeroDeLinea);}  
-{otros}                       {printf("Se encontro una cadena no reconocida");}
+{palabrasReservadas}          {insertarEnlista3(&listaPalabrasReservadas , yytext);}
+{identificadores}             {insertarEnlista1(&listaIdentificadores , yytext);}
+{literalCadena}               {insertarEnlista2(&listaLiteralesCadenas , yytext);}
+{constDecimales}              {fprintf(yyout, "Se encontro una constante decimal |%s|\n",yytext);}
+{constOctales}                {fprintf(yyout, "Se encontro una constante octal |%s|\n",yytext);}
+{constHexadecimales}          {fprintf(yyout, "Se encontro una constante hexa |%s|\n",yytext);}
+{constReales}                 {fprintf(yyout, "Se encontro una constante real |%s|\n",yytext);}
+{constCaracter}               {fprintf(yyout, "Se encontro una constante caracter |%s|\n",yytext);}
+{operadoresDeC}               {fprintf(yyout, "Se encontro un operador |%s|\n",yytext);}
+{caracteresDePuntuacion}      {fprintf(yyout, "Se encontro un caracter de puntuacion |%s|\n",yytext);}
+{comentariosMultiple}         {fprintf(yyout, "Se encontro un comentario |%s|\n",yytext);}
+{comentariosSimple}           {fprintf(yyout, "Se encontro un comentario |%s|\n",yytext);}
+{saltoDeLinea}                {numeroDeLinea++ ; fprintf(yyout, "Pasamos a la linea %d\n",numeroDeLinea);}  
+{otros}                       {fprintf(yyout, "Se encontro una cadena no reconocida |%s|\n",yytext);}
 
 %%
 
@@ -57,7 +52,14 @@ int main()
 {
     yyin = fopen("entrada.txt", "r"); 
     yyout = fopen("salida.txt", "w");
+    FILE* reporte = fopen("Reporte.txt", "w")
     yylex();
 
-return 0;
+    generarReporte(reporte);
+
+    fclose(yyin);
+    fclose(yyout);
+    fclose(reporte);
+
+    return 0;
 }

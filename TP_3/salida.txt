@@ -1,0 +1,40 @@
+Se encontro una palabra reservada |int|
+ Se encontro un identificador |main|
+Se encontro un caracter de puntuacion |(|
+Se encontro una palabra reservada |int|
+ Se encontro un identificador |argc|
+Se encontro un caracter de puntuacion |,|
+ Se encontro una palabra reservada |char|
+ Se encontro un operador |*|
+Se encontro un identificador |argv|
+Se encontro un caracter de puntuacion |[|
+Se encontro un caracter de puntuacion |]|
+Se encontro un caracter de puntuacion |)|
+ Pasamos a la linea 2
+Se encontro un caracter de puntuacion |{|
+Pasamos a la linea 3
+    Se encontro un comentario |/* se declara una variable de
+     tipo char* */|
+Pasamos a la linea 4
+    Se encontro una palabra reservada |char|
+Se encontro un operador |*|
+ Se encontro un identificador |hello|
+ Se encontro un operador |=|
+ Se encontro un literal cadena |"Hello World!"|
+Se encontro un caracter de puntuacion |;|
+Pasamos a la linea 5
+Pasamos a la linea 6
+    Se encontro un comentario |// se imprime la cadena |
+Pasamos a la linea 7    Se encontro un identificador |printf|
+Se encontro un caracter de puntuacion |(|
+Se encontro un literal cadena |"%s"|
+Se encontro un caracter de puntuacion |,|
+ Se encontro un identificador |hello|
+Se encontro un caracter de puntuacion |)|
+Se encontro un caracter de puntuacion |;|
+Pasamos a la linea 8
+    Se encontro una palabra reservada |return|
+ Se encontro una constante octal |0|
+Se encontro un caracter de puntuacion |;|
+Pasamos a la linea 9
+Se encontro un caracter de puntuacion |}|

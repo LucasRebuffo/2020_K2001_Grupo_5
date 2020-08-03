@@ -170,20 +170,6 @@ int octalToDecimal (char* octalVal)
     return dec_val;
 }
 
-int sacarParteEntera(float real)
-{
-    float parteEntera;
-    modff(real, &parteEntera);
-    int retorno = (int)parteEntera;
-    return retorno;
-}
-
-float sacarMantisa(float real)
-{
-    float parteDeciamal = modff(real,NULL);
-    return parteDeciamal;
-}
-
 void insertaOrdenado(Lista *lista, char *x) 
 {
   struct Nodo *nuevo = (struct Nodo*)malloc(sizeof(struct Nodo));
@@ -297,6 +283,27 @@ void mostrarLista1(Lista1 *list)
         }
 }
 
+void imprimirLista1(Lista1 *list , FILE* f)
+{
+    struct Nodo1* aux = *list;
+        while(aux !=  NULL )
+        {
+            fprintf(f ,"El identificador %s se repitio %d veces\n", aux->identificador, aux->repeticiones);
+            aux = aux->sig;
+        }
+}
+
+void borrarLista1(Lista1 * list)
+{
+    struct Nodo1* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
+
 // ---------------------------------------------------------------------------
 // Para la lista de literales cadena
 
@@ -348,6 +355,26 @@ void mostrarLista2(Lista2 *list)
         }
 }
 
+void imprimirLista2(Lista2 *list , FILE* f)
+{
+    struct Nodo2* aux = *list;
+        while(aux !=  NULL )
+        {
+            fprintf(f,"El literal cadena |%s| tiene longitud %d\n", aux->literalCadena, aux->longitudDeLiteralCadena);
+            aux = aux->sig;
+        }
+}
+
+void borrarLista2(Lista2 * list)
+{
+    struct Nodo2* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // --------------------------------------------------------------------------------------------------
 //  Lista de constantes octales 
 
@@ -399,6 +426,26 @@ void mostrarLista3(Lista3 *lista)
         }
 }
 
+void imprimirLista3(Lista3 *lista , FILE* f)
+{
+    struct Nodo3* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f ,"La constante octal es |%s| su valor decimal es |%d|\n", aux->constanteOctal, aux->valorDecimal);
+            aux = aux->sig;
+        }
+}
+
+void borrarLista3(Lista3 * list)
+{
+    struct Nodo3* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // ------------------------------------------------------------------------------
 // Lista de constantes hexadecimales
 
@@ -450,6 +497,26 @@ void mostrarLista4(Lista4 *lista)
         }
 }
 
+void imprimirLista4(Lista4 *lista, FILE* f)
+{
+    struct Nodo4* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f, "La constante hexa es |%s| su valor decimal es |%d|\n", aux->constanteHexa, aux->valorDecimal);
+            aux = aux->sig;
+        }
+}
+
+void borrarLista4(Lista4 * list)
+{
+    struct Nodo4* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // ---------------------------------------------------------------------
 // Lista de constantes decimales
 
@@ -461,15 +528,16 @@ struct Nodo5
 
 typedef struct Nodo5 * Lista5;
 
-struct Nodo5 * crearNodo5(int constanteDecimal)
+struct Nodo5 * crearNodo5(char *constanteDecimal)
 {
     struct Nodo5 * nuevo = (struct Nodo5 *)malloc(sizeof(struct Nodo5));
-    nuevo->constanteDecimal = constanteDecimal;
+    int numero = atoi(constanteDecimal);
+    nuevo->constanteDecimal = numero;
     nuevo->sig = NULL;
     return nuevo;
 }
 
-void insertarEnLista5(Lista5 *lista, int constanteDecimal)
+void insertarEnLista5(Lista5 *lista, char *constanteDecimal)
 {
     struct Nodo5 * nuevo = crearNodo5(constanteDecimal);
 
@@ -502,6 +570,29 @@ void mostrarLista5(Lista5 *lista)
         printf("La suma total de las constantes es |%d| \n", acum);
 }
 
+void imprimirLista5(Lista5 *lista, FILE* f)
+{
+    struct Nodo5* aux = *lista;
+    int acum = 0;
+        while(aux !=  NULL )
+        {
+            fprintf(f,"La constante decimal es |%d|\n", aux->constanteDecimal);
+            acum = acum + aux->constanteDecimal;
+            aux = aux->sig;
+        }
+        fprintf(f,"La suma total de las constantes es |%d| \n", acum);
+}
+
+void borrarLista5(Lista5 * list)
+{
+    struct Nodo5* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // -------------------------------------------------------------------
 // Lista de constantes reales
 
@@ -515,17 +606,18 @@ struct Nodo6
 
 typedef struct Nodo6 * Lista6;
 
-struct Nodo6 * crearNodo6(double constanteReal)
+struct Nodo6 * crearNodo6(char *constanteReal)
 {
     struct Nodo6 *nuevo = (struct Nodo6 *)malloc(sizeof(struct Nodo6));
-    nuevo->constanteReal = constanteReal;
-    nuevo->parteEntera = sacarParteEntera(constanteReal);
-    nuevo->mantisa = sacarMantisa(constanteReal);
+    float numero = atof(constanteReal);
+    nuevo->constanteReal = numero;
+    nuevo->parteEntera = (int)numero;
+    nuevo->mantisa = numero - ((int)numero);
     nuevo->sig = NULL;
     return nuevo;
 }
 
-void insertarEnLista6 (Lista6 *lista , double constanteReal)
+void insertarEnLista6 (Lista6 *lista , char *constanteReal)
 {
     struct Nodo6 * nuevo = crearNodo6(constanteReal);
 
@@ -555,6 +647,26 @@ void mostrarLista6(Lista6 *lista)
         }   
 }
 
+void imprimirLista6(Lista6 *lista , FILE* f)
+{
+    struct Nodo6* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f , "La constante decimal es |%f| , su parte real es |%d| y su mantisa es |%f| \n", aux->constanteReal , aux->parteEntera , aux->mantisa);
+            aux = aux->sig;
+        }   
+}
+
+void borrarLista6(Lista6 * list)
+{
+    struct Nodo6* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // ------------------------------------------------------
 // Lista de constantes caracter 
 
@@ -628,6 +740,28 @@ void mostrarLista7(Lista7 *list)
         }
 }
 
+void imprimirLista7(Lista7 *list , FILE* f)
+{
+    int cont = 1;
+    struct Nodo7* aux = *list;
+        while(aux !=  NULL )
+        {
+            fprintf(f ,"%d . %s\n", cont, aux->constanteCaracter);
+            cont++;
+            aux = aux->sig;
+        }
+}
+
+void borrarLista7(Lista7 * list)
+{
+    struct Nodo7* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // --------------------------------------------------------------------------------
 // Lista de operedores y cacracteres de puntuacion
 
@@ -711,6 +845,26 @@ void mostrarLista8(Lista8 *lista)
         }   
 }
 
+void imprimirLista8(Lista8 *lista , FILE* f)
+{
+    struct Nodo8* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f ,"El caracter de puntuacion/operador |%s| se repite |%d| veces\n", aux->operador_caracterPutnc , aux->repeticiones);
+            aux = aux->sig;
+        }   
+}
+
+void borrarLista8(Lista8 * list)
+{
+    struct Nodo8* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // -------------------------------------------------------------------------------------------------
 // Lista de comentarios 
 
@@ -771,6 +925,26 @@ void mostrarLista9(Lista9 *lista)
         } 
 }
 
+void imprimirLista9(Lista9 *lista , FILE* f)
+{
+    struct Nodo9* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f,"El comentario |%s| es |%s|\n", aux->comentario , aux->tipo);
+            aux = aux->sig;
+        } 
+}
+
+void borrarLista9(Lista9 * list)
+{
+    struct Nodo9* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
 // -------------------------------------------------------------------------------------------------
 // Lista de caracteres no reconocidos
 
@@ -823,3 +997,39 @@ void mostrarLista10(Lista10 *lista)
             aux = aux->sig;
         }    
 }
+
+void imprimirLista10(Lista10 *lista , FILE* f)
+{
+    struct Nodo10* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f,"Esto no es reconocible |%s| en la linea |%d| \n", aux->noReconocido , aux->nroDeLinea);
+            aux = aux->sig;
+        }    
+}
+
+void borrarLista10(Lista10 * list)
+{
+    struct Nodo10* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
+
+// -----------------------------------------------------------------------------------------
+// Listas
+Lista1 listaIdentificadores = NULL;
+Lista2 listaLiteralesCadenas = NULL;
+Lista3 listaPalabrasReservadas = NULL;
+Lista4 listaConstDecimales = NULL;
+Lista5 listaConstOctales = NULL;
+Lista6 listaConstHexadecimales = NULL;
+Lista7 listaConstReales = NULL;
+Lista8 listaOperadoresDeC = NULL;
+Lista8 listaCaracteresDePuntuacion = NULL;
+Lista9 listaComentarios = NULL;
+Lista10 listaNoReconocidos = NULL;
+
