@@ -34,8 +34,8 @@ otros                         [.]*
 {palabrasReservadas}          {insertarEnlista3(&listaPalabrasReservadas , yytext);}
 {identificadores}             {insertarEnlista1(&listaIdentificadores , yytext);}
 {literalCadena}               {insertarEnlista2(&listaLiteralesCadenas , yytext);}
-{constDecimales}              {fprintf(yyout, "Se encontro una constante decimal |%s|\n",yytext);}
-{constOctales}                {fprintf(yyout, "Se encontro una constante octal |%s|\n",yytext);}
+{constDecimales}              {insertarEnlista4(&listaConstantesDecimales , yytext);}
+{constOctales}                {insertarEnlista3(&listaConstantesOctales , yytext);}
 {constHexadecimales}          {fprintf(yyout, "Se encontro una constante hexa |%s|\n",yytext);}
 {constReales}                 {fprintf(yyout, "Se encontro una constante real |%s|\n",yytext);}
 {constCaracter}               {fprintf(yyout, "Se encontro una constante caracter |%s|\n",yytext);}

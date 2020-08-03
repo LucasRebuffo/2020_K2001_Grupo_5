@@ -1020,14 +1020,106 @@ void borrarLista10(Lista10 * list)
 }
 
 // -----------------------------------------------------------------------------------------
+// Lista de palabras reservadas
+
+struct Nodo11 
+{
+    char cadena[50];
+    struct Nodo11 * sig;
+};
+
+typedef struct Nodo11* Lista11;
+
+struct Nodo11* crearNodo11(char *palabraReservada)
+{
+    struct Nodo11 *nuevo = (struct Nodo11 *)malloc(sizeof(struct Nodo11));
+    strcpy(nuevo->cadena , palabraReservada);
+    nuevo->sig = NULL;
+    return nuevo;
+}
+
+void imprimirLista11(Lista11 *lista , FILE* f)
+{
+    struct Nodo11* aux = *lista;
+        while(aux !=  NULL )
+        {
+            fprintf(f,"Esto es una palabra reservada : |%s| \n", aux->cadena);
+            aux = aux->sig;
+        }    
+}
+
+int estaEnLista11(Lista11 *lista , char *palabraReservada)
+{
+    struct Nodo11* aux = *lista;
+    int ok = 0;
+    while(aux != NULL && !ok)
+    {
+        if (strcmp(aux->cadena ,palabraReservada) == 0) 
+        {
+        ok = 1;
+        } 
+        else 
+        {
+        aux=aux->sig;
+        }
+    }
+
+    return ok;
+}
+
+void insertarEnLista11 (Lista11 *lista , char *palabraReservada)
+{
+    if ( estaEnLista11(lista , palabraReservada) == 0)
+    {
+        struct Nodo11 *nuevo = crearNodo11(palabraReservada);
+
+        if(*lista == NULL )
+        {
+            nuevo->sig =*lista;
+            *lista = nuevo;
+        }
+        else
+        {
+            struct Nodo11 * aux = *lista;
+            while(aux->sig != NULL)
+            {
+                aux = aux->sig;
+            }
+            aux->sig = nuevo;
+        }
+    }
+}
+
+void borrarLista11(Lista11 * list)
+{
+    struct Nodo11* current ;
+    while( *list != NULL)
+    {
+        current = *list;
+        *list = (*list)->sig;
+        free(current);
+    }
+}
+
+void mostrarLista11(Lista11 *lista)
+{
+    struct Nodo11* aux = *lista;
+        while(aux !=  NULL )
+        {
+            printf("Esto es una palabra reservada |%s| \n", aux->cadena);
+            aux = aux->sig;
+        }    
+}
+// -----------------------------------------------------------------------------------------
 // Listas
 Lista1 listaIdentificadores = NULL;
 Lista2 listaLiteralesCadenas = NULL;
-Lista3 listaPalabrasReservadas = NULL;
-Lista4 listaConstDecimales = NULL;
-Lista5 listaConstOctales = NULL;
-Lista6 listaConstHexadecimales = NULL;
-Lista7 listaConstReales = NULL;
+Lista11 listaPalabrasReservadas = NULL;
+Lista5 listaConstDecimales = NULL;
+Lista3 listaConstOctales = NULL;
+Lista4 listaConstHexadecimales = NULL;
+Lista6 listaConstReales = NULL;
+Lista7 listaConstCaracter = NULL;
 Lista8 listaOperadoresDeC = NULL;
 Lista8 listaCaracteresDePuntuacion = NULL;
 Lista9 listaComentarios = NULL;
