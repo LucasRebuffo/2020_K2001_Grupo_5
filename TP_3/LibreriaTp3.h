@@ -14,7 +14,7 @@ float sacarMantisa(float numero);
 void buscarLista(Lista *lista, char* valor);
 void insertaOrdenado(Lista *lista, char *x);
 
-
+  
 
 #include "LibreriaTp3.c"
 #endif
