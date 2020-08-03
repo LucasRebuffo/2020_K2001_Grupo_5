@@ -491,22 +491,10 @@ char *yytext;
 #include <stdlib.h>
 #include "LibreriaTp3.h"
 
-Lista listaIdentificadores = NULL;
-Lista listaLiteralesCadenas = NULL;
-Lista listaPalabrasReservadas = NULL;
-Lista listaConstDecimales = NULL;
-Lista listaConstOctales = NULL;
-Lista listaConstHexadecimales = NULL;
-Lista listaConstReales = NULL;
-Lista listaOperadoresDeC = NULL;
-Lista listaCaracteresDePuntuacion = NULL;
-Lista listaComentarios = NULL;
-Lista listaNoReconocidos = NULL;
-
 int numeroDeLinea = 1;
 
 //([0-9]*\.[0-9]+([eE][\+\-]?[0-9]+)?)|([0-9]+\.([eE][\+\-]?[0-9]+)?)|([0-9]([eE][\+\-]?[0-9]+)?)
-#line 510 "lex.yy.c"
+#line 498 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -657,10 +645,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 48 "AnalizadorLEX.l"
+#line 32 "AnalizadorLEX.l"
 
 
-#line 664 "lex.yy.c"
+#line 652 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -745,80 +733,80 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 50 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una palabra reservada |%s|\n",yytext);}
+#line 34 "AnalizadorLEX.l"
+{insertarEnLista11(&listaPalabrasReservadas , yytext);}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 51 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro un identificador |%s|\n", yytext);}
+#line 35 "AnalizadorLEX.l"
+{insertarEnLista1(&listaIdentificadores , yytext);}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 52 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro un literal cadena |%s|\n",yytext);}
+#line 36 "AnalizadorLEX.l"
+{insertarEnLista2(&listaLiteralesCadenas , yytext);}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 53 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una constante decimal |%s|\n",yytext);}
+#line 37 "AnalizadorLEX.l"
+{insertarEnLista5(&listaConstDecimales , yytext);}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 54 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una constante octal |%s|\n",yytext);}
+#line 38 "AnalizadorLEX.l"
+{insertarEnLista3(&listaConstOctales , yytext);}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 55 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una constante hexa |%s|\n",yytext);}
+#line 39 "AnalizadorLEX.l"
+{insertarEnLista4(&listaConstHexadecimales , yytext);}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 56 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una constante real |%s|\n",yytext);}
+#line 40 "AnalizadorLEX.l"
+{insertarEnLista6(&listaConstReales , yytext);}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 57 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una constante caracter |%s|\n",yytext);}
+#line 41 "AnalizadorLEX.l"
+{insertarEnLista7(&listaConstCaracter , yytext);}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 58 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro un operador |%s|\n",yytext);}
+#line 42 "AnalizadorLEX.l"
+{insertarEnLista8(&listaOperadoresDeC , yytext);}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 59 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro un caracter de puntuacion |%s|\n",yytext);}
+#line 43 "AnalizadorLEX.l"
+{insertarEnLista8(&listaCaracteresDePuntuacion , yytext);}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 60 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro un comentario |%s|\n",yytext);}
+#line 44 "AnalizadorLEX.l"
+{insertarEnLista9(&listaComentarios , yytext);}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 61 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro un comentario |%s|\n",yytext);}
+#line 45 "AnalizadorLEX.l"
+{insertarEnLista9(&listaComentarios , yytext);}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 62 "AnalizadorLEX.l"
-{numeroDeLinea++ ; fprintf(yyout, "Pasamos a la linea %d\n",numeroDeLinea);}  
+#line 46 "AnalizadorLEX.l"
+{numeroDeLinea++ ;}  
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 63 "AnalizadorLEX.l"
-{fprintf(yyout, "Se encontro una cadena no reconocida |%s|\n",yytext);}
+#line 47 "AnalizadorLEX.l"
+{insertarEnLista10(&listaNoReconocidos , yytext , numeroDeLinea);}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 65 "AnalizadorLEX.l"
+#line 49 "AnalizadorLEX.l"
 ECHO;
 	YY_BREAK
-#line 822 "lex.yy.c"
+#line 810 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1704,19 +1692,21 @@ int main()
 	return 0;
 	}
 #endif
-#line 65 "AnalizadorLEX.l"
+#line 49 "AnalizadorLEX.l"
 
 
 int main() 
 {
     yyin = fopen("entrada.txt", "r"); 
     yyout = fopen("salida.txt", "w");
+    FILE* reporte = fopen("Reporte.txt", "w");
     yylex();
 
-
+    generarReporte(reporte);
 
     fclose(yyin);
     fclose(yyout);
+    fclose(reporte);
 
     return 0;
 }

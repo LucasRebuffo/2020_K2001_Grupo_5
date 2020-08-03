@@ -1,0 +1,63 @@
+La lista de Identificadores es : 
+El identificador Lista11 se repitio 1 veces
+El identificador NULL se repitio 1 veces
+El identificador argc se repitio 1 veces
+El identificador argv se repitio 1 veces
+El identificador caracter se repitio 3 veces
+El identificador cont se repitio 3 veces
+El identificador fflush se repitio 1 veces
+El identificador gets se repitio 1 veces
+El identificador i se repitio 3 veces
+El identificador insertarEnLista11 se repitio 1 veces
+El identificador lista se repitio 3 veces
+El identificador main se repitio 1 veces
+El identificador mostrarLista11 se repitio 1 veces
+El identificador numero se repitio 1 veces
+El identificador printf se repitio 3 veces
+El identificador scanf se repitio 1 veces
+El identificador stdin se repitio 1 veces
+El identificador system se repitio 1 veces
+------------------------------------
+La lista de Literales cadena es : 
+El literal cadena |"Ingrese cantidad de elementos de la lista\n"| tiene longitud 44
+El literal cadena |"%d"| tiene longitud 3
+El literal cadena |"Ingrese una cadena\n"| tiene longitud 21
+El literal cadena |"Su lista es: \n"| tiene longitud 16
+El literal cadena |"pause"| tiene longitud 6
+------------------------------------
+La lista de Palabras Reservadas es : 
+Esto es una palabra reservada : |int| 
+Esto es una palabra reservada : |char| 
+Esto es una palabra reservada : |double| 
+Esto es una palabra reservada : |for| 
+Esto es una palabra reservada : |return| 
+------------------------------------
+La lista de Constantes Octales es : 
+La constante octal es |0| su valor decimal es |0|
+La constante octal es |0| su valor decimal es |0|
+------------------------------------
+La lista de Constantes Hexadecimales es : 
+------------------------------------
+La lista de Constantes Decimales es : 
+La constante decimal es |300|
+La constante decimal es |1|
+La suma total de las constantes es |301| 
+------------------------------------
+La lista de Constantes Reales es : 
+La constante decimal es |25.326000| , su parte real es |25| y su mantisa es |0.326000| 
+------------------------------------
+La lista de Constantes Caracter es : 
+------------------------------------
+La lista de Operadores/Caracteres de Puntuacion es : 
+El caracter de puntuacion/operador |(| se repite |11| veces
+El caracter de puntuacion/operador |,| se repite |3| veces
+El caracter de puntuacion/operador |[| se repite |2| veces
+El caracter de puntuacion/operador |]| se repite |2| veces
+El caracter de puntuacion/operador |)| se repite |11| veces
+El caracter de puntuacion/operador |{| se repite |2| veces
+El caracter de puntuacion/operador |;| se repite |16| veces
+El caracter de puntuacion/operador |}| se repite |2| veces
+------------------------------------
+La lista de Comentarios es : 
+------------------------------------
+La lista de Cadenas/Caracteres No Reconocidos es : 

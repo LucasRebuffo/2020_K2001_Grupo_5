@@ -1125,3 +1125,58 @@ Lista8 listaCaracteresDePuntuacion = NULL;
 Lista9 listaComentarios = NULL;
 Lista10 listaNoReconocidos = NULL;
 
+void generarReporte(FILE* reporte)
+{
+    fprintf(reporte , "La lista de Identificadores es : \n");
+    imprimirLista1(&listaIdentificadores,reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Literales cadena es : \n");
+    imprimirLista2(&listaLiteralesCadenas , reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Palabras Reservadas es : \n");
+    imprimirLista11(&listaPalabrasReservadas , reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Constantes Octales es : \n");
+    imprimirLista3(&listaConstOctales , reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Constantes Hexadecimales es : \n");
+    imprimirLista4(&listaConstHexadecimales , reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Constantes Decimales es : \n");
+    imprimirLista5(&listaConstDecimales, reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Constantes Reales es : \n");
+    imprimirLista6(&listaConstReales, reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Constantes Caracter es : \n");
+    imprimirLista7(&listaConstCaracter, reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Operadores/Caracteres de Puntuacion es : \n");
+    imprimirLista8(&listaCaracteresDePuntuacion , reporte);
+
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Comentarios es : \n");
+    imprimirLista9(&listaComentarios , reporte);
+    
+    fprintf(reporte , "------------------------------------\n");
+
+    fprintf(reporte , "La lista de Cadenas/Caracteres No Reconocidos es : \n");
+    imprimirLista10(&listaNoReconocidos, reporte);
+}
