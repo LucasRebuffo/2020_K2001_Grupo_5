@@ -792,3 +792,34 @@ struct Nodo10 * crearNodo10(char *noReconocido , int nroDeLinea)
     return nuevo;    
 }
 
+void insertarEnLista10(Lista10 *lista , char *noReconocido , int nroDeLinea)
+{
+    struct Nodo10 * nuevo = crearNodo10(noReconocido , nroDeLinea);
+
+    if(*lista == NULL )
+    {
+        nuevo->sig =*lista;
+        *lista = nuevo;
+        
+    }
+    else
+    {
+        struct Nodo10 * aux = *lista;
+        while(aux->sig != NULL)
+        {
+            aux = aux->sig;
+        }
+        aux->sig = nuevo;
+        
+    }   
+}
+
+void mostrarLista10(Lista10 *lista)
+{
+    struct Nodo10* aux = *lista;
+        while(aux !=  NULL )
+        {
+            printf("Esto no es reconocible |%s| en la linea |%d| \n", aux->noReconocido , aux->nroDeLinea);
+            aux = aux->sig;
+        }    
+}

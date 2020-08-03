@@ -34,25 +34,27 @@ caracteresDePuntuacion        [,\.;:\?\(\)\[\]\{\}]
 operadoresDeC                 [=!&\*\+\-/|%><\?]
 comentarios                   \/\*(\*+[^\*\/]|[^\*])*\*+\/
 saltoDeLinea                  \n
+otros                         .
 
 %%
 
-{identificadores}             {agregarAListaCant(yytext, listaIdentificadores);}
-{literalCadena}               {agregarAListaLong(yytext, listaLiteralesCadenas);}
-{palabrasReservadas}          {agregarAListaOrden(yytext, listaPalabrasReservadas);}
-{constDecimales}              {agregarAListaInts(atoi(yytext), listaConstDecimales);}
-{constOctales}                {agregarAListaInts(atoi(yytext), listaConstOctales);}
-{constHexadecimales}          {agregarAListaInts(yytext, listaConstHexadecimales);}
-{constReales}                 {agregarAListaFloats(atof(yytext), listaConstReales);}
-{operadoresDeC}               {agregarAListaCant(yytext, listaOperadoresDeC);}
-{caracteresDePuntuacion}      {agregarAListaCant(yytext, listaCaracteresDePuntuacion);}
-{comentarios}                 {agregarAListaLinea(yytext, listaComentarios);}
-{saltoDeLinea}                {numeroDeLinea++;}  
-{otros}                       {agregarAListaNoRecon(yytext, listaOtros);}
+{identificadores}             {printf("Se encontro un identificador");}
+{literalCadena}               {printf("Se encontro un literal cadena");}
+{palabrasReservadas}          {printf("Se encontro una palabra reservada");}
+{constDecimales}              {printf("Se encontro una constante decimal");}
+{constOctales}                {printf("Se encontro una constante octal");}
+{constHexadecimales}          {printf("Se encontro una constante hexa");}
+{constReales}                 {printf("Se encontro una constante real");}
+{operadoresDeC}               {printf("Se encontro un operador");}
+{caracteresDePuntuacion}      {printf("Se encontro un caracter de puntuacion");}
+{comentarios}                 {printf("Se encontro un comentario");}
+{saltoDeLinea}                {numeroDeLinea++ ; printf("Pasamos a la linea %d",numeroDeLinea);}  
+{otros}                       {printf("Se encontro una cadena no reconocida");}
 
 %%
 
-int main() {
+int main() 
+{
     yyin = fopen("entrada.txt", "r"); 
     yyout = fopen("salida.txt", "w");
     yylex();
