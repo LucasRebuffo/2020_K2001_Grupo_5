@@ -27,7 +27,7 @@ operadoresDeC                 [=!&\*\+\-/|%><\?]
 comentariosMultiple           \/\*(\*+[^\*\/]|[^\*])*\*+\/
 comentariosSimple              "//".*  
 saltoDeLinea                  \n
-otros                         [.]*
+otros                         .
 
 %%
 

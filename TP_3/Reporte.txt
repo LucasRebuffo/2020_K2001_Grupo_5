@@ -3,7 +3,7 @@ El identificador Lista11 se repitio 1 veces
 El identificador NULL se repitio 1 veces
 El identificador argc se repitio 1 veces
 El identificador argv se repitio 1 veces
-El identificador caracter se repitio 3 veces
+El identificador caracter se repitio 4 veces
 El identificador cont se repitio 3 veces
 El identificador fflush se repitio 1 veces
 El identificador gets se repitio 1 veces
@@ -41,12 +41,14 @@ La lista de Constantes Hexadecimales es :
 La lista de Constantes Decimales es : 
 La constante decimal es |300|
 La constante decimal es |1|
-La suma total de las constantes es |301| 
+La constante decimal es |20|
+La suma total de las constantes es |321| 
 ------------------------------------
 La lista de Constantes Reales es : 
 La constante decimal es |25.326000| , su parte real es |25| y su mantisa es |0.326000| 
 ------------------------------------
 La lista de Constantes Caracter es : 
+1 . 'a'
 ------------------------------------
 La lista de Operadores/Caracteres de Puntuacion es : 
 El caracter de puntuacion/operador |(| se repite |11| veces
@@ -55,9 +57,102 @@ El caracter de puntuacion/operador |[| se repite |2| veces
 El caracter de puntuacion/operador |]| se repite |2| veces
 El caracter de puntuacion/operador |)| se repite |11| veces
 El caracter de puntuacion/operador |{| se repite |2| veces
-El caracter de puntuacion/operador |;| se repite |16| veces
+El caracter de puntuacion/operador |;| se repite |18| veces
 El caracter de puntuacion/operador |}| se repite |2| veces
 ------------------------------------
 La lista de Comentarios es : 
+El comentario |// este es un comentario| es |simple|
+El comentario |/*  este es otro comentario 
+  de linea multiple */| es |multiple linea|
 ------------------------------------
 La lista de Cadenas/Caracteres No Reconocidos es : 
+Esto no es reconocible | | en la linea |2| 
+Esto no es reconocible | | en la linea |2| 
+Esto no es reconocible | | en la linea |2| 
+Esto no es reconocible | | en la linea |2| 
+Esto no es reconocible | | en la linea |2| 
+Esto no es reconocible | | en la linea |4| 
+Esto no es reconocible | | en la linea |4| 
+Esto no es reconocible | | en la linea |4| 
+Esto no es reconocible | | en la linea |4| 
+Esto no es reconocible | | en la linea |4| 
+Esto no es reconocible | | en la linea |5| 
+Esto no es reconocible | | en la linea |5| 
+Esto no es reconocible | | en la linea |5| 
+Esto no es reconocible | | en la linea |6| 
+Esto no es reconocible | | en la linea |6| 
+Esto no es reconocible | | en la linea |6| 
+Esto no es reconocible | | en la linea |7| 
+Esto no es reconocible | | en la linea |7| 
+Esto no es reconocible | | en la linea |7| 
+Esto no es reconocible | | en la linea |7| 
+Esto no es reconocible | | en la linea |7| 
+Esto no es reconocible | | en la linea |8| 
+Esto no es reconocible | | en la linea |8| 
+Esto no es reconocible | | en la linea |9| 
+Esto no es reconocible | | en la linea |9| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |10| 
+Esto no es reconocible | | en la linea |11| 
+Esto no es reconocible | | en la linea |11| 
+Esto no es reconocible | | en la linea |12| 
+Esto no es reconocible | | en la linea |12| 
+Esto no es reconocible | | en la linea |12| 
+Esto no es reconocible | | en la linea |12| 
+Esto no es reconocible | | en la linea |13| 
+Esto no es reconocible | | en la linea |13| 
+Esto no es reconocible | | en la linea |13| 
+Esto no es reconocible | | en la linea |13| 
+Esto no es reconocible | | en la linea |14| 
+Esto no es reconocible | | en la linea |14| 
+Esto no es reconocible | | en la linea |14| 
+Esto no es reconocible | | en la linea |14| 
+Esto no es reconocible | | en la linea |15| 
+Esto no es reconocible | | en la linea |15| 
+Esto no es reconocible | | en la linea |15| 
+Esto no es reconocible | | en la linea |15| 
+Esto no es reconocible | | en la linea |15| 
+Esto no es reconocible | | en la linea |15| 
+Esto no es reconocible | | en la linea |16| 
+Esto no es reconocible | | en la linea |16| 
+Esto no es reconocible | | en la linea |17| 
+Esto no es reconocible | | en la linea |17| 
+Esto no es reconocible | | en la linea |18| 
+Esto no es reconocible | | en la linea |18| 
+Esto no es reconocible | | en la linea |19| 
+Esto no es reconocible | | en la linea |19| 
+Esto no es reconocible | | en la linea |20| 
+Esto no es reconocible | | en la linea |20| 
+Esto no es reconocible | | en la linea |20| 
+Esto no es reconocible |$| en la linea |20| 
+Esto no es reconocible |$| en la linea |20| 
+Esto no es reconocible | | en la linea |20| 
+Esto no es reconocible | | en la linea |20| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |21| 
+Esto no es reconocible | | en la linea |23| 
+Esto no es reconocible | | en la linea |23| 
+Esto no es reconocible | | en la linea |24| 
+Esto no es reconocible | | en la linea |24| 
+Esto no es reconocible | | en la linea |26| 
+Esto no es reconocible | | en la linea |26| 
+Esto no es reconocible | | en la linea |27| 
+Esto no es reconocible | | en la linea |27| 
+Esto no es reconocible | | en la linea |28| 
+Esto no es reconocible | | en la linea |28| 
+Esto no es reconocible | | en la linea |29| 
+Esto no es reconocible | | en la linea |29| 
+Esto no es reconocible | | en la linea |29| 

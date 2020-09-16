@@ -15,7 +15,11 @@ int main(int argc, char *argv[])
     insertarEnLista11(&lista , caracter);
   }
   
-  
+  // este es un comentario
+  /*  este es otro comentario 
+  de linea multiple */
+  int $$ = 20;
+  char caracter = 'a';  
 
   printf("Su lista es: \n");
   mostrarLista11(&lista);
