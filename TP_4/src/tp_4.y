@@ -128,9 +128,116 @@ experesionPrimaria: IDENTIFICADOR
                     |LITERAL_CADENA
                     |'(' experesion ')'
 ;
-                                                     
 
-
+declaracion: especificadoresDeDeclaracion listaDeDeclaradores
+;
+especificadoresDeDeclaracion: especificadorDeClaseDeAlmacenamiento especificadoresDeDeclaracion
+                              |especificadorDeTipo especificadoresDeDeclaracion
+                              |calificadorDeTipo especificadoresDeDeclaracion
+;
+listaDeDeclaradores: declarador 
+                    |listaDeDeclaradores ',' declarador
+;
+declarador: decla 
+            |decla '=' inicializador
+;                                                            
+inicializador: expresionDeAsigancion
+              |'{' listaDeInicializadores ',' '}'
+;
+listaDeInicializadores: inicializador
+                        |listaDeInicializadores ',' inicializador
+;                                     
+especificadorDeClaseDeAlmacenamiento: 'typedef'
+                                      |'static'
+                                      |'auto'
+                                      |'register'
+                                      |'extern'
+;
+especificadorDeTipo: 'void'
+                    |'char'
+                    |'short'
+                    |'int'
+                    |'long'
+                    |'float'
+                    |'double'
+                    |'signed'
+                    |'unsigned'
+                    |especificadorStruct_Union
+                    |especificadorEnum
+                    |nombreDeTypedef
+;
+calificadorDeTipo: 'const'
+                  |'volatile'
+;
+especificadorStruct_Union: struct_union IDENTIFICADOR '{' listaDeDeclaracionesStruct '}'
+                          |struct_union IDENTIFICADOR
+;
+struct_union: 'struct'
+              |'union'
+;
+listaDeDeclaracionesStruct: declaracionStruct 
+                            |listaDeDeclaracionesStruct declaracionStruct
+;
+declaracionStruct: listaDeCalificadores declaradoresStruct ';'
+;
+listaDeCalificadores: especificadorDeTipo listaDeCalificadores
+                      |calificadorDeTipo listaDeCalificadores
+;
+declaradoresStruct: declaStruct 
+                    |declaradoresStruct ',' declaStruct
+;
+declaStruct: decla
+            |decla ':' expresionConstante
+;
+decla: puntero declaradorDirecto
+;
+puntero: listaCalificadoresTipos
+        |listaCalificadoresTipos puntero
+;
+listaCalificadoresTipos: calificadorDeTipo
+                        |listaCalificadoresTipos calificadorDeTipo
+;
+declaradorDirecto: IDENTIFICADOR
+                  |'(' decla ')'
+                  |declaradorDirecto '[' expresionConstante ']'
+                  |declaradorDirecto '(' listaTiposParametro ')'
+                  |declaradorDirecto '(' listaDeIdentificadores ')'
+;
+listaTiposParametro: listaDeParametros
+                    |listaDeParametros ',' listaDeParametros
+;
+listaDeParametros: declaracionDeParametro
+                  |listaDeParametros ',' declaracionDeParametro
+;
+declaracionDeParametro: especificadoresDeDeclaracion decla
+                        |especificadoresDeDeclaracion declaradorAbstracto
+;
+listaDeIdentificadores: IDENTIFICADOR
+                        | listaDeIdentificadores ',' IDENTIFICADOR
+;
+especificadorDeEnum: 'enum' IDENTIFICADOR '{' listaDeEnumeradores '}'
+                    |'enum' IDENTIFICADOR
+;
+listaDeEnumeradores: enumerador 
+                    |listaDeEnumeradores ',' enumerador
+;
+enumerador: constanteDeEnumeracion
+            |constanteDeEnumeracion '=' expresionConstante
+;
+constanteDeEnumeracion: IDENTIFICADOR
+;
+nombreDeTypedef: IDENTIFICADOR
+;
+nombreDeTipo: listaDeCalificadores declaradorAbstracto
+;
+declaradorAbstracto: puntero
+                    |puntero declaradorAbstractoDirecto
+;
+declaradorAbstractoDirecto: '(' declaradorAbstracto ')'
+                            |declaradorAbstractoDirecto '[' expresionConstante ']'
+                            |declaradorAbstractoDirecto '(' listaTiposParametro ')'
+;                                               
+;                                                                                                                                                                                                                                                                                                                                                                                                                       
 
 
 %%
