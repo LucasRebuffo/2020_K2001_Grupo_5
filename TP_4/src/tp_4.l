@@ -10,21 +10,30 @@ constHexadecimales            0[xX][0-9a-fA-F]+
 constReales                   ([0-9]*\.[0-9]+([eE][\+\-]?[0-9]+)?)|([0-9]+\.([eE][\+\-]?[0-9]+)?)|([0-9]([eE][\+\-]?[0-9]+)?)
 constCaracter                 \'(.|\n)\'
 literalCadena                 \"[ -~]*\"
-palabrasReservadas            auto|break|case|char|const|continue|default|do|else|enum|extern|for|goto|if|long|register|return|short|signed|static|struct|switch|typedef|union|unsigned|void|volatile|while
+palabrasReservadas            break|case|continue|default|do|else|for|goto|if|return|struct|switch|union|while
 identificadores               [_a-zA-Z][_a-zA-Z0-9]*
 caracteresDePuntuacion        [,\.;:\?\(\)\[\]\{\}]
 operadoresDeC                 [=!&\*\+\-/|%><\?]
 comentariosMultiple           \/\*(\*+[^\*\/]|[^\*])*\*+\/
 comentariosSimple              "//".*  
-tipoDeDato 					  "int"|"double"|"float"|"char"
+tipoDeDato 					  "int"|"double"|"float"|"char"|"void"|"short"|"long"|"signed"|"unsigned"
 operadorDeAsignacion          "+="|"*="|"-="|"/="|"%="|"<<="|">>="|"&="|"^="|"|="
+especificadorDeClase		  "typedef"|"static"|"auto"|"register"|"extern"	
+calificadorDeTipo			  "const"|"volatile"
+structOUnion				  "struct"|"union"
+especificadorEnum			  "enum"	
 saltoDeLinea                  \n
 otros                         .
 
 
 %%
 
-{palabrasReservadas}          {strdup(yylval.cadena, yytext); return PALABRA_RESERVADA;}
+{tipoDeDato}				  {strdup(yylval.cadena, yytext); return TIPO_DE_DATO;}
+{especificadorDeClase}        {strdup(yylval.cadena, yytext); return ESPEC_DE_CLASE;}
+{calificadorDeTipo}           {strdup(yylval.cadena, yytext); return CALIFICADOR_DE_TIPO;}
+{especificadorEnum}           {strdup(yylval.cadena, yytext); return ESPECIFICADOR_ENUM;}
+{structOUnion}           	  {strdup(yylval.cadena, yytext); return STRUCT_O_UNION;}
+"sizeof"					  {strdup(yylval.cadena, yytext); return SIZEOF;}
 {identificadores}             {strdup(yylval.cadena, yytext); return IDENTIFICADOR;}
 {literalCadena}               {strdup(yylval.cadena, yytext); return LITERAL_CADENA;}
 {constDecimales}              {yylval.entero = atoi(yytext); return CONSTANTE_DECIMAL;}
@@ -40,8 +49,8 @@ otros                         .
 "&&"						  {strdup(yylval.cadena, yytext); return OP_AND;}
 ">="|"<="					  {strdup(yylval.cadena, yytext); return OP_RELACIONAL;}
 "++"|"--"					  {strdup(yylval.cadena, yytext); return OP_INCREMENTO_DECREMENTO;}
-"sizeof"					  {strdup(yylval.cadena, yytext); return SIZEOF;}
-{tipoDeDato}				  {strdup(yylval.cadena, yytext); return TIPO_DE_DATO;}
+">>"|"<<"					  {strdup(yylval.cadena, yytext); return OP_CORRIMIENTO;}
+"->"						  {strdup(yylval.cadena, yytext); return OP_ACCESO;}	
 {comentariosMultiple}         {strdup(yylval.cadena, yytext); return COMENTARIO_MULTIPLE;}
 {comentariosSimple}           {strdup(yylval.cadena, yytext); return COMENTARIO_SIMPLE;}
 {saltoDeLinea}                {numeroDeLinea++ ;}  

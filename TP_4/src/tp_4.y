@@ -36,6 +36,12 @@
 %token <cadena> SIZEOF
 %token <cadena> TIPO_DE_DATO
 %token <cadena> OP_INCREMENTO_DECREMENTO
+%token <cadena> OP_CORRIMIENTO
+%token <cadena> OP_ACCESO
+%token <cadena> ESPEC_DE_CLASE
+%token <cadena> CALIFICADOR_DE_TIPO
+%token <cadena> STRUCT_O_UNION
+%token <cadena> ESPECIFICADOR_ENUM
 %token <entero> ERROR
  
 %%
@@ -48,53 +54,55 @@ line:     '\n'
         | declaracion '\n'
         | experesion '\n'
         | sentencia '\n'
-        | definicionDeFuncion '\n'
 ;
 
 expresion:  expAsignacion
+            |expresion ',' expAsigancion
 ;
-
 expAsignacion:  expCondicional
                 |expUnaria operAsigancion expAsignacion
 ;
-
-operAsigancion: OP_ASIGANCION
-;
-
 expCondicional: expOr
                 |expOr '?' expresion ':' expCondicional
 ;
-
+operAsigancion: OP_ASIGANCION
+                |'='
+;
 expOr:  expAnd
         |expOr OP_OR expAnd
 ;
-
 expAnd: expIgualdad
         |expAnd OP_AND expIgualdad
 ;
-
 expIgualdad:  expRelacional
               |expIgualdad OP_IGUALDAD expRelacional
 ;
-
-expRelacional:  expAditiva
-                |expRelacional OP_RELACIONAL expAditiva
+expRelacional:  expCorrimiento
+                |expRelacional OP_RELACIONAL expCorrimiento
+                |expRelacional '<' expCorrimiento
+                |expRelacional '>' expCorrimiento
 ;
-
+expCorrimiento:  expAditiva
+                |expCorrimiento OP_CORRIMIENTO expAditiva
+;
 expAditiva: expMultiplicativa
             |expAditiva '+' expMultiplicativa
+            |expAditiva '-' expMultiplicativa
 ;
-
-expMultiplicativa:  expUnaria
-                    |expMultiplicativa '*' expUnaria
+expMultiplicativa:  expDeConversion
+                    |expMultiplicativa '*' expDeConversion
+                    |expMultiplicativa '/' expDeConversion
+                    |expMultiplicativa '%' expDeConversion
 ;
-
+expDeConversion:  expUnaria
+                  |'(' nombreDeTipo ')' expDeConversion 
+;
 expUnaria:  expPostfijo
             |OP_INCREMENTO_DECREMENTO expUnaria
-            |operUnario expUnaria
-            |SIZEOF '(' TIPO_DE_DATO ')'
+            |operUnario expDeConversion
+            |SIZEOF expUnaria
+            |SIZEOF '(' nombreDeTipo ')'
 ;
-
 operUnario: '&'
             |'*'
             |'-'
@@ -102,16 +110,17 @@ operUnario: '&'
             |'+'
             |'~'
 ;
-
 expPostfijo:  expPrimaria
               |expPostfijo '[' experesion ']'
               |expPostfijo '(' listaArgumentos ')'
+              |expPostfijo '(' ')'
+              |expPostfijo '.' IDENTIFICADOR
+              |expPostfijo OP_INCREMENTO_DECREMENTO
+              |expPostfijo OP_ACCESO
 ;
-
 listaArgumentos: expAsigancion
                 |listaArgumentos ',' expAsigancion
 ;
-
 expPrimaria:  IDENTIFICADOR
               |CONSTANTE_DECIMAL
               |CONSTANTE_HEXA
@@ -121,9 +130,124 @@ expPrimaria:  IDENTIFICADOR
               |'(' expresion ')'
 ;
 
-nombreTipo: TIPO_DE_DATO
+declaracion:  especificadoresDeDeclaracion 
+              |especificadoresDeDeclaracion listaDeDeclaradores
 ;
-              
+especificadoresDeDeclaracion: especificadorDeClaseDeAlmacenamiento 
+                              |especificadorDeClaseDeAlmacenamiento especificadoresDeDeclaracion
+                              |especificadorDeTipo 
+                              |especificadorDeTipo especificadoresDeDeclaracion
+                              |calificadorDeTipo 
+                              |calificadorDeTipo especificadoresDeDeclaracion              
+;
+listaDeDeclaradores:  declarador
+                      |listaDeDeclaradores ',' declarador
+;
+declarador: decla
+            |decla '=' inicializador
+;
+inicializador:  expAsigancion
+                |'{' listaDeInicializadores '}'
+                |'{' listaDeInicializadores ',' '}'
+;
+listaDeInicializadores: inicializador
+                        |listaDeInicializadores ',' inicializador
+;
+especificadorDeClaseDeAlmacenamiento: ESPEC_DE_CLASE
+;
+especificadorDeTipo:  TIPO_DE_DATO
+                      |especificadorDeStructOUnion
+                      |especificadorDeEnum
+                      |nombreDeTypedef
+;                                                                                          
+calificadorDeTipo:  CALIFICADOR_DE_TIPO
+;
+especificadorDeStructOUnion:  structOUnion '{' listaDeDclaacionesStruct '}'
+                             |structOUnion IDENTIFICADOR '{' listaDeDclaacionesStruct '}'
+                             |structOUnion IDENTIFICADOR
+;
+structOUnion: STRUCT_O_UNION
+;
+listaDeDclaacionesStruct: declaracionStruct
+                          |listaDeDclaacionesStruct declaracionStruct
+;
+declaracionStruct:  listaDeCalificadores declaradoresStruct
+;
+listaDeCalificadores: especificadorDeTipo 
+                     |especificadorDeTipo listaDeCalificadores
+                     |calificadorDeTipo 
+                     |calificadorDeTipo listaDeCalificadores
+;
+declaradoresStruct: declaStruct
+                    |declaradoresStruct ',' declaStruct
+;
+declaStruct:   decla
+              |':' expresionConstante
+              |decla ':' expresionConstante
+;
+decla:   declaradorDirecto
+        |puntero declaradorDirecto                                                           
+;
+puntero:  '*' listaDeCalificadoresTipo
+         |'*'
+         |'*' puntero
+         |'*' listaDeCalificadoresTipo puntero  
+;
+listaDeCalificadoresTipo: calificadorDeTipo
+                          |listaDeCalificadoresTipo calificadorDeTipo
+;
+declaradorDirecto:  IDENTIFICADOR
+                  |'(' decla ')'
+                  |declaradorDirecto '[' ']'
+                  |declaradorDirecto '[' expresionConstante ']'
+                  |declaradorDirecto '(' listaTiposParametros ')'
+                  |declaradorDirecto '(' listaDeIdentifiacadores ')'
+;
+listaTiposParametros: listaDeParametros
+                      |listaDeParametros ',' '.''.''.'                                            
+;
+listaDeParametros:  declaracionDeParametro
+                    |listaDeParametros ',' declaracionDeParametro
+;
+declaracionDeParametro: especificadoresDeDeclaracion decla 
+                        |especificadoresDeDeclaracion 
+                        |especificadoresDeDeclaracion declaradorAbstracto
+;
+listaDeIdentifiacadores:  IDENTIFICADOR
+                          |listaDeIdentifiacadores ',' IDENTIFICADOR
+;
+especificadorDeEnum:  ESPECIFICADOR_ENUM '{' listaDeEnumeradores '}'
+                      |ESPECIFICADOR_ENUM IDENTIFICADOR '{' listaDeEnumeradores '}'
+                      |ESPECIFICADOR_ENUM IDENTIFICADOR                                                                     
+;
+listaDeEnumeradores:  enumerador 
+                      |listaDeEnumeradores ',' enumerador
+;
+enumerador: constanteDeEnumeracion
+            |constanteDeEnumeracion '=' expresionConstante
+;
+constanteDeEnumeracion: IDENTIFICADOR
+;
+nombreDeTypedef:  IDENTIFICADOR
+;
+nombreDeTipo: listaDeCalificadores
+              |listaDeCalificadores declaradorAbstracto
+;
+declaradorAbstracto:  puntero
+                      |declaradorAbstractoDirecto
+                      |puntero declaradorAbstractoDirecto
+;
+declaradorAbstractoDirecto: '(' declaradorAbstracto ')'
+                            |'[' ']'
+                            |declaradorAbstractoDirecto '[' ']'
+                            |'[' expresionConstante ']'
+                            |declaradorAbstractoDirecto '[' expresionConstante ']'
+                            |'(' ')'
+                            |declaradorAbstractoDirecto '(' ')' 
+                            |'(' listaTiposParametros ')'
+                            |declaradorAbstractoDirecto '(' listaTiposParametros ')'                                                   
+
+
 %%
 
 
