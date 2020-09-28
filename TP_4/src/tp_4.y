@@ -27,6 +27,15 @@
 %token <entero> CONSTANTE_OCTAL
 %token <entero> CONSTANTE_HEXA
 %token <real>  CONSTANTE_REAL
+%token <cadena> TIPO_DE_DATO
+%token <cadena> OP_ASIGANCION
+%token <cadena> OP_IGUALDAD
+%token <cadena> OP_OR
+%token <cadena> OP_AND
+%token <cadena> OP_RELACIONAL
+%token <cadena> SIZEOF
+%token <cadena> TIPO_DE_DATO
+%token <cadena> OP_INCREMENTO_DECREMENTO
 %token <entero> ERROR
  
 %%
@@ -42,204 +51,79 @@ line:     '\n'
         | definicionDeFuncion '\n'
 ;
 
-expresion:  expresionDeAsigancion
-           |expresion ',' expresionDeAsigancion
-;
-expresionDeAsigancion:  expresionCondicional
-                      |expresionUnaria operadorAsigancion expresionDeAsigancion
-;
-expresionCondicional: expresionOLogico
-                      |expresionOLogico '?' experesion ':' expresionCondicional
-;
-operadorAsigancion: TOKEN_ASIGNACION
-;
-expresionOLogico: expresionYLogico
-                  |expresionOLogico '|''|' expresionYLogico
-;
-expresionYLogico: expresionOInclusivo
-                  |expresionYLogico '&''&' expresionOInclusivo
-;
-expresionOInclusivo:  experesionOExcluyente
-                      |expresionOInclusivo '|' experesionOExcluyente
-;
-experesionOExcluyente: experesionY
-                      |experesionOExcluyente '^' experesionY
-;
-experesionY: expresionDeIgualdad
-            |experesionY '&' expresionDeIgualdad
-;
-expresionDeIgualdad: experesionRelacional
-                    |expresionDeIgualdad '=''=' experesionRelacional
-                    |expresionDeIgualdad '!''=' experesionRelacional
-;
-experesionRelacional: experesionDeCorrimiento
-                     |experesionRelacional '<' experesionDeCorrimiento
-                     |experesionRelacional '>' experesionDeCorrimiento
-                     |experesionRelacional '<''=' experesionDeCorrimiento
-                     |experesionRelacional '>''=' experesionDeCorrimiento
-;
-experesionDeCorrimiento: experesionAditiva
-                        |experesionDeCorrimiento '<''<' experesionAditiva
-                        |experesionDeCorrimiento '>''>' experesionAditiva
-;
-experesionAditiva: expresionMultiplicativa
-                  |experesionAditiva '+' expresionMultiplicativa
-                  |experesionAditiva '-' expresionMultiplicativa
-;
-expresionMultiplicativa: expresionDeConversion
-                        |expresionMultiplicativa '*' expresionDeConversion
-                        |expresionMultiplicativa '/' expresionDeConversion
-                        |expresionMultiplicativa '%' expresionDeConversion
-;
-expresionDeConversion: expresionUnaria
-                      |'('nombreDeTipo')' expresionDeConversion
-;
-expresionUnaria: expresionSufijo
-                |'+''+' expresionUnaria
-                |'-''-' expresionUnaria
-                |operadorUnario expresionDeConversion
-                |'sizeof' expresionUnaria
-                |'sizeof' '('nombreDeTipo')'
-;
-nombreDeTipo: 
-;
-operadorUnario: '&'
-                |'*'
-                |'+'
-                |'-'
-                |'|'
-                |'~'                                                                                                                                                  
-;
-expresionSufijo: experesionPrimaria
-                |expresionSufijo '[' expresion ']'
-                |expresionSufijo '(' listaArgumentos ')'
-                |expresionSufijo '.' IDENTIFICADOR
-                |expresionSufijo '+''+'
-                |expresionSufijo '-''-'
-;
-listaArgumentos: expresionDeAsigancion
-                |listaArgumentos ',' expresionDeAsigancion
-;
-experesionPrimaria: IDENTIFICADOR
-                    |CONSTANTE_DECIMAL
-                    |CONSTANTE_HEXA
-                    |CONSTANTE_OCTAL
-                    |CONSTANTE_REAL
-                    |LITERAL_CADENA
-                    |'(' experesion ')'
+expresion:  expAsignacion
 ;
 
-declaracion: especificadoresDeDeclaracion listaDeDeclaradores
+expAsignacion:  expCondicional
+                |expUnaria operAsigancion expAsignacion
 ;
-especificadoresDeDeclaracion: especificadorDeClaseDeAlmacenamiento especificadoresDeDeclaracion
-                              |especificadorDeTipo especificadoresDeDeclaracion
-                              |calificadorDeTipo especificadoresDeDeclaracion
-;
-listaDeDeclaradores: declarador 
-                    |listaDeDeclaradores ',' declarador
-;
-declarador: decla 
-            |decla '=' inicializador
-;                                                            
-inicializador: expresionDeAsigancion
-              |'{' listaDeInicializadores ',' '}'
-;
-listaDeInicializadores: inicializador
-                        |listaDeInicializadores ',' inicializador
-;                                     
-especificadorDeClaseDeAlmacenamiento: 'typedef'
-                                      |'static'
-                                      |'auto'
-                                      |'register'
-                                      |'extern'
-;
-especificadorDeTipo: 'void'
-                    |'char'
-                    |'short'
-                    |'int'
-                    |'long'
-                    |'float'
-                    |'double'
-                    |'signed'
-                    |'unsigned'
-                    |especificadorStruct_Union
-                    |especificadorEnum
-                    |nombreDeTypedef
-;
-calificadorDeTipo: 'const'
-                  |'volatile'
-;
-especificadorStruct_Union: struct_union IDENTIFICADOR '{' listaDeDeclaracionesStruct '}'
-                          |struct_union IDENTIFICADOR
-;
-struct_union: 'struct'
-              |'union'
-;
-listaDeDeclaracionesStruct: declaracionStruct 
-                            |listaDeDeclaracionesStruct declaracionStruct
-;
-declaracionStruct: listaDeCalificadores declaradoresStruct ';'
-;
-listaDeCalificadores: especificadorDeTipo listaDeCalificadores
-                      |calificadorDeTipo listaDeCalificadores
-;
-declaradoresStruct: declaStruct 
-                    |declaradoresStruct ',' declaStruct
-;
-declaStruct: decla
-            |decla ':' expresionConstante
-;
-decla: puntero declaradorDirecto
-;
-puntero: listaCalificadoresTipos
-        |listaCalificadoresTipos puntero
-;
-listaCalificadoresTipos: calificadorDeTipo
-                        |listaCalificadoresTipos calificadorDeTipo
-;
-declaradorDirecto: IDENTIFICADOR
-                  |'(' decla ')'
-                  |declaradorDirecto '[' expresionConstante ']'
-                  |declaradorDirecto '(' listaTiposParametro ')'
-                  |declaradorDirecto '(' listaDeIdentificadores ')'
-;
-listaTiposParametro: listaDeParametros
-                    |listaDeParametros ',' listaDeParametros
-;
-listaDeParametros: declaracionDeParametro
-                  |listaDeParametros ',' declaracionDeParametro
-;
-declaracionDeParametro: especificadoresDeDeclaracion decla
-                        |especificadoresDeDeclaracion declaradorAbstracto
-;
-listaDeIdentificadores: IDENTIFICADOR
-                        | listaDeIdentificadores ',' IDENTIFICADOR
-;
-especificadorDeEnum: 'enum' IDENTIFICADOR '{' listaDeEnumeradores '}'
-                    |'enum' IDENTIFICADOR
-;
-listaDeEnumeradores: enumerador 
-                    |listaDeEnumeradores ',' enumerador
-;
-enumerador: constanteDeEnumeracion
-            |constanteDeEnumeracion '=' expresionConstante
-;
-constanteDeEnumeracion: IDENTIFICADOR
-;
-nombreDeTypedef: IDENTIFICADOR
-;
-nombreDeTipo: listaDeCalificadores declaradorAbstracto
-;
-declaradorAbstracto: puntero
-                    |puntero declaradorAbstractoDirecto
-;
-declaradorAbstractoDirecto: '(' declaradorAbstracto ')'
-                            |declaradorAbstractoDirecto '[' expresionConstante ']'
-                            |declaradorAbstractoDirecto '(' listaTiposParametro ')'
-;                                               
-;                                                                                                                                                                                                                                                                                                                                                                                                                       
 
+operAsigancion: OP_ASIGANCION
+;
 
+expCondicional: expOr
+                |expOr '?' expresion ':' expCondicional
+;
+
+expOr:  expAnd
+        |expOr OP_OR expAnd
+;
+
+expAnd: expIgualdad
+        |expAnd OP_AND expIgualdad
+;
+
+expIgualdad:  expRelacional
+              |expIgualdad OP_IGUALDAD expRelacional
+;
+
+expRelacional:  expAditiva
+                |expRelacional OP_RELACIONAL expAditiva
+;
+
+expAditiva: expMultiplicativa
+            |expAditiva '+' expMultiplicativa
+;
+
+expMultiplicativa:  expUnaria
+                    |expMultiplicativa '*' expUnaria
+;
+
+expUnaria:  expPostfijo
+            |OP_INCREMENTO_DECREMENTO expUnaria
+            |operUnario expUnaria
+            |SIZEOF '(' TIPO_DE_DATO ')'
+;
+
+operUnario: '&'
+            |'*'
+            |'-'
+            |'!'
+            |'+'
+            |'~'
+;
+
+expPostfijo:  expPrimaria
+              |expPostfijo '[' experesion ']'
+              |expPostfijo '(' listaArgumentos ')'
+;
+
+listaArgumentos: expAsigancion
+                |listaArgumentos ',' expAsigancion
+;
+
+expPrimaria:  IDENTIFICADOR
+              |CONSTANTE_DECIMAL
+              |CONSTANTE_HEXA
+              |CONSTANTE_OCTAL
+              |CONSTANTE_REAL
+              |LITERAL_CADENA
+              |'(' expresion ')'
+;
+
+nombreTipo: TIPO_DE_DATO
+;
+              
 %%
 
 
