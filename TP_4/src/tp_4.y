@@ -8,7 +8,7 @@
     return (1);
   }
 
-  int nroLinea = 1
+  int nroLinea = 1;
 %}
 
 %union {
@@ -34,7 +34,6 @@
 %token <cadena> OP_AND
 %token <cadena> OP_RELACIONAL
 %token <cadena> SIZEOF
-%token <cadena> TIPO_DE_DATO
 %token <cadena> OP_INCREMENTO_DECREMENTO
 %token <cadena> OP_CORRIMIENTO
 %token <cadena> OP_ACCESO
@@ -55,21 +54,23 @@
 %token <cadena> RETURN
 %token <cadena> GOTO
 %token <entero> ERROR
- 
+
+
+
 %%
 
 input:    /* vacio */
         | input line
 ;
 
-line:     '\n'
-        | declaracion '\n'
-        | experesion '\n'
-        | sentencia '\n'
+line:     '\n' {nroLinea++}
+        | declaracion '\n' {printf("Se encontro una declaracion\n");}
+        | expresion '\n'{ printf("Se encontro una expresion\n");}
+        | sentencia '\n'{ printf("Se encontro una sentencia\n");}
 ;
 
-expresion:  expAsignacion
-            |expresion ',' expAsigancion
+expresion:    expAsignacion
+            | expresion ',' expAsignacion
 ;
 expAsignacion:  expCondicional
                 |expUnaria operAsigancion expAsignacion
@@ -123,15 +124,15 @@ operUnario: '&'
             |'~'
 ;
 expPostfijo:  expPrimaria
-              |expPostfijo '[' experesion ']'
+              |expPostfijo '[' expresion ']'
               |expPostfijo '(' listaArgumentos ')'
               |expPostfijo '(' ')'
               |expPostfijo '.' IDENTIFICADOR
               |expPostfijo OP_INCREMENTO_DECREMENTO
               |expPostfijo OP_ACCESO
 ;
-listaArgumentos: expAsigancion
-                |listaArgumentos ',' expAsigancion
+listaArgumentos: expAsignacion
+                |listaArgumentos ',' expAsignacion
 ;
 expPrimaria:  IDENTIFICADOR
               |CONSTANTE_DECIMAL
@@ -158,7 +159,7 @@ listaDeDeclaradores:  declarador
 declarador: decla
             |decla '=' inicializador
 ;
-inicializador:  expAsigancion
+inicializador:  expAsignacion
                 |'{' listaDeInicializadores '}'
                 |'{' listaDeInicializadores ',' '}'
 ;
@@ -281,11 +282,12 @@ listaDeDeclaraciones: declaracion
 listaDeSentencias:  sentencia
                     |listaDeSentencias sentencia
 ;
-sentenciaDeSeleccion: IF '(' experesion ')' sentencia
-                      |IF '(' experesion ')' sentencia ELSE sentencia 
-                      |SWITCH '(' experesion ')' sentencia
-                      |WHILE '(' experesion ')' sentencia
-                      |DO sentencia WHILE '(' experesion ')' ';'
+sentenciaDeSeleccion: IF '(' expresion ')' sentencia
+                      |IF '(' expresion ')' sentencia ELSE sentencia 
+                      |SWITCH '(' expresion ')' sentencia                                  
+;
+sentenciaDeIteracion: WHILE '(' expresion ')' sentencia
+                      |DO sentencia WHILE '(' expresion ')' ';'
                       |FOR '(' ';' ';' ')' sentencia
                       |FOR '(' expresion ';' ';' ')' sentencia
                       |FOR '(' ';' expresion ';' ')' sentencia
@@ -293,7 +295,7 @@ sentenciaDeSeleccion: IF '(' experesion ')' sentencia
                       |FOR '(' expresion ';' expresion ';' ')' sentencia
                       |FOR '(' expresion ';' ';' expresion ')' sentencia
                       |FOR '(' ';' expresion ';' expresion ')' sentencia 
-                      |FOR '(' expresion ';' expresion ';' expresion ')' sentencia                     
+                      |FOR '(' expresion ';' expresion ';' expresion ')' sentencia 
 ;
 sentenciaEtiquetada:  CASE expresionConstante ':' sentencia
                       |DEFAULT ':' sentencia
@@ -312,9 +314,13 @@ expresionConstante: expCondicional
 
 %%
 
+int yyerror (char *s)  
+{
+  printf ("%s\n", s);
+}
 
 
 int main (int argc, char const* argv[])
 {
-
+  yyparse();
 }
