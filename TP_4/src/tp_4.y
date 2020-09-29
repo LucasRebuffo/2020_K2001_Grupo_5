@@ -42,6 +42,18 @@
 %token <cadena> CALIFICADOR_DE_TIPO
 %token <cadena> STRUCT_O_UNION
 %token <cadena> ESPECIFICADOR_ENUM
+%token <cadena> IF
+%token <cadena> SWITCH
+%token <cadena> ELSE
+%token <cadena> WHILE
+%token <cadena> DO
+%token <cadena> FOR
+%token <cadena> CASE
+%token <cadena> DEFAULT
+%token <cadena> CONTINUE
+%token <cadena> BREAK
+%token <cadena> RETURN
+%token <cadena> GOTO
 %token <entero> ERROR
  
 %%
@@ -162,14 +174,14 @@ especificadorDeTipo:  TIPO_DE_DATO
 ;                                                                                          
 calificadorDeTipo:  CALIFICADOR_DE_TIPO
 ;
-especificadorDeStructOUnion:  structOUnion '{' listaDeDclaacionesStruct '}'
-                             |structOUnion IDENTIFICADOR '{' listaDeDclaacionesStruct '}'
-                             |structOUnion IDENTIFICADOR
+especificadorDeStructOUnion:  structOUnion '{' listaDeDeclaracionesStruct '}'
+                             |structOUnion IDENTIFICADOR '{' listaDeDeclaracionesStruct '}'
+                             |structOUnion IDENTIFICADOR 
 ;
 structOUnion: STRUCT_O_UNION
 ;
-listaDeDclaacionesStruct: declaracionStruct
-                          |listaDeDclaacionesStruct declaracionStruct
+listaDeDeclaracionesStruct: declaracionStruct
+                          |listaDeDeclaracionesStruct declaracionStruct
 ;
 declaracionStruct:  listaDeCalificadores declaradoresStruct
 ;
@@ -246,6 +258,56 @@ declaradorAbstractoDirecto: '(' declaradorAbstracto ')'
                             |declaradorAbstractoDirecto '(' ')' 
                             |'(' listaTiposParametros ')'
                             |declaradorAbstractoDirecto '(' listaTiposParametros ')'                                                   
+;
+
+sentencia:  sentenciaExpresion
+            |sentenciaCompuesta
+            |sentenciaDeSeleccion
+            |sentenciaDeIteracion
+            |sentenciaEtiquetada
+            |sentenciaDeSalto 
+;
+sentenciaExpresion: ';'
+                    |expresion ';'
+;
+sentenciaCompuesta: '{' '}'
+                    |'{' listaDeDeclaraciones '}'
+                    |'{' listaDeSentencias '}'
+                    |'{' listaDeDeclaraciones listaDeSentencias '}'
+;
+listaDeDeclaraciones: declaracion
+                     |listaDeDeclaraciones declaracion
+;
+listaDeSentencias:  sentencia
+                    |listaDeSentencias sentencia
+;
+sentenciaDeSeleccion: IF '(' experesion ')' sentencia
+                      |IF '(' experesion ')' sentencia ELSE sentencia 
+                      |SWITCH '(' experesion ')' sentencia
+                      |WHILE '(' experesion ')' sentencia
+                      |DO sentencia WHILE '(' experesion ')' ';'
+                      |FOR '(' ';' ';' ')' sentencia
+                      |FOR '(' expresion ';' ';' ')' sentencia
+                      |FOR '(' ';' expresion ';' ')' sentencia
+                      |FOR '(' ';' ';' expresion ')' sentencia
+                      |FOR '(' expresion ';' expresion ';' ')' sentencia
+                      |FOR '(' expresion ';' ';' expresion ')' sentencia
+                      |FOR '(' ';' expresion ';' expresion ')' sentencia 
+                      |FOR '(' expresion ';' expresion ';' expresion ')' sentencia                     
+;
+sentenciaEtiquetada:  CASE expresionConstante ':' sentencia
+                      |DEFAULT ':' sentencia
+                      |IDENTIFICADOR ':' sentencia
+;
+sentenciaDeSalto: CONTINUE ';'
+                  |BREAK ';'
+                  |RETURN ';'
+                  |RETURN expresion ';'
+                  |GOTO IDENTIFICADOR ';'
+;
+
+expresionConstante: expCondicional
+;
 
 
 %%
