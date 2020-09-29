@@ -39,42 +39,39 @@
    /* Put the tokens into the symbol table, so that GDB and other debuggers
       know about them.  */
    enum yytokentype {
-     PALABRA_RESERVADA = 258,
-     IDENTIFICADOR = 259,
-     LITERAL_CADENA = 260,
-     COMENTARIO_MULTIPLE = 261,
-     COMENTARIO_SIMPLE = 262,
-     CONSTANTE_DECIMAL = 263,
-     CONSTANTE_OCTAL = 264,
-     CONSTANTE_HEXA = 265,
-     CONSTANTE_REAL = 266,
-     TIPO_DE_DATO = 267,
-     OP_ASIGANCION = 268,
-     OP_IGUALDAD = 269,
-     OP_OR = 270,
-     OP_AND = 271,
-     OP_RELACIONAL = 272,
-     SIZEOF = 273,
-     OP_INCREMENTO_DECREMENTO = 274,
-     OP_CORRIMIENTO = 275,
-     OP_ACCESO = 276,
-     ESPEC_DE_CLASE = 277,
-     CALIFICADOR_DE_TIPO = 278,
-     STRUCT_O_UNION = 279,
-     ESPECIFICADOR_ENUM = 280,
-     IF = 281,
-     SWITCH = 282,
-     ELSE = 283,
-     WHILE = 284,
-     DO = 285,
-     FOR = 286,
-     CASE = 287,
-     DEFAULT = 288,
-     CONTINUE = 289,
-     BREAK = 290,
-     RETURN = 291,
-     GOTO = 292,
-     ERROR = 293
+     IDENTIFICADOR = 258,
+     LITERAL_CADENA = 259,
+     CONSTANTE_DECIMAL = 260,
+     CONSTANTE_OCTAL = 261,
+     CONSTANTE_HEXA = 262,
+     CONSTANTE_REAL = 263,
+     TIPO_DE_DATO = 264,
+     OP_ASIGANCION = 265,
+     OP_IGUALDAD = 266,
+     OP_OR = 267,
+     OP_AND = 268,
+     OP_RELACIONAL = 269,
+     SIZEOF = 270,
+     OP_INCREMENTO_DECREMENTO = 271,
+     OP_CORRIMIENTO = 272,
+     OP_ACCESO = 273,
+     ESPEC_DE_CLASE = 274,
+     CALIFICADOR_DE_TIPO = 275,
+     STRUCT_O_UNION = 276,
+     ESPECIFICADOR_ENUM = 277,
+     IF = 278,
+     SWITCH = 279,
+     ELSE = 280,
+     WHILE = 281,
+     DO = 282,
+     FOR = 283,
+     CASE = 284,
+     DEFAULT = 285,
+     CONTINUE = 286,
+     BREAK = 287,
+     RETURN = 288,
+     GOTO = 289,
+     ERROR = 290
    };
 #endif
 
@@ -90,12 +87,11 @@ typedef union YYSTYPE
   long int entero;
   char* cadena;
   double real;
-  
 
 
 
 /* Line 1676 of yacc.c  */
-#line 99 "tp_4.tab.h"
+#line 95 "tp_4.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
