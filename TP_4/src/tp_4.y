@@ -60,21 +60,21 @@ input:    /* vacio */
 ;
 
 line:     '\n' {nroLinea++}
-        | declaracion '\n' {printf("Se encontro una declaracion en linea %d\n",nroLinea);}
-        | expresion '\n'{ printf("Se encontro una expresionen linea %d\n",nroLinea);}
-        | sentencia '\n'{ printf("Se encontro una sentenciaen linea %d\n",nroLinea);}
+          | sentencia '\n' {nroLinea++}
 ;
+
+/* -------------------------Expresiones----------------------------------*/
 
 expresion:    expAsignacion
             | expresion ',' expAsignacion
 ;
 expAsignacion:    expCondicional
-                | expUnaria operAsigancion expAsignacion
+                | expUnaria operAsignacion expAsignacion
 ;
 expCondicional:   expOr
                 | expOr '?' expresion ':' expCondicional
 ;
-operAsigancion:   OP_ASIGANCION
+operAsignacion:   OP_ASIGANCION
                 | '='
 ;
 expOr:    expAnd
@@ -126,8 +126,8 @@ expPostfijo:    expPrimaria
               | expPostfijo OP_INCREMENTO_DECREMENTO
               | expPostfijo OP_ACCESO
 ;
-listaArgumentosOP:  listaArgumentos
-                  | /* Vacio*/
+listaArgumentosOP:  /* vacio */
+                  | listaArgumentos
 ;
 listaArgumentos:    expAsignacion
                   | listaArgumentos ',' expAsignacion
@@ -141,17 +141,19 @@ expPrimaria:    IDENTIFICADOR
               | '(' expresion ')'
 ;
 
+/* -------------------------Declaraciones----------------------------------*/
+
 declaracion:   especificadoresDeDeclaracion listaDeDeclaradoresOP
 ;
-listaDeDeclaradoresOP:  listaDeDeclaradores
-                      | /* Vacio */
+listaDeDeclaradoresOP:  /* vacio */
+                      | listaDeDeclaradores
 ;
 especificadoresDeDeclaracion:   especificadorDeClaseDeAlmacenamiento especificadoresDeDeclaracionOP
                               | especificadorDeTipo especificadoresDeDeclaracionOP
                               | calificadorDeTipo especificadoresDeDeclaracionOP             
 ;
-especificadoresDeDeclaracionOP:   especificadoresDeDeclaracion
-                                | /* Vacio */
+especificadoresDeDeclaracionOP:   /* vacio */
+                                | especificadoresDeDeclaracion
 ;
 listaDeDeclaradores:    declarador
                       | listaDeDeclaradores ',' declarador
@@ -179,7 +181,7 @@ especificadorDeStructOUnion:   structOUnion identificadorOP '{' listaDeDeclaraci
                              | structOUnion IDENTIFICADOR 
 ;
 identificadorOP:  IDENTIFICADOR
-                | /* Vacio */
+                | /* vacio */
 ;
 structOUnion:   STRUCT_O_UNION
 ;
@@ -191,8 +193,8 @@ declaracionStruct:    listaDeCalificadores declaradoresStruct
 listaDeCalificadores:  especificadorDeTipo listaDeCalificadoresOP
                      | calificadorDeTipo listaDeCalificadoresOP
 ;
-listaDeCalificadoresOP: listaDeCalificadores  
-                      | /* Vacio */
+listaDeCalificadoresOP: /* vacio */ 
+                      | listaDeCalificadores 
 ;
 declaradoresStruct:   declaStruct
                     | declaradoresStruct ',' declaStruct
@@ -207,8 +209,8 @@ decla:    declaradorDirecto
 puntero:   '*' listaDeCalificadoresTipoOP
          | '*' listaDeCalificadoresTipoOP puntero  
 ;
-listaDeCalificadoresTipoOP:  listaDeCalificadoresTipo
-                           | /* Vacio */ 
+listaDeCalificadoresTipoOP:  /* vacio */ 
+                           | listaDeCalificadoresTipo
 ;
 listaDeCalificadoresTipo:   calificadorDeTipo
                           | listaDeCalificadoresTipo calificadorDeTipo
@@ -219,11 +221,11 @@ declaradorDirecto:    IDENTIFICADOR
                     | declaradorDirecto '(' listaTiposParametros ')'
                     | declaradorDirecto '(' listaDeIdentifiacadoresOP ')'
 ;
-expresionConstanteOP: expresionConstante
-                    | /* Vacio */
+expresionConstanteOP: /* vacio */
+                    | expresionConstante
 ;
-listaDeIdentifiacadoresOP:  listaDeIdentifiacadores
-                          | /* Vacio */
+listaDeIdentifiacadoresOP:  /* vacio */
+                          | listaDeIdentifiacadores
 ;
 listaTiposParametros:   listaDeParametros
                       | listaDeParametros ',' '.''.''.'                                            
@@ -234,8 +236,8 @@ listaDeParametros:    declaracionDeParametro
 declaracionDeParametro:   especificadoresDeDeclaracion decla  
                         | especificadoresDeDeclaracion declaradorAbstractoOP
 ;
-declaradorAbstractoOP:   declaradorAbstracto
-                       | /* Vacio */ 
+declaradorAbstractoOP:   /* vacio */ 
+                       | declaradorAbstracto
 ;
 listaDeIdentifiacadores:    IDENTIFICADOR
                           | listaDeIdentifiacadores ',' IDENTIFICADOR
@@ -255,8 +257,8 @@ nombreDeTypedef:    IDENTIFICADOR
 ;
 nombreDeTipo:    listaDeCalificadores declaradorAbstractoOP
 ;
-declaradorAbstractoOP:  declaradorAbstracto
-                      | /* Vacio */
+declaradorAbstractoOP:  /* vacio */
+                      | declaradorAbstracto
 ;
 declaradorAbstracto:    puntero
                       | declaradorAbstractoDirecto
@@ -266,19 +268,21 @@ declaradorAbstractoDirecto:   '(' declaradorAbstracto ')'
                             | declaradorAbstractoDirectoOP '[' expresionConstanteOP ']'
                             | declaradorAbstractoDirectoOP '(' listaTiposParametrosOP ')'                                                   
 ;
-declaradorAbstractoDirectoOP:   declaradorAbstractoDirecto
-                              | /* Vacio */
+declaradorAbstractoDirectoOP:   /* vacio */
+                              | declaradorAbstractoDirecto
 ;
-expresionConstanteOP:   expresionConstante
-                      | /* Vacio */
+expresionConstanteOP:   /* vacio */
+                      | expresionConstante
 ;
-listaTiposParametrosOP:  listaTiposParametros
-                       | /* Vacio */ 
+listaTiposParametrosOP:  /* vacio */ 
+                       | listaTiposParametros
 ;
 
-sentencia:    sentenciaExpresion
-            | sentenciaCompuesta
-            | sentenciaDeSeleccion
+/* -------------------------Sentencias----------------------------------*/
+
+sentencia:    sentenciaExpresion {printf("Se encontro una sentencia de expresion \n");}
+            | sentenciaCompuesta 
+            | sentenciaDeSeleccion {printf("Se encontro una sentencia de expresion \n");}
             | sentenciaDeIteracion
             | sentenciaEtiquetada
             | sentenciaDeSalto 
@@ -288,11 +292,11 @@ sentenciaExpresion:   ';'
 ;
 sentenciaCompuesta:  '{' listaDeDeclaracionesOP listaDeSentenciasOP '}'
 ;
-listaDeDeclaracionesOP: listaDeDeclaraciones
-                      | /* Vacio */
+listaDeDeclaracionesOP: /* vacio */
+                      | listaDeDeclaraciones
 ;
-listaDeSentenciasOP:  listaDeSentencias
-                    | /* Vacio */
+listaDeSentenciasOP:  /* vacio */
+                    | listaDeSentencias
 ;
 listaDeDeclaraciones:  declaracion
                      | listaDeDeclaraciones declaracion
@@ -308,8 +312,8 @@ sentenciaDeIteracion:   WHILE '(' expresion ')' sentencia
                       | DO sentencia WHILE '(' expresion ')' ';'
                       | FOR '(' expresionOP ';' expresionOP ';' expresionOP ')' sentencia 
 ;
-expresionOP:  expresion
-            | /* Vacio */
+expresionOP:  /* vacio */
+            | expresion
 ;
 sentenciaEtiquetada:    CASE expresionConstante ':' sentencia
                       | DEFAULT ':' sentencia

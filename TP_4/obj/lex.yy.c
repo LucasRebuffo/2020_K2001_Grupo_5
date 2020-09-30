@@ -931,7 +931,7 @@ YY_RULE_SETUP
 case 38:
 YY_RULE_SETUP
 #line 69 "../src/tp_4.l"
-{}  
+{return yytext[0];}  
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
@@ -1825,4 +1825,5 @@ int main()
 	}
 #endif
 #line 74 "../src/tp_4.l"
+
 

@@ -66,9 +66,10 @@ goto				          {yylval.cadena=strdup(yytext); return GOTO;printf("Se reconoci
 "->"						  {yylval.cadena=strdup(yytext); return OP_ACCESO;printf("Se reconocio operaador de acceso \n");}
 {comentariosMultiple}         {}
 {comentariosSimple}           {}
-{saltoDeLinea}                {}  
+{saltoDeLinea}                {return yytext[0];}  
 
 
 
 
 %%
+
