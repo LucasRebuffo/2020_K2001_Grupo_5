@@ -45,33 +45,34 @@
      CONSTANTE_OCTAL = 261,
      CONSTANTE_HEXA = 262,
      CONSTANTE_REAL = 263,
-     TIPO_DE_DATO = 264,
-     OP_ASIGANCION = 265,
-     OP_IGUALDAD = 266,
-     OP_OR = 267,
-     OP_AND = 268,
-     OP_RELACIONAL = 269,
-     SIZEOF = 270,
-     OP_INCREMENTO_DECREMENTO = 271,
-     OP_CORRIMIENTO = 272,
-     OP_ACCESO = 273,
-     ESPEC_DE_CLASE = 274,
-     CALIFICADOR_DE_TIPO = 275,
-     STRUCT_O_UNION = 276,
-     ESPECIFICADOR_ENUM = 277,
-     IF = 278,
-     SWITCH = 279,
-     ELSE = 280,
-     WHILE = 281,
-     DO = 282,
-     FOR = 283,
-     CASE = 284,
-     DEFAULT = 285,
-     CONTINUE = 286,
-     BREAK = 287,
-     RETURN = 288,
-     GOTO = 289,
-     ERROR = 290
+     CONSTANTE_CARACTER = 264,
+     TIPO_DE_DATO = 265,
+     OP_ASIGANCION = 266,
+     OP_IGUALDAD = 267,
+     OP_OR = 268,
+     OP_AND = 269,
+     OP_RELACIONAL = 270,
+     SIZEOF = 271,
+     OP_INCREMENTO_DECREMENTO = 272,
+     OP_CORRIMIENTO = 273,
+     OP_ACCESO = 274,
+     ESPEC_DE_CLASE = 275,
+     CALIFICADOR_DE_TIPO = 276,
+     STRUCT_O_UNION = 277,
+     ESPECIFICADOR_ENUM = 278,
+     IF = 279,
+     SWITCH = 280,
+     ELSE = 281,
+     WHILE = 282,
+     DO = 283,
+     FOR = 284,
+     CASE = 285,
+     DEFAULT = 286,
+     CONTINUE = 287,
+     BREAK = 288,
+     RETURN = 289,
+     GOTO = 290,
+     ERROR = 291
    };
 #endif
 
@@ -91,7 +92,7 @@ typedef union YYSTYPE
 
 
 /* Line 1676 of yacc.c  */
-#line 95 "tp_4.tab.h"
+#line 96 "tp_4.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

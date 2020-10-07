@@ -53,7 +53,7 @@ goto				          {yylval.cadena=strdup(yytext); return GOTO;printf("Se reconoci
 {constOctales}                {yylval.entero = strtoll(yytext,NULL,8); return CONSTANTE_OCTAL;printf("Se reconocio constante octal \n");}
 {constHexadecimales}          {yylval.entero = strtol(yytext,NULL,16); return CONSTANTE_HEXA;printf("Se reconocio constante hexa \n");}
 {constReales}                 {yylval.real = atof(yytext); return CONSTANTE_REAL;printf("Se reconocio constante real \n");}
-{constCaracter}               {return yytext[0];printf("Se reconocio constante caracater \n");}
+{constCaracter}               {yylval.cadena=strdup(yytext); return CONSTANTE_CARACTER;printf("Se reconocio constante caracater \n");}
 {operadoresDeC}               {return yytext[0];printf("Se reconocio operador de c \n");}
 {caracteresDePuntuacion}      {return yytext[0];printf("Se reconocio caracter de puntuacion \n");}
 "=="|"!="					  {yylval.cadena=strdup(yytext); return OP_IGUALDAD;printf("Se reconocio operador de igualdad \n");}
@@ -66,6 +66,7 @@ goto				          {yylval.cadena=strdup(yytext); return GOTO;printf("Se reconoci
 "->"						  {yylval.cadena=strdup(yytext); return OP_ACCESO;printf("Se reconocio operaador de acceso \n");}
 {comentariosMultiple}         {}
 {comentariosSimple}           {}
+" "							  {}	
 {saltoDeLinea}                {return yytext[0];}  
 
 

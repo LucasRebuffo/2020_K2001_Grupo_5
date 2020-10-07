@@ -23,6 +23,7 @@
 %token <entero> CONSTANTE_OCTAL
 %token <entero> CONSTANTE_HEXA
 %token <real>  CONSTANTE_REAL
+%token <cadena> CONSTANTE_CARACTER
 %token <cadena> TIPO_DE_DATO
 %token <cadena> OP_ASIGANCION
 %token <cadena> OP_IGUALDAD
@@ -104,13 +105,13 @@ expMultiplicativa:    expDeConversion
                     | expMultiplicativa '%' expDeConversion
 ;
 expDeConversion:    expUnaria
-                  | '(' nombreDeTipo ')' expDeConversion 
+                  | '(' TIPO_DE_DATO')' expDeConversion 
 ;
 expUnaria:    expPostfijo
             | OP_INCREMENTO_DECREMENTO expUnaria
             | operUnario expDeConversion
             | SIZEOF expUnaria
-            | SIZEOF '(' nombreDeTipo ')'
+            | SIZEOF '(' TIPO_DE_DATO ')'
 ;
 operUnario:   '&'
             | '*'
@@ -137,160 +138,30 @@ expPrimaria:    IDENTIFICADOR
               | CONSTANTE_HEXA
               | CONSTANTE_OCTAL
               | CONSTANTE_REAL
-              | LITERAL_CADENA
+              | LITERAL_CADENA 
+              | CONSTANTE_CARACTER
               | '(' expresion ')'
 ;
 
 /* -------------------------Declaraciones----------------------------------*/
 
-declaracion:   especificadoresDeDeclaracion listaDeDeclaradoresOP
-;
-listaDeDeclaradoresOP:  /* vacio */
-                      | listaDeDeclaradores
-;
-especificadoresDeDeclaracion:   especificadorDeClaseDeAlmacenamiento especificadoresDeDeclaracionOP
-                              | especificadorDeTipo especificadoresDeDeclaracionOP
-                              | calificadorDeTipo especificadoresDeDeclaracionOP             
-;
-especificadoresDeDeclaracionOP:   /* vacio */
-                                | especificadoresDeDeclaracion
-;
-listaDeDeclaradores:    declarador
-                      | listaDeDeclaradores ',' declarador
-;
-declarador:   decla
-            | decla '=' inicializador
-;
-inicializador:    expAsignacion
-                | '{' listaDeInicializadores '}'
-                | '{' listaDeInicializadores ',' '}'
-;
-listaDeInicializadores:   inicializador
-                        | listaDeInicializadores ',' inicializador
-;
-especificadorDeClaseDeAlmacenamiento:   ESPEC_DE_CLASE
-;
-especificadorDeTipo:    TIPO_DE_DATO
-                      | especificadorDeStructOUnion
-                      | especificadorDeEnum
-                      | nombreDeTypedef
-;                                                                                          
-calificadorDeTipo:    CALIFICADOR_DE_TIPO
-;
-especificadorDeStructOUnion:   structOUnion identificadorOP '{' listaDeDeclaracionesStruct '}'
-                             | structOUnion IDENTIFICADOR 
-;
-identificadorOP:  IDENTIFICADOR
-                | /* vacio */
-;
-structOUnion:   STRUCT_O_UNION
-;
-listaDeDeclaracionesStruct:   declaracionStruct
-                            | listaDeDeclaracionesStruct declaracionStruct
-;
-declaracionStruct:    listaDeCalificadores declaradoresStruct
-;
-listaDeCalificadores:  especificadorDeTipo listaDeCalificadoresOP
-                     | calificadorDeTipo listaDeCalificadoresOP
-;
-listaDeCalificadoresOP: /* vacio */ 
-                      | listaDeCalificadores 
-;
-declaradoresStruct:   declaStruct
-                    | declaradoresStruct ',' declaStruct
-;
-declaStruct:    decla
-              | ':' expresionConstante
-              | decla ':' expresionConstante
-;
-decla:    declaradorDirecto
-        | puntero declaradorDirecto                                                           
-;
-puntero:   '*' listaDeCalificadoresTipoOP
-         | '*' listaDeCalificadoresTipoOP puntero  
-;
-listaDeCalificadoresTipoOP:  /* vacio */ 
-                           | listaDeCalificadoresTipo
-;
-listaDeCalificadoresTipo:   calificadorDeTipo
-                          | listaDeCalificadoresTipo calificadorDeTipo
-;
-declaradorDirecto:    IDENTIFICADOR
-                    | '(' decla ')'
-                    | declaradorDirecto '[' expresionConstanteOP ']'
-                    | declaradorDirecto '(' listaTiposParametros ')'
-                    | declaradorDirecto '(' listaDeIdentifiacadoresOP ')'
-;
-expresionConstanteOP: /* vacio */
-                    | expresionConstante
-;
-listaDeIdentifiacadoresOP:  /* vacio */
-                          | listaDeIdentifiacadores
-;
-listaTiposParametros:   listaDeParametros
-                      | listaDeParametros ',' '.''.''.'                                            
-;
-listaDeParametros:    declaracionDeParametro
-                    | listaDeParametros ',' declaracionDeParametro
-;
-declaracionDeParametro:   especificadoresDeDeclaracion decla  
-                        | especificadoresDeDeclaracion declaradorAbstractoOP
-;
-declaradorAbstractoOP:   /* vacio */ 
-                       | declaradorAbstracto
-;
-listaDeIdentifiacadores:    IDENTIFICADOR
-                          | listaDeIdentifiacadores ',' IDENTIFICADOR
-;
-especificadorDeEnum:    ESPECIFICADOR_ENUM identificadorOP '{' listaDeEnumeradores '}'
-                      | ESPECIFICADOR_ENUM IDENTIFICADOR                                                                     
-;
-listaDeEnumeradores:    enumerador 
-                      | listaDeEnumeradores ',' enumerador
-;
-enumerador:   constanteDeEnumeracion
-            | constanteDeEnumeracion '=' expresionConstante
-;
-constanteDeEnumeracion:   IDENTIFICADOR
-;
-nombreDeTypedef:    IDENTIFICADOR
-;
-nombreDeTipo:    listaDeCalificadores declaradorAbstractoOP
-;
-declaradorAbstractoOP:  /* vacio */
-                      | declaradorAbstracto
-;
-declaradorAbstracto:    puntero
-                      | declaradorAbstractoDirecto
-                      | puntero declaradorAbstractoDirecto
-;
-declaradorAbstractoDirecto:   '(' declaradorAbstracto ')'
-                            | declaradorAbstractoDirectoOP '[' expresionConstanteOP ']'
-                            | declaradorAbstractoDirectoOP '(' listaTiposParametrosOP ')'                                                   
-;
-declaradorAbstractoDirectoOP:   /* vacio */
-                              | declaradorAbstractoDirecto
-;
-expresionConstanteOP:   /* vacio */
-                      | expresionConstante
-;
-listaTiposParametrosOP:  /* vacio */ 
-                       | listaTiposParametros
-;
+// Había implementado la gramatica de C pero es muy compleja y la simplifique para que declare los  tipos de datos primitivos
 
 /* -------------------------Sentencias----------------------------------*/
 
-sentencia:    sentenciaExpresion {printf("Se encontro una sentencia de expresion \n");}
-            | sentenciaCompuesta 
-            | sentenciaDeSeleccion {printf("Se encontro una sentencia de expresion \n");}
-            | sentenciaDeIteracion
-            | sentenciaEtiquetada
-            | sentenciaDeSalto 
+sentencia:    sentenciaExpresion {printf("Se encontro una sentencia de expresion en linea %d \n", nroLinea); }
+            | '{' sentenciaCompuesta '}'
+            | IF sentenciaDeSeleccionIF {printf("Se encontro una sentencia de seleccion en linea %d \n", nroLinea);}
+            | SWITCH sentenciaDeSeleccionSWITCH {printf("Se encontro una sentencia de seleccion en linea %d \n", nroLinea);}
+            | sentenciaDeIteracion {printf("Se encontro una sentencia de de iteracion en linea %d \n", nroLinea);}
+            | sentenciaEtiquetada {printf("Se encontro una sentencia etiquetada en linea %d \n", nroLinea);}
+            | sentenciaDeSalto {printf("Se encontro una sentencia de salto en linea %d \n", nroLinea);}
+            | sentenciaDeDeclaracion {printf("Se encontro una sentencia de declaracion en linea %d \n", nroLinea);}
 ;
 sentenciaExpresion:   ';'
                     | expresion ';'
 ;
-sentenciaCompuesta:  '{' listaDeDeclaracionesOP listaDeSentenciasOP '}'
+sentenciaCompuesta:   listaDeDeclaracionesOP listaDeSentenciasOP 
 ;
 listaDeDeclaracionesOP: /* vacio */
                       | listaDeDeclaraciones
@@ -298,15 +169,16 @@ listaDeDeclaracionesOP: /* vacio */
 listaDeSentenciasOP:  /* vacio */
                     | listaDeSentencias
 ;
-listaDeDeclaraciones:  declaracion
-                     | listaDeDeclaraciones declaracion
+listaDeDeclaraciones:  sentenciaDeDeclaracion
+                     | listaDeDeclaraciones sentenciaDeDeclaracion
 ;
 listaDeSentencias:    sentencia
                     | listaDeSentencias sentencia
 ;
-sentenciaDeSeleccion:   IF '(' expresion ')' sentencia
-                      | IF '(' expresion ')' sentencia ELSE sentencia 
-                      | SWITCH '(' expresion ')' sentencia                                  
+sentenciaDeSeleccionIF:   '(' expresion ')' sentencia
+                      |   '(' expresion ')' sentencia ELSE sentencia                               
+;
+sentenciaDeSeleccionSWITCH: SWITCH '(' expresion ')' sentencia 
 ;
 sentenciaDeIteracion:   WHILE '(' expresion ')' sentencia
                       | DO sentencia WHILE '(' expresion ')' ';'
@@ -324,11 +196,23 @@ sentenciaDeSalto:   CONTINUE ';'
                   | RETURN expresionOP ';'
                   | GOTO IDENTIFICADOR ';'
 ;
-
-expresionConstante:   expCondicional
+expresionConstante:   /* vacio */
+                    | expCondicional
 ;
-
-
+sentenciaDeDeclaracion: 	TIPO_DE_DATO  listaIdentificadores ';'	
+                        | TIPO_DE_DATO  listaIdentificadores
+; 
+listaIdentificadores: 	identificadorA
+						          | identificadorA ',' listaIdentificadores
+;
+identificadorA:		  IDENTIFICADOR 
+						      | IDENTIFICADOR '=' expresion
+                  | IDENTIFICADOR '(' listaParametros ')' 
+;
+listaParametros:  /* vacio */
+                | TIPO_DE_DATO IDENTIFICADOR ',' listaParametros
+;
+ 
 %%
 
 int yyerror (char *s)  
