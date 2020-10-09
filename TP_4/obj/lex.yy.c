@@ -261,13 +261,9 @@ static void yy_flex_free YY_PROTO(( void * ));
 
 #define YY_AT_BOL() (yy_current_buffer->yy_at_bol)
 
-
-#define FLEX_DEBUG
 typedef unsigned char YY_CHAR;
 FILE *yyin = (FILE *) 0, *yyout = (FILE *) 0;
 typedef int yy_state_type;
-
-#define FLEX_DEBUG
 extern char *yytext;
 #define yytext_ptr yytext
 
@@ -495,17 +491,6 @@ static yyconst short int yy_chk[356] =
 static yy_state_type yy_last_accepting_state;
 static char *yy_last_accepting_cpos;
 
-extern int yy_flex_debug;
-int yy_flex_debug = 1;
-
-static yyconst short int yy_rule_linenum[40] =
-    {   0,
-       32,   33,   34,   35,   36,   37,   38,   39,   40,   41,
-       42,   43,   44,   45,   46,   47,   48,   49,   50,   51,
-       52,   53,   54,   55,   56,   57,   58,   59,   60,   61,
-       62,   63,   64,   65,   66,   67,   68,   69,   70
-    } ;
-
 /* The intent behind this definition is that it'll catch
  * any uses of REJECT which flex missed.
  */
@@ -520,8 +505,9 @@ char *yytext;
 	#include <stdlib.h>  
 	#include "tp_4.tab.h"
 	#include <string.h>
+	extern FILE* yyin;
 	//{otros}                       {printf("%s NO RECONOCIDO EN EL ANALISIS LEXICO\n", yytext);}
-#line 525 "lex.yy.c"
+#line 511 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -672,10 +658,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 30 "../src/tp_4.l"
+#line 31 "../src/tp_4.l"
 
 
-#line 679 "lex.yy.c"
+#line 665 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -748,21 +734,6 @@ yy_find_action:
 
 do_action:	/* This label is used only to access EOF actions. */
 
-		if ( yy_flex_debug )
-			{
-			if ( yy_act == 0 )
-				fprintf( stderr, "--scanner backing up\n" );
-			else if ( yy_act < 40 )
-				fprintf( stderr, "--accepting rule at line %d (\"%s\")\n",
-				         yy_rule_linenum[yy_act], yytext );
-			else if ( yy_act == 40 )
-				fprintf( stderr, "--accepting default rule (\"%s\")\n",
-				         yytext );
-			else if ( yy_act == 41 )
-				fprintf( stderr, "--(end of buffer or a NUL)\n" );
-			else
-				fprintf( stderr, "--EOF (start condition %d)\n", YY_START );
-			}
 
 		switch ( yy_act )
 	{ /* beginning of action switch */
@@ -775,205 +746,205 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 32 "../src/tp_4.l"
+#line 33 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return TIPO_DE_DATO;printf("Se reconocio tipo de dato \n");}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 33 "../src/tp_4.l"
+#line 34 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return ESPEC_DE_CLASE;printf("Se reconocio especificador de clase \n");}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 34 "../src/tp_4.l"
+#line 35 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return CALIFICADOR_DE_TIPO;printf("Se reconocio calificador de tipo \n");}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 35 "../src/tp_4.l"
+#line 36 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return ESPECIFICADOR_ENUM;printf("Se reconocio especificador enum \n");}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 36 "../src/tp_4.l"
+#line 37 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return IF;printf("Se reconocio If \n");}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 37 "../src/tp_4.l"
+#line 38 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return ELSE;printf("Se reconocio else \n");}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 38 "../src/tp_4.l"
+#line 39 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return SWITCH;printf("Se reconocio switch\n");}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 39 "../src/tp_4.l"
+#line 40 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return WHILE;printf("Se reconocio while \n");}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 40 "../src/tp_4.l"
+#line 41 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return FOR;printf("Se reconocio for \n");}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 41 "../src/tp_4.l"
+#line 42 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return DO;printf("Se reconocio do \n");}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 42 "../src/tp_4.l"
+#line 43 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return CASE;printf("Se reconocio case \n");}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 43 "../src/tp_4.l"
+#line 44 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return DEFAULT;printf("Se reconocio default \n");}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 44 "../src/tp_4.l"
+#line 45 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return CONTINUE;printf("Se reconocio continue \n");}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 45 "../src/tp_4.l"
+#line 46 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return BREAK;printf("Se reconocio break \n");}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 46 "../src/tp_4.l"
+#line 47 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return RETURN;printf("Se reconocio return \n");}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 47 "../src/tp_4.l"
+#line 48 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return GOTO;printf("Se reconocio goto \n");}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 48 "../src/tp_4.l"
+#line 49 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return STRUCT_O_UNION;printf("Se reconocio struct o union \n");}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 49 "../src/tp_4.l"
+#line 50 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return SIZEOF;printf("Se reconocio sizeof \n");}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 50 "../src/tp_4.l"
+#line 51 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return IDENTIFICADOR;printf("Se reconocio identificador \n");}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 51 "../src/tp_4.l"
+#line 52 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return LITERAL_CADENA;printf("Se reconocio literal cadena \n");}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 52 "../src/tp_4.l"
+#line 53 "../src/tp_4.l"
 {yylval.entero = atoi(yytext); return CONSTANTE_DECIMAL;printf("Se reconocio constante decimal \n");}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 53 "../src/tp_4.l"
+#line 54 "../src/tp_4.l"
 {yylval.entero = strtoll(yytext,NULL,8); return CONSTANTE_OCTAL;printf("Se reconocio constante octal \n");}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 54 "../src/tp_4.l"
+#line 55 "../src/tp_4.l"
 {yylval.entero = strtol(yytext,NULL,16); return CONSTANTE_HEXA;printf("Se reconocio constante hexa \n");}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 55 "../src/tp_4.l"
+#line 56 "../src/tp_4.l"
 {yylval.real = atof(yytext); return CONSTANTE_REAL;printf("Se reconocio constante real \n");}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 56 "../src/tp_4.l"
+#line 57 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return CONSTANTE_CARACTER;printf("Se reconocio constante caracater \n");}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 57 "../src/tp_4.l"
+#line 58 "../src/tp_4.l"
 {return yytext[0];printf("Se reconocio operador de c \n");}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 58 "../src/tp_4.l"
+#line 59 "../src/tp_4.l"
 {return yytext[0];printf("Se reconocio caracter de puntuacion \n");}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 59 "../src/tp_4.l"
+#line 60 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_IGUALDAD;printf("Se reconocio operador de igualdad \n");}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 60 "../src/tp_4.l"
+#line 61 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_ASIGANCION;printf("Se reconocio operador de asignacion \n");}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 61 "../src/tp_4.l"
+#line 62 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_OR;printf("Se reconocio operador or \n");}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 62 "../src/tp_4.l"
+#line 63 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_AND;printf("Se reconocio operador and \n");}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 63 "../src/tp_4.l"
+#line 64 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_RELACIONAL;printf("Se reconocio operador relacional \n");}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 64 "../src/tp_4.l"
+#line 65 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_INCREMENTO_DECREMENTO;printf("Se reconocio operador incremento decremento \n");}
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 65 "../src/tp_4.l"
+#line 66 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_CORRIMIENTO;printf("Se reconocio operador corrimiento \n");}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 66 "../src/tp_4.l"
+#line 67 "../src/tp_4.l"
 {yylval.cadena=strdup(yytext); return OP_ACCESO;printf("Se reconocio operaador de acceso \n");}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 67 "../src/tp_4.l"
+#line 68 "../src/tp_4.l"
 {}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 68 "../src/tp_4.l"
+#line 69 "../src/tp_4.l"
 {}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 69 "../src/tp_4.l"
+#line 70 "../src/tp_4.l"
 {}	
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 70 "../src/tp_4.l"
+#line 71 "../src/tp_4.l"
 {return yytext[0];}  
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 75 "../src/tp_4.l"
+#line 76 "../src/tp_4.l"
 ECHO;
 	YY_BREAK
-#line 977 "lex.yy.c"
+#line 948 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1859,6 +1830,5 @@ int main()
 	return 0;
 	}
 #endif
-#line 75 "../src/tp_4.l"
-
+#line 76 "../src/tp_4.l"
 

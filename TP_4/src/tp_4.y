@@ -2,6 +2,7 @@
   #include <stdio.h>
   #include <math.h>  
   #include <string.h>
+  extern FILE* yyin;
   int yylex();
   int yyerror (char *s);
   int yywrap(){
@@ -62,6 +63,7 @@ input:    /* vacio */
 
 line:     '\n' {nroLinea++}
           | sentencia '\n' {nroLinea++}
+          | error {printf("Hubo un error sintactico en linea %d \n", nroLinea);}
 ;
 
 /* -------------------------Expresiones----------------------------------*/
@@ -151,12 +153,19 @@ expPrimaria:    IDENTIFICADOR
 
 sentencia:    sentenciaExpresion {printf("Se encontro una sentencia de expresion en linea %d \n", nroLinea); }
             | '{' sentenciaCompuesta '}'
-            | IF sentenciaDeSeleccionIF {printf("Se encontro una sentencia de seleccion en linea %d \n", nroLinea);}
-            | SWITCH sentenciaDeSeleccionSWITCH {printf("Se encontro una sentencia de seleccion en linea %d \n", nroLinea);}
+            | sentenciaDeSeleccionIF {printf("Se encontro una sentencia de seleccion en linea %d \n", nroLinea);}
+            | sentenciaDeSeleccionSWITCH {printf("Se encontro una sentencia de seleccion en linea %d \n", nroLinea);}
             | sentenciaDeIteracion {printf("Se encontro una sentencia de de iteracion en linea %d \n", nroLinea);}
             | sentenciaEtiquetada {printf("Se encontro una sentencia etiquetada en linea %d \n", nroLinea);}
             | sentenciaDeSalto {printf("Se encontro una sentencia de salto en linea %d \n", nroLinea);}
             | sentenciaDeDeclaracion {printf("Se encontro una sentencia de declaracion en linea %d \n", nroLinea);}
+            | definicionFuncion {printf("Se encontro una definicion de funcion en linea %d \n", nroLinea);}
+            | declaracionDeFuncion {printf("Se encontro una declaracion de funcion en linea %d \n", nroLinea);}
+;
+
+definicionFuncion: sentenciaDeDeclaracion '{' listaDeSentenciasOP '}'  
+;
+declaracionDeFuncion: TIPO_DE_DATO IDENTIFICADOR '(' listaParametros ')' ';' {printf("Se declaro la funcion %s\n" , $<cadena>2)}
 ;
 sentenciaExpresion:   ';'
                     | expresion ';'
@@ -175,8 +184,10 @@ listaDeDeclaraciones:  sentenciaDeDeclaracion
 listaDeSentencias:    sentencia
                     | listaDeSentencias sentencia
 ;
-sentenciaDeSeleccionIF:   '(' expresion ')' sentencia
-                      |   '(' expresion ')' sentencia ELSE sentencia                               
+sentenciaDeSeleccionIF:  IF '(' expresion ')' sentencia sentenciaElse                             
+;
+sentenciaElse:    ELSE sentencia  
+                | /* vacio */
 ;
 sentenciaDeSeleccionSWITCH: SWITCH '(' expresion ')' sentencia 
 ;
@@ -200,8 +211,15 @@ expresionConstante:   /* vacio */
                     | expCondicional
 ;
 sentenciaDeDeclaracion: 	TIPO_DE_DATO  listaIdentificadores ';'	
-                        | TIPO_DE_DATO  listaIdentificadores
+                        | TIPO_DE_DATO IDENTIFICADOR '(' listaParametros')'
 ; 
+listaParametros: parametro
+			| parametro ',' listaParametros
+;
+parametro:
+			| TIPO_DE_DATO IDENTIFICADOR 
+			| IDENTIFICADOR
+;
 listaIdentificadores: 	identificadorA
 						          | identificadorA ',' listaIdentificadores
 ;
@@ -209,9 +227,7 @@ identificadorA:		  IDENTIFICADOR
 						      | IDENTIFICADOR '=' expresion
                   | IDENTIFICADOR '(' listaParametros ')' 
 ;
-listaParametros:  /* vacio */
-                | TIPO_DE_DATO IDENTIFICADOR ',' listaParametros
-;
+
  
 %%
 
@@ -224,7 +240,16 @@ int yyerror (char *s)
 int main (int argc, char const* argv[])
 {
   #ifdef BISON_DEBUG
-        yydebug = 1;
-#endif
-  yyparse();
+            yydebug = 1;
+  #endif
+
+  int flag;
+ 
+  yyin=fopen("archivoFuente.txt","r");
+ 
+  flag=yyparse();
+ 
+  fclose(yyin);
+   
+  return flag;
 }

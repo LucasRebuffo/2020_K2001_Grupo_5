@@ -83,7 +83,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 14 "../src/tp_4.y"
+#line 15 "../src/tp_4.y"
 
   long int entero;
   char* cadena;

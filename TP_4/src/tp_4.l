@@ -2,6 +2,7 @@
 	#include <stdlib.h>  
 	#include "tp_4.tab.h"
 	#include <string.h>
+	extern FILE* yyin;
 	//{otros}                       {printf("%s NO RECONOCIDO EN EL ANALISIS LEXICO\n", yytext);}
 %}
 
@@ -73,4 +74,3 @@ goto				          {yylval.cadena=strdup(yytext); return GOTO;printf("Se reconoci
 
 
 %%
-
