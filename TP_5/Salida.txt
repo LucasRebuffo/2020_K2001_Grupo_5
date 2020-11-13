@@ -1,0 +1,27 @@
+Se declara parametro valor de tipo int
+Se declara parametro xxx de tipo double
+Se declara la variable: 'x' de tipo: 'int'
+Se declara la variable: 't' de tipo: 'double'
+Se declara la variable: 'm' de tipo: 'double'
+Se declara la variable: 'a' de tipo: 'double'
+Se declara la variable: 'n' de tipo: 'double'
+Se declara la variable: 'z' de tipo: 'double'
+Se declara la variable: 'j' de tipo: 'int'
+Se declara la variable: 'i' de tipo: 'int'
+Se declara la variable: 'c' de tipo: 'char'
+Se encontro la sentencia IF y ELSE
+Se encontro la sentencia FOR
+Se declara la funcion: 'main' que devuelve: 'int'
+
+ ----------------------Tabla de Simbolos --------------------------- 
+
+IDENTIFICADOR: a  -> CONTENIDO: 0
+IDENTIFICADOR: c  -> CONTENIDO: NULL
+IDENTIFICADOR: i  -> CONTENIDO: 0
+IDENTIFICADOR: j  -> CONTENIDO: 0
+IDENTIFICADOR: m  -> CONTENIDO: 0
+IDENTIFICADOR: main  -> Parametro/s: int, double
+IDENTIFICADOR: n  -> CONTENIDO: 0
+IDENTIFICADOR: t  -> CONTENIDO: 0
+IDENTIFICADOR: x  -> CONTENIDO: 0
+IDENTIFICADOR: z  -> CONTENIDO: 0
