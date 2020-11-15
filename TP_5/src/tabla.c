@@ -15,7 +15,7 @@ Simbolo* crearSimbolo(char* tipoDato, char* nombreID, int tipoID){
         default:
             break;
         case VAR:
-                if(! strcmp(tipoDato, "int") || ! strcmp(tipoDato, "unsigned") || ! strcmp(tipoDato, "long")) // [!] 
+                if(! strcmp(tipoDato, "int") || ! strcmp(tipoDato, "unsigned") || ! strcmp(tipoDato, "long")) 
                     nuevoNodo -> valor.valEnt = 0;
                 else if(! strcmp(tipoDato, "float") || ! strcmp(tipoDato, "double"))
                     nuevoNodo -> valor.valReal = 0;
@@ -36,7 +36,7 @@ void insertarSimbolo(Simbolo* nuevoSimbolo){
     
     Simbolo* nuevoNodo = devolverSimbolo(nuevoSimbolo -> nombre);
 
-    if(! nuevoNodo){ // [!] Si no esta declarado dentro de la TS, genero un símbolo y lo inserto ordenado
+    if(! nuevoNodo){ 
 
         nuevoNodo = nuevoSimbolo;
 
@@ -90,7 +90,7 @@ Simbolo* devolverSimbolo(char* nombreID){
             return aux;
         aux = aux -> sig;
     }
-    return NULL;
+    return aux;
 
 }
 

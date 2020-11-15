@@ -6,6 +6,7 @@
     #include <string.h>
     #include "tp_5.tab.h"
 
+    enum {ENTERO,REAL,CARACTER};
     char* cadenaErronea = NULL;
     unsigned errorFlag = 0;
     extern unsigned cantLineas = 1;
@@ -80,10 +81,10 @@ COMODIN        .
 
 %%
 
-{CONST_DECIMAL}    {yylval.valorEntero = atoi(yytext); finalDeError(); return NUM_ENTERO;}
-{CONST_HEXA}       {yylval.valorEntero = strtoll(yytext, NULL, 16); finalDeError(); return NUM_ENTERO;}
-{CONST_OCTAL}      {yylval.valorEntero = strtoll(yytext, NULL, 8); finalDeError(); return NUM_ENTERO;}
-{CONST_REAL}       {yylval.valorReal   = atof(yytext); finalDeError(); return NUM_REAL;}
+{CONST_DECIMAL}    {yylval.mystruct.valorEntero = atoi(yytext); yylval.mystruct.tipo = ENTERO;  finalDeError(); return NUM_ENTERO;}
+{CONST_HEXA}       {yylval.mystruct.valorEntero = strtoll(yytext, NULL, 16); yylval.mystruct.tipo = ENTERO; finalDeError(); return NUM_ENTERO;}
+{CONST_OCTAL}      {yylval.mystruct.valorEntero = strtoll(yytext, NULL, 8); yylval.mystruct.tipo = ENTERO; finalDeError(); return NUM_ENTERO;}
+{CONST_REAL}       {yylval.mystruct.valorReal   = atof(yytext); yylval.mystruct.tipo = REAL; finalDeError(); return NUM_REAL;}
 {CARACT_SIMPLES}   {finalDeError(); return yytext[0];}
 "continue"         {yylval.valorString = strdup(yytext); finalDeError(); return CONTINUE;}
 "break"            {yylval.valorString = strdup(yytext); finalDeError(); return BREAK;}
@@ -113,8 +114,8 @@ COMODIN        .
 {COMODIN}          {esError(yytext);}
 
 
-{CONST_CHAR}       {yylval.valorString = strdup(yytext); finalDeError(); return CHAR;}
-{LITERAL_CADENA}   {yylval.valorString = strdup(yytext); finalDeError(); return STRING;}
+{CONST_CHAR}       {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return CHAR;}
+{LITERAL_CADENA}   {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return STRING;}
 
 "*="               {finalDeError(); return ASIG_MULT;}
 "/="               {finalDeError(); return ASIG_DIV;}

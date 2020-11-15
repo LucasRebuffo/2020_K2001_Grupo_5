@@ -93,16 +93,22 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 81 "../src/tp_5.y"
+#line 83 "../src/tp_5.y"
 
-  int    valorEntero;
-  double valorReal;
-  char*  valorString;
+  struct yylval_struct
+    {
+        int tipo;
+        int valorEntero;
+        float valorReal;
+        char* valorCaracter;
+    } mystruct;
+
+    char*  valorString;
 
 
 
 /* Line 1676 of yacc.c  */
-#line 106 "tp_5.tab.h"
+#line 112 "tp_5.tab.h"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */

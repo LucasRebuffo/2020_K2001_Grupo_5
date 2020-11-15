@@ -1,17 +1,53 @@
-Se declara parametro valor de tipo int
-Se declara parametro xxx de tipo double
-Se declara la variable: 'x' de tipo: 'int'
-Se declara la variable: 't' de tipo: 'double'
-Se declara la variable: 'm' de tipo: 'double'
-Se declara la variable: 'a' de tipo: 'double'
-Se declara la variable: 'n' de tipo: 'double'
-Se declara la variable: 'z' de tipo: 'double'
-Se declara la variable: 'j' de tipo: 'int'
-Se declara la variable: 'i' de tipo: 'int'
-Se declara la variable: 'c' de tipo: 'char'
-Se encontro la sentencia IF y ELSE
-Se encontro la sentencia FOR
-Se declara la funcion: 'main' que devuelve: 'int'
+
+Se declara la variable: 'z' de tipo: 'int' en linea 4
+
+Se declara la variable: 'y' de tipo: 'int' en linea 4
+
+Se declara la variable: 'x' de tipo: 'int' en linea 4
+
+Se declara la variable: 't' de tipo: 'double' en linea 5
+
+Se declara la variable: 'm' de tipo: 'double' en linea 6
+
+Se declara la variable: 'a' de tipo: 'double' en linea 7
+
+Error sintatico en linea 8
+
+Error sintatico en linea 8
+
+ERROR:Doble declaracion de la funcion |z| en linea 9 
+
+Se declara la variable: 'j' de tipo: 'int' en linea 10
+
+Se declara la variable: 'i' de tipo: 'int' en linea 11
+
+Se declara la variable: 'c' de tipo: 'char' en linea 13
+
+ERROR: La variable/función 'r' no fue declarada.
+
+Los operandos son de distinto tipo en linea 14
+
+ERROR:Doble declaracion de la funcion |a| en linea 16 
+
+Se encontro la sentencia IF y ELSE en linea 24
+
+ERROR: La variable/función 'n' no fue declarada.
+
+ERROR: La variable/función 'printf' no fue declarada.
+
+Se encontro la sentencia FOR en linea 28
+
+ERROR: La variable/función 'sqrt' no fue declarada.
+
+ERROR: La variable/función 'n' no fue declarada.
+
+ERROR: La variable/función 'printf' no fue declarada.
+
+Error sintatico en linea 31
+
+Error sintatico en linea 31
+
+ Se declara la funcion: 'main' que devuelve: 'int' en linea 33
 
  ----------------------Tabla de Simbolos --------------------------- 
 
@@ -20,8 +56,8 @@ IDENTIFICADOR: c  -> CONTENIDO: NULL
 IDENTIFICADOR: i  -> CONTENIDO: 0
 IDENTIFICADOR: j  -> CONTENIDO: 0
 IDENTIFICADOR: m  -> CONTENIDO: 0
-IDENTIFICADOR: main  -> Parametro/s: int, double
-IDENTIFICADOR: n  -> CONTENIDO: 0
+IDENTIFICADOR: main  -> Parametro/s: int, double, int, int
 IDENTIFICADOR: t  -> CONTENIDO: 0
 IDENTIFICADOR: x  -> CONTENIDO: 0
+IDENTIFICADOR: y  -> CONTENIDO: 0
 IDENTIFICADOR: z  -> CONTENIDO: 0

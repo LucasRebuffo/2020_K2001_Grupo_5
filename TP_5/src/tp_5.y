@@ -11,6 +11,7 @@
 int yylex ();
 int yyerror (char*);
 int printError(char*, int);
+void variableNoDeclarada(char* nombreVariable);
 
 unsigned count = 0;
 
@@ -21,6 +22,7 @@ char* tempVar = NULL;
 char* tempPointer = NULL;
 Funcion* parameters[20];
 int pos = 0;
+unsigned cantLineas;
 
 %}
 
@@ -30,8 +32,8 @@ int pos = 0;
 %type <valorString> especificadores_declaracion
 %type <valorString> error
 
-%token <valorEntero> NUM_ENTERO
-%token <valorReal> NUM_REAL
+%token <mystruct> NUM_ENTERO
+%token <mystruct> NUM_REAL
 %token <valorString> TIPO_DATO
 %token <valorString> ID
 %token ASIG_MULT
@@ -79,9 +81,15 @@ int pos = 0;
 
 
 %union {
-  int    valorEntero;
-  double valorReal;
-  char*  valorString;
+  struct yylval_struct
+    {
+        int tipo;
+        int valorEntero;
+        float valorReal;
+        char* valorCaracter;
+    } mystruct;
+
+    char*  valorString;
 }
 
 %%
@@ -94,7 +102,7 @@ input:   /* vacio */
 line:  /* Vacio */
       | declaracion ';' {tempVar = NULL; tempPointer = NULL;}
       | sentencia
-      | error finDeLinea { yyerrok; yyerror(" ");}
+      | error finDeLinea { yyerrok; yyerror("");}
 ;
 
 finDeLinea:   ';'
@@ -106,13 +114,25 @@ finDeLinea:   ';'
             | '['
             | ']'
 ;            
-const:   NUM_ENTERO 
-       | NUM_REAL  
-       | CHAR      
+const:   NUM_ENTERO {$<mystruct>$.tipo = $<mystruct>1.tipo; $<mystruct>$.valorEntero = $<mystruct>1.valorEntero; }
+       | NUM_REAL {$<mystruct>$.tipo = $<mystruct>1.tipo; $<mystruct>$.valorReal = $<mystruct>1.valorReal;} 
+       | CHAR     {{$<mystruct>$.tipo = $<mystruct>1.tipo; $<mystruct>$.valorCaracter = $<mystruct>1.valorCaracter;} } 
        | const_enum
 ;
 
-const_enum: ID 
+const_enum: ID {  Simbolo* aux = devolverSimbolo($<valorString>1);
+                    if(aux) {
+                      if(! strcmp(aux->tipoDato, "int") || ! strcmp(aux->tipoDato, "unsigned") || ! strcmp(aux->tipoDato, "long")){ 
+                        $<mystruct>$.tipo = 0; $<mystruct>$.valorEntero = aux->valor.valEnt ;}
+                    else if(! strcmp(aux->tipoDato, "float") || ! strcmp(aux->tipoDato, "double")){
+                      $<mystruct>$.tipo = 1; $<mystruct>$.valorReal = aux->valor.valReal ;}
+                    else if(! strcmp(aux->tipoDato, "char")){
+                      $<mystruct>$.tipo = 2; $<mystruct>$.valorCaracter = aux->valor.valChar ;}
+                    }
+                    else{
+                      variableNoDeclarada($<valorString>1);
+                        }
+             }
 ;
 
 expresion:   exp_asignacion
@@ -177,27 +197,49 @@ exp_desp:   exp_aditiva
           | exp_desp OP_DESP_DER exp_aditiva  
 ;
 
-exp_aditiva:   exp_multip
-             | exp_aditiva '+' exp_multip   
+exp_aditiva:   exp_multip {$<mystruct>$ = $<mystruct>1;}
+             | exp_aditiva '+' exp_multip { if($<mystruct>1.tipo==$<mystruct>3.tipo)
+    { 
+        if($<mystruct>1.tipo==1)
+    
+        {
+            $<mystruct>$.valorEntero=$<mystruct>1.valorEntero+$<mystruct>3.valorEntero;
+        }
+        
+        else if($<mystruct>1.tipo==2)
+        
+        {
+            $<mystruct>$.valorReal=$<mystruct>1.valorReal+$<mystruct>3.valorReal;
+        }
+
+        else{
+           
+        }
+    }  
+    else
+    {
+        fprintf(yyout ,"\nLos operandos son de distinto tipo en linea %d\n" , cantLineas);
+    }     
+}  
              | exp_aditiva '-' exp_multip   
 ;
 
-exp_multip:   exp_conversion
+exp_multip:   exp_conversion {$<mystruct>$ = $<mystruct>1;}
             | exp_multip '*' exp_conversion   
             | exp_multip '/' exp_conversion   
             | exp_multip '%' exp_conversion   
 ;
 
-exp_conversion:   exp_unaria
-                | '(' nombre_tipo ')' exp_conversion exp_unaria {/*CAMBIAR POR nombre_tipo*/}
+exp_conversion:   exp_unaria {$<mystruct>$ = $<mystruct>1;}
+                | '(' nombre_tipo ')' exp_conversion exp_unaria 
 ;
 
-exp_unaria:   exp_sufijo
+exp_unaria:   exp_sufijo {$<mystruct>$ = $<mystruct>1;}
             | OP_INC exp_unaria           
             | OP_DEC exp_unaria           
             | op_unario exp_conversion
             | SIZEOF exp_unaria
-            | SIZEOF '(' nombre_tipo ')'  {/*CAMBIAR POR nombre_tipo*/}
+            | SIZEOF '(' nombre_tipo ')'  
 ;
 
 op_unario:   '&'
@@ -208,7 +250,7 @@ op_unario:   '&'
            | '!'
 ;
 
-exp_sufijo:   exp_primaria
+exp_sufijo:   exp_primaria {$<mystruct>$ = $<mystruct>1;}
             | exp_sufijo '[' expresion ']'        
             | exp_sufijo '(' lista_argumentos ')' 
             | exp_sufijo '.' ID                   
@@ -221,7 +263,7 @@ lista_argumentos:   exp_asignacion
                   | lista_argumentos ',' exp_asignacion
 ;
 
-exp_primaria:   const
+exp_primaria:   const {$<mystruct>$ = $<mystruct>1;}
               | STRING              
               | '(' expresion ')'            
 ;
@@ -239,11 +281,22 @@ especificadores_declaracion_opc:   /* Vacio */
                                  | especificadores_declaracion
 ;
 
-lista_declaradores:   declarador                        {fprintf(yyout, "Se declara la variable: \'%s\' de tipo: \'%s\'\n", $<valorString>1, tempVar);
-                                                          insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));
-                                                        }          
-                    | declarador ',' lista_declaradores {fprintf(yyout, "Se declara la variable: \'%s\' de tipo: \'%s\'\n", $<valorString>1, tempVar);
-                                                          insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));
+lista_declaradores:   declarador                        { Simbolo* aux = devolverSimbolo($<valorString>1);
+                                                          if(aux == NULL){
+                                                            fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", $<valorString>1, tempVar , cantLineas);
+                                                            insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));}
+                                                          else{
+                                                            fprintf(yyout,"\nERROR:Doble declaracion de la variable |%s| en linea %d \n", $<valorString>1 , cantLineas);
+                                                          }
+                                                        }   
+
+                    | declarador ',' lista_declaradores { Simbolo* aux = devolverSimbolo($<valorString>1);
+                                                          if(aux == NULL){
+                                                            fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", $<valorString>1, tempVar, cantLineas);
+                                                            insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));}
+                                                          else{
+                                                            fprintf(yyout,"\nERROR:Doble declaracion de la variable |%s| en linea %d \n", $<valorString>1 , cantLineas);
+                                                          }
                                                         }
 ;
 
@@ -268,7 +321,7 @@ especificador_tipo:   TIPO_DATO                   {tempVar = strdup($<valorStrin
                     | especificador_enum  {/*Sacamos nombre_typedef*/}
 ;
 
-especificador_struct_union:   STRUCT_UNION ID_opc '{' lista_declaradores_struct '}' {/*Hay problemas con el typedef ya que no tiene un identificador final*/}
+especificador_struct_union:   STRUCT_UNION ID_opc '{' lista_declaradores_struct '}'
                             | STRUCT_UNION ID
 ;
 
@@ -347,7 +400,7 @@ lista_parametros:   declaracion_parametro
                   | lista_parametros ',' declaracion_parametro
 ;
 
-declaracion_parametro:   especificadores_declaracion decla {fprintf(yyout , "Se declara parametro %s de tipo %s\n" , $<valorString>2 , $<valorString>1);
+declaracion_parametro:   especificadores_declaracion decla {
                                                               parameters[pos] = crearParametro($<valorString>1);
                                                               pos++;
                                                             }
@@ -403,13 +456,18 @@ sentencia:   sentencia_exp
            | sentencia_iteracion
            | sentencia_etiquetada
            | sentencia_salto
-           | especificadores_declaracion decla sentencia_compuesta  {fprintf(yyout, "Se declara la funcion: \'%s\' que devuelve: \'%s\'\n", $<valorString>2, $<valorString>1);
-                                                                      insertarSimbolo(crearSimbolo($<valorString>1,$<valorString>2,FUNC));
-                                                                      Simbolo * aux = devolverSimbolo($<valorString>2);
-                                                                      for(int i = 0 ; i<pos ; i++){
+           | especificadores_declaracion decla sentencia_compuesta  { Simbolo* aux2 = devolverSimbolo($<valorString>2);
+                                                                      if(aux2 == NULL){
+                                                                        fprintf(yyout, "\n Se declara la funcion: \'%s\' que devuelve: \'%s\' en linea %d\n", $<valorString>2, $<valorString>1,cantLineas);
+                                                                        insertarSimbolo(crearSimbolo($<valorString>1,$<valorString>2,FUNC));
+                                                                        Simbolo * aux = devolverSimbolo($<valorString>2);
+                                                                        for(int i = 0 ; i<pos ; i++){
                                                                           insertarParametro(&(aux->valor.func) , parameters[i] );
-                                                                      }
-                                                                      pos = 0;
+                                                                        }
+                                                                        pos = 0;}
+                                                                    else{
+                                                                      fprintf(yyout,"\nERROR:Doble declaracion de la funcion |%s| en linea %d \n", $<valorString>2 , cantLineas);
+                                                                        }
                                                                     }
 ;
 
@@ -420,7 +478,8 @@ expresion_opc:   /* Vacio */
                | expresion
 ;
 
-sentencia_compuesta:  '{' lista_compuesta '}'
+sentencia_compuesta:    ';'
+                      | '{' lista_compuesta '}'
 ;
 
 lista_compuesta:   lista_declaraciones_opc lista_sentencias_opc
@@ -444,14 +503,14 @@ lista_sentencias:   sentencia
 ;
 
 
-sentencia_seleccion:  IF '(' expresion ')' sentencia                                            {fprintf(yyout, "Se encontro la sentencia IF\n");}
-                    | IF '(' expresion ')' sentencia ELSE sentencia                             {fprintf(yyout, "Se encontro la sentencia IF y ELSE\n");}
-                    | SWITCH '(' expresion ')' sentencia                                        {fprintf(yyout, "Se encontro la sentencia SWITCH\n");}
+sentencia_seleccion:  IF '(' expresion ')' sentencia                                            {fprintf(yyout, "\nSe encontro la sentencia IF en linea %d\n", cantLineas);}
+                    | IF '(' expresion ')' sentencia ELSE sentencia                             {fprintf(yyout, "\nSe encontro la sentencia IF y ELSE en linea %d\n", cantLineas);}
+                    | SWITCH '(' expresion ')' sentencia                                        {fprintf(yyout, "\nSe encontro la sentencia SWITCH en lineas %d\n",cantLineas);}
 ;
 
-sentencia_iteracion:  WHILE '(' expresion ')' sentencia                                         {fprintf(yyout, "Se encontro la sentencia WHILE\n");}                                         
-                    | DO sentencia WHILE '(' expresion ')' ';'                                  {fprintf(yyout, "Se encontro la sentencia DO WHILE\n");}                                  
-                    | FOR '(' for_opc ';' expresion_opc ';' expresion_opc ')' sentencia         {fprintf(yyout, "Se encontro la sentencia FOR\n");}
+sentencia_iteracion:  WHILE '(' expresion ')' sentencia                                         {fprintf(yyout, "\nSe encontro la sentencia WHILE en linea %d\n", cantLineas);}                                         
+                    | DO sentencia WHILE '(' expresion ')' ';'                                  {fprintf(yyout, "\nSe encontro la sentencia DO WHILE en linea %d\n" ,cantLineas);}                                  
+                    | FOR '(' for_opc ';' expresion_opc ';' expresion_opc ')' sentencia         {fprintf(yyout, "\nSe encontro la sentencia FOR en linea %d\n", cantLineas);}
 ;
 
 for_opc:   /* Vacio */
@@ -464,10 +523,10 @@ sentencia_etiquetada:  CASE exp_constante ':' sentencia
                      | ID ':' sentencia  
 ;  
  
-sentencia_salto:  CONTINUE ';'                                                                  {fprintf(yyout, "Se encontro la sentencia CONTINUE\n");}
-                | BREAK ';'                                                                     {fprintf(yyout, "Se encontro la sentencia BREAK\n");}
-                | RETURN expresion_opc ';'                                                      {fprintf(yyout, "Se encontro la sentencia RETURN\n");}  
-                | GOTO ID ';'                                                                   {fprintf(yyout, "Se encontro la sentencia GO TO\n");}               
+sentencia_salto:  CONTINUE ';'                                                                  {fprintf(yyout, "\nSe encontro la sentencia CONTINUE\n");}
+                | BREAK ';'                                                                     {fprintf(yyout, "\nSe encontro la sentencia BREAK\n");}
+                | RETURN expresion_opc ';'                                                      {fprintf(yyout, "\nSe encontro la sentencia RETURN\n");}  
+                | GOTO ID ';'                                                                   {fprintf(yyout, "\nSe encontro la sentencia GO TO\n");}               
 ;  
 
 
@@ -475,16 +534,20 @@ sentencia_salto:  CONTINUE ';'                                                  
 %%
 
 Simbolo* tablaSimbolos;
-unsigned cantLineas;
+
 
 int yyerror (char *mensaje)  /* Funcion de error */
 {
-  fprintf (yyout, "Error sintatico en linea %d\n", cantLineas);
+  fprintf (yyout, "\nError sintatico en linea %d\n", cantLineas);
 }
 
 int printError(char *mensaje, int linea)
 {
-  fprintf(yyout, "Se encontro la cadena lexicamente invalida: %s en la linea: %d\n", mensaje, linea); 
+  fprintf(yyout, "\nSe encontro la cadena lexicamente invalida: %s en la linea: %d\n", mensaje, linea); 
+}
+
+void variableNoDeclarada(char* nombreVariable) {
+  fprintf(yyout, "\nERROR: La variable/función \'%s\' no fue declarada.\n", nombreVariable);
 }
 
 void main(){ 
