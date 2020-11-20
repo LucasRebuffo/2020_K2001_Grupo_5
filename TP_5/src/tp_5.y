@@ -7,22 +7,24 @@
 #include "tabla.h"
 
 #define YYDEBUG 1
-
-int yylex ();
-int yyerror (char*);
-int printError(char*, int);
-void variableNoDeclarada(char* nombreVariable);
+// PROTORIPO DE FUNCIONES QUE SE VAN A USAR EN EL ANÁLISIS
+int yylex (); // --> COMUNICA EL ARCHIVO .l CON EL .y
+int yyerror (char*); // --> MUESTRA EL MENSAJE DE ERROR CUANDO HAY ERROR SINTÁCTICO
+int printError(char*, int); // --> MUESTRA CUANDO HAY ERROR LEXICO
+void variableNoDeclarada(char* nombreVariable); // --> MUESTRA ERROR DE SI UNA VARIABLE NO SE DECLARO
 
 unsigned count = 0;
 
-FILE* yyin;
-FILE* yyout;
+FILE* yyin; // --> ARCHIVO DE ENTRADA
+FILE* yyout; // --> ARCHIVO DE SALIDA
 
+// ESTA VARIABLES SE UTILIZAN PARA OBTENER LOS TIPOS DE DATOS
 char* tempVar = NULL;
 char* tempPointer = NULL;
-Funcion* parameters[20];
-int pos = 0;
-unsigned cantLineas;
+
+Funcion* parameters[20]; // --> VA GUARDANDO LOS PARAMETROS CUANDO SE RECONOCEN
+int pos = 0; // --> CONTADOR PARA LOS PARAMETROS
+unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO
 
 %}
 
@@ -80,6 +82,7 @@ unsigned cantLineas;
 %token <valorString> GOTO
 
 
+// ESTRUCTURA PARA PODER VALIDAR OPERACIONES SINTÁCTICAS
 %union {
   struct yylval_struct
     {

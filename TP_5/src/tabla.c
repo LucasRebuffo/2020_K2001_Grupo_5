@@ -108,12 +108,7 @@ void mostrarTabla(FILE* archivoSalida){
         
         switch(aux -> tipoID){
             case VAR: 
-                if(! strcmp(aux -> tipoDato, "int") || ! strcmp(aux -> tipoDato, "unsigned") || ! strcmp(aux -> tipoDato, "long")) // [!] 
-                    fprintf(archivoSalida, " -> CONTENIDO: %d\n", aux->valor.valEnt);
-                else if(! strcmp(aux -> tipoDato, "float") || ! strcmp(aux -> tipoDato, "double"))
-                    fprintf(archivoSalida, " -> CONTENIDO: %lg\n", aux -> valor.valReal);
-                else if(! strcmp(aux -> tipoDato, "char"))
-                    fprintf(archivoSalida, " -> CONTENIDO: %s\n", aux -> valor.valChar);
+                    fprintf(archivoSalida, " -> TIPO: %s\n", aux->tipoDato);
                 break;
             case FUNC:
                     mostrarParametros(archivoSalida, aux -> valor.func);
@@ -142,11 +137,3 @@ char* toUpper(char* nombreID){
     return strupr(temporal);
 }
 
-void cambiarValor(Simbolo* simbolo, TipoValor valorNuevo) {
-    if(! strcmp(simbolo -> tipoDato, "int") || ! strcmp(simbolo -> tipoDato, "unsigned") || ! strcmp(simbolo -> tipoDato, "long")) 
-        simbolo->valor.valEnt = valorNuevo.valEnt;
-    else if(! strcmp(simbolo -> tipoDato, "float") || ! strcmp(simbolo -> tipoDato, "double"))
-        simbolo -> valor.valReal = valorNuevo.valReal;
-    else if(! strcmp(simbolo -> tipoDato, "char"))
-        simbolo -> valor.valChar = strdup(valorNuevo.valChar);
-}

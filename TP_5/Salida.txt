@@ -51,13 +51,13 @@ Error sintatico en linea 31
 
  ----------------------Tabla de Simbolos --------------------------- 
 
-IDENTIFICADOR: a  -> CONTENIDO: 0
-IDENTIFICADOR: c  -> CONTENIDO: NULL
-IDENTIFICADOR: i  -> CONTENIDO: 0
-IDENTIFICADOR: j  -> CONTENIDO: 0
-IDENTIFICADOR: m  -> CONTENIDO: 0
+IDENTIFICADOR: a  -> TIPO: double
+IDENTIFICADOR: c  -> TIPO: char
+IDENTIFICADOR: i  -> TIPO: int
+IDENTIFICADOR: j  -> TIPO: int
+IDENTIFICADOR: m  -> TIPO: double
 IDENTIFICADOR: main  -> Parametro/s: int, double, int, int
-IDENTIFICADOR: t  -> CONTENIDO: 0
-IDENTIFICADOR: x  -> CONTENIDO: 0
-IDENTIFICADOR: y  -> CONTENIDO: 0
-IDENTIFICADOR: z  -> CONTENIDO: 0
+IDENTIFICADOR: t  -> TIPO: double
+IDENTIFICADOR: x  -> TIPO: int
+IDENTIFICADOR: y  -> TIPO: int
+IDENTIFICADOR: z  -> TIPO: int
