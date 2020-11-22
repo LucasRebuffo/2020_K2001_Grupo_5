@@ -593,10 +593,10 @@ static const yytype_uint16 yyrline[] =
      406,   410,   413,   414,   417,   418,   421,   422,   425,   426,
      429,   430,   433,   436,   439,   440,   443,   444,   445,   448,
      449,   452,   453,   456,   457,   458,   459,   460,   461,   462,
-     477,   480,   481,   484,   485,   488,   489,   492,   493,   496,
-     497,   500,   501,   504,   505,   509,   510,   511,   514,   515,
-     516,   519,   520,   521,   524,   525,   526,   529,   530,   531,
-     532
+     479,   482,   483,   486,   487,   490,   491,   494,   495,   498,
+     499,   502,   503,   506,   507,   511,   512,   513,   516,   517,
+     518,   521,   522,   523,   526,   527,   528,   531,   532,   533,
+     534
 };
 #endif
 
@@ -1808,7 +1808,7 @@ yyreduce:
 
 /* Line 1455 of yacc.c  */
 #line 108 "../src/tp_5.y"
-    { yyerrok; yyerror("");;}
+    { yyerrok; yyerror(""); pos = 0;;}
     break;
 
   case 16:
@@ -1952,7 +1952,7 @@ yyreduce:
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", (yyvsp[(1) - (1)].valorString), tempVar , cantLineas);
                                                             insertarSimbolo(crearSimbolo(tempVar,(yyvsp[(1) - (1)].valorString),VAR));}
                                                           else{
-                                                            fprintf(yyout,"\nERROR:Doble declaracion de la variable |%s| en linea %d \n", (yyvsp[(1) - (1)].valorString) , cantLineas);
+                                                            fprintf(yyout,"\nERROR:Doble declaracion del simbolo |%s| en linea %d \n", (yyvsp[(1) - (1)].valorString) , cantLineas);
                                                           }
                                                         ;}
     break;
@@ -1966,7 +1966,7 @@ yyreduce:
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", (yyvsp[(1) - (3)].valorString), tempVar, cantLineas);
                                                             insertarSimbolo(crearSimbolo(tempVar,(yyvsp[(1) - (3)].valorString),VAR));}
                                                           else{
-                                                            fprintf(yyout,"\nERROR:Doble declaracion de la variable |%s| en linea %d \n", (yyvsp[(1) - (3)].valorString) , cantLineas);
+                                                            fprintf(yyout,"\nERROR:Doble declaracion del simbolo |%s| en linea %d \n", (yyvsp[(1) - (3)].valorString) , cantLineas);
                                                           }
                                                         ;}
     break;
@@ -2063,9 +2063,11 @@ yyreduce:
                                                                         for(int i = 0 ; i<pos ; i++){
                                                                           insertarParametro(&(aux->valor.func) , parameters[i] );
                                                                         }
-                                                                        pos = 0;}
+                                                                        pos = 0;
+                                                                        
+                                                                        }
                                                                     else{
-                                                                      fprintf(yyout,"\nERROR:Doble declaracion de la funcion |%s| en linea %d \n", (yyvsp[(2) - (3)].valorString) , cantLineas);
+                                                                      fprintf(yyout,"\nERROR:Doble declaracion del simbolo |%s| en linea %d \n", (yyvsp[(2) - (3)].valorString) , cantLineas);
                                                                         }
                                                                     ;}
     break;
@@ -2073,77 +2075,77 @@ yyreduce:
   case 195:
 
 /* Line 1455 of yacc.c  */
-#line 509 "../src/tp_5.y"
+#line 511 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia IF en linea %d\n", cantLineas);;}
     break;
 
   case 196:
 
 /* Line 1455 of yacc.c  */
-#line 510 "../src/tp_5.y"
+#line 512 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia IF y ELSE en linea %d\n", cantLineas);;}
     break;
 
   case 197:
 
 /* Line 1455 of yacc.c  */
-#line 511 "../src/tp_5.y"
+#line 513 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia SWITCH en lineas %d\n",cantLineas);;}
     break;
 
   case 198:
 
 /* Line 1455 of yacc.c  */
-#line 514 "../src/tp_5.y"
+#line 516 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia WHILE en linea %d\n", cantLineas);;}
     break;
 
   case 199:
 
 /* Line 1455 of yacc.c  */
-#line 515 "../src/tp_5.y"
+#line 517 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia DO WHILE en linea %d\n" ,cantLineas);;}
     break;
 
   case 200:
 
 /* Line 1455 of yacc.c  */
-#line 516 "../src/tp_5.y"
+#line 518 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia FOR en linea %d\n", cantLineas);;}
     break;
 
   case 207:
 
 /* Line 1455 of yacc.c  */
-#line 529 "../src/tp_5.y"
+#line 531 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia CONTINUE\n");;}
     break;
 
   case 208:
 
 /* Line 1455 of yacc.c  */
-#line 530 "../src/tp_5.y"
+#line 532 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia BREAK\n");;}
     break;
 
   case 209:
 
 /* Line 1455 of yacc.c  */
-#line 531 "../src/tp_5.y"
+#line 533 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia RETURN\n");;}
     break;
 
   case 210:
 
 /* Line 1455 of yacc.c  */
-#line 532 "../src/tp_5.y"
+#line 534 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia GO TO\n");;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2147 "tp_5.tab.c"
+#line 2149 "tp_5.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2355,7 +2357,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 537 "../src/tp_5.y"
+#line 539 "../src/tp_5.y"
 
 
 Simbolo* tablaSimbolos;

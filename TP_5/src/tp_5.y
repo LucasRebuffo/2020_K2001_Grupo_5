@@ -105,7 +105,7 @@ input:   /* vacio */
 line:  /* Vacio */
       | declaracion ';' {tempVar = NULL; tempPointer = NULL;}
       | sentencia
-      | error finDeLinea { yyerrok; yyerror("");}
+      | error finDeLinea { yyerrok; yyerror(""); pos = 0;}
 ;
 
 finDeLinea:   ';'
@@ -289,7 +289,7 @@ lista_declaradores:   declarador                        { Simbolo* aux = devolve
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", $<valorString>1, tempVar , cantLineas);
                                                             insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));}
                                                           else{
-                                                            fprintf(yyout,"\nERROR:Doble declaracion de la variable |%s| en linea %d \n", $<valorString>1 , cantLineas);
+                                                            fprintf(yyout,"\nERROR:Doble declaracion del simbolo |%s| en linea %d \n", $<valorString>1 , cantLineas);
                                                           }
                                                         }   
 
@@ -298,7 +298,7 @@ lista_declaradores:   declarador                        { Simbolo* aux = devolve
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", $<valorString>1, tempVar, cantLineas);
                                                             insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));}
                                                           else{
-                                                            fprintf(yyout,"\nERROR:Doble declaracion de la variable |%s| en linea %d \n", $<valorString>1 , cantLineas);
+                                                            fprintf(yyout,"\nERROR:Doble declaracion del simbolo |%s| en linea %d \n", $<valorString>1 , cantLineas);
                                                           }
                                                         }
 ;
@@ -467,11 +467,13 @@ sentencia:   sentencia_exp
                                                                         for(int i = 0 ; i<pos ; i++){
                                                                           insertarParametro(&(aux->valor.func) , parameters[i] );
                                                                         }
-                                                                        pos = 0;}
-                                                                    else{
-                                                                      fprintf(yyout,"\nERROR:Doble declaracion de la funcion |%s| en linea %d \n", $<valorString>2 , cantLineas);
+                                                                        pos = 0;
+                                                                        
                                                                         }
-                                                                    }
+                                                                    else{
+                                                                      fprintf(yyout,"\nERROR:Doble declaracion del simbolo |%s| en linea %d \n", $<valorString>2 , cantLineas);
+                                                                        }
+                                                                    }                                                  
 ;
 
 sentencia_exp: expresion_opc ';'

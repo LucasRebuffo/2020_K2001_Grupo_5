@@ -15,7 +15,7 @@ Error sintatico en linea 8
 
 Error sintatico en linea 8
 
-ERROR:Doble declaracion de la funcion |z| en linea 9 
+ERROR:Doble declaracion del simbolo |z| en linea 9 
 
 Se declara la variable: 'j' de tipo: 'int' en linea 10
 
@@ -27,7 +27,7 @@ ERROR: La variable/función 'r' no fue declarada.
 
 Los operandos son de distinto tipo en linea 14
 
-ERROR:Doble declaracion de la funcion |a| en linea 16 
+ERROR:Doble declaracion del simbolo |a| en linea 16 
 
 Se encontro la sentencia IF y ELSE en linea 24
 
@@ -56,7 +56,7 @@ IDENTIFICADOR: c  -> TIPO: char
 IDENTIFICADOR: i  -> TIPO: int
 IDENTIFICADOR: j  -> TIPO: int
 IDENTIFICADOR: m  -> TIPO: double
-IDENTIFICADOR: main  -> Parametro/s: int, double, int, int
+IDENTIFICADOR: main  -> Parametro/s: int, int
 IDENTIFICADOR: t  -> TIPO: double
 IDENTIFICADOR: x  -> TIPO: int
 IDENTIFICADOR: y  -> TIPO: int
