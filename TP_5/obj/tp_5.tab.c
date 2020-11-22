@@ -77,14 +77,14 @@
 #include <ctype.h>
 #include "tabla.h"
 
-#define YYDEBUG 1
+#define YYDEBUG 1 
+// PARA UTILIZAR EL DEBUG DE BISON
+
 // PROTORIPO DE FUNCIONES QUE SE VAN A USAR EN EL ANÁLISIS
 int yylex (); // --> COMUNICA EL ARCHIVO .l CON EL .y
 int yyerror (char*); // --> MUESTRA EL MENSAJE DE ERROR CUANDO HAY ERROR SINTÁCTICO
 int printError(char*, int); // --> MUESTRA CUANDO HAY ERROR LEXICO
 void variableNoDeclarada(char* nombreVariable); // --> MUESTRA ERROR DE SI UNA VARIABLE NO SE DECLARO
-
-unsigned count = 0;
 
 FILE* yyin; // --> ARCHIVO DE ENTRADA
 FILE* yyout; // --> ARCHIVO DE SALIDA
@@ -93,14 +93,17 @@ FILE* yyout; // --> ARCHIVO DE SALIDA
 char* tempVar = NULL;
 char* tempPointer = NULL;
 
+// Por que es un array de 20 Funcion si La estructura Funcion ya es recursiva (lista) ??
+// O sea, aca se crea un array de 20 listas de parametros de funciones (puede ser entonces que se puedan guardar hasta 20 funciones)
 Funcion* parameters[20]; // --> VA GUARDANDO LOS PARAMETROS CUANDO SE RECONOCEN
 int pos = 0; // --> CONTADOR PARA LOS PARAMETROS
-unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO
+
+unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO. 
 
 
 
 /* Line 189 of yacc.c  */
-#line 104 "tp_5.tab.c"
+#line 107 "tp_5.tab.c"
 
 /* Enabling traces.  */
 #ifndef YYDEBUG
@@ -181,7 +184,7 @@ typedef union YYSTYPE
 {
 
 /* Line 214 of yacc.c  */
-#line 86 "../src/tp_5.y"
+#line 98 "../src/tp_5.y"
 
   struct yylval_struct
     {
@@ -189,14 +192,14 @@ typedef union YYSTYPE
         int valorEntero;
         float valorReal;
         char* valorCaracter;
-    } mystruct;
+    } mystruct;// Este campo se usa para guardar info (datos agrupados en un struct comun) de las constantes (enteras, decimales y caracteres)
 
-    char*  valorString;
+    char*  valorString;// Este campo se usa para guardar strings
 
 
 
 /* Line 214 of yacc.c  */
-#line 200 "tp_5.tab.c"
+#line 203 "tp_5.tab.c"
 } YYSTYPE;
 # define YYSTYPE_IS_TRIVIAL 1
 # define yystype YYSTYPE /* obsolescent; will be withdrawn */
@@ -208,7 +211,7 @@ typedef union YYSTYPE
 
 
 /* Line 264 of yacc.c  */
-#line 212 "tp_5.tab.c"
+#line 215 "tp_5.tab.c"
 
 #ifdef short
 # undef short
@@ -575,28 +578,28 @@ static const yytype_int16 yyrhs[] =
 /* YYRLINE[YYN] -- source line where rule number YYN was defined.  */
 static const yytype_uint16 yyrline[] =
 {
-       0,   100,   100,   101,   105,   106,   107,   108,   111,   112,
-     113,   114,   115,   116,   117,   118,   120,   121,   122,   123,
-     126,   141,   142,   145,   146,   149,   150,   153,   154,   155,
-     156,   157,   158,   159,   160,   161,   162,   163,   166,   167,
-     170,   171,   174,   175,   178,   179,   182,   183,   186,   187,
-     188,   191,   192,   193,   194,   195,   198,   199,   200,   203,
-     204,   227,   230,   231,   232,   233,   236,   237,   240,   241,
-     242,   243,   244,   245,   248,   249,   250,   251,   252,   253,
-     256,   257,   258,   259,   260,   261,   262,   265,   266,   269,
-     270,   271,   275,   278,   279,   280,   283,   284,   287,   296,
-     306,   307,   310,   311,   314,   315,   318,   319,   322,   323,
-     324,   327,   328,   331,   332,   335,   336,   339,   342,   343,
-     346,   347,   350,   351,   354,   355,   358,   359,   362,   365,
-     366,   369,   372,   373,   376,   377,   380,   381,   384,   385,
-     388,   389,   390,   391,   392,   395,   396,   399,   402,   403,
-     406,   410,   413,   414,   417,   418,   421,   422,   425,   426,
-     429,   430,   433,   436,   439,   440,   443,   444,   445,   448,
-     449,   452,   453,   456,   457,   458,   459,   460,   461,   462,
-     479,   482,   483,   486,   487,   490,   491,   494,   495,   498,
-     499,   502,   503,   506,   507,   511,   512,   513,   516,   517,
-     518,   521,   522,   523,   526,   527,   528,   531,   532,   533,
-     534
+       0,   112,   112,   113,   117,   118,   119,   120,   123,   124,
+     125,   126,   127,   128,   129,   130,   132,   133,   134,   135,
+     138,   153,   154,   157,   158,   161,   162,   165,   166,   167,
+     168,   169,   170,   171,   172,   173,   174,   175,   178,   179,
+     182,   183,   186,   187,   190,   191,   194,   195,   198,   199,
+     200,   203,   204,   205,   206,   207,   210,   211,   212,   215,
+     216,   239,   242,   243,   244,   245,   248,   249,   252,   253,
+     254,   255,   256,   257,   260,   261,   262,   263,   264,   265,
+     268,   269,   270,   271,   272,   273,   274,   277,   278,   281,
+     282,   283,   287,   290,   291,   292,   295,   296,   299,   308,
+     318,   319,   322,   323,   326,   327,   330,   331,   334,   335,
+     336,   339,   340,   343,   344,   347,   348,   351,   354,   355,
+     358,   359,   362,   363,   366,   367,   370,   371,   374,   377,
+     378,   381,   384,   385,   388,   389,   392,   393,   396,   397,
+     400,   401,   402,   403,   404,   407,   408,   411,   414,   415,
+     418,   422,   425,   426,   429,   430,   433,   434,   437,   438,
+     441,   442,   445,   448,   451,   452,   455,   456,   457,   460,
+     461,   464,   465,   468,   469,   470,   471,   472,   473,   474,
+     491,   494,   495,   498,   499,   502,   503,   506,   507,   510,
+     511,   514,   515,   518,   519,   523,   524,   525,   528,   529,
+     530,   533,   534,   535,   538,   539,   540,   543,   544,   545,
+     546
 };
 #endif
 
@@ -1800,42 +1803,42 @@ yyreduce:
         case 5:
 
 /* Line 1455 of yacc.c  */
-#line 106 "../src/tp_5.y"
+#line 118 "../src/tp_5.y"
     {tempVar = NULL; tempPointer = NULL;;}
     break;
 
   case 7:
 
 /* Line 1455 of yacc.c  */
-#line 108 "../src/tp_5.y"
+#line 120 "../src/tp_5.y"
     { yyerrok; yyerror(""); pos = 0;;}
     break;
 
   case 16:
 
 /* Line 1455 of yacc.c  */
-#line 120 "../src/tp_5.y"
+#line 132 "../src/tp_5.y"
     {(yyval.mystruct).tipo = (yyvsp[(1) - (1)].mystruct).tipo; (yyval.mystruct).valorEntero = (yyvsp[(1) - (1)].mystruct).valorEntero; ;}
     break;
 
   case 17:
 
 /* Line 1455 of yacc.c  */
-#line 121 "../src/tp_5.y"
+#line 133 "../src/tp_5.y"
     {(yyval.mystruct).tipo = (yyvsp[(1) - (1)].mystruct).tipo; (yyval.mystruct).valorReal = (yyvsp[(1) - (1)].mystruct).valorReal;;}
     break;
 
   case 18:
 
 /* Line 1455 of yacc.c  */
-#line 122 "../src/tp_5.y"
+#line 134 "../src/tp_5.y"
     {{(yyval.mystruct).tipo = (yyvsp[(1) - (1)].mystruct).tipo; (yyval.mystruct).valorCaracter = (yyvsp[(1) - (1)].mystruct).valorCaracter;} ;}
     break;
 
   case 20:
 
 /* Line 1455 of yacc.c  */
-#line 126 "../src/tp_5.y"
+#line 138 "../src/tp_5.y"
     {  Simbolo* aux = devolverSimbolo((yyvsp[(1) - (1)].valorString));
                     if(aux) {
                       if(! strcmp(aux->tipoDato, "int") || ! strcmp(aux->tipoDato, "unsigned") || ! strcmp(aux->tipoDato, "long")){ 
@@ -1854,14 +1857,14 @@ yyreduce:
   case 59:
 
 /* Line 1455 of yacc.c  */
-#line 203 "../src/tp_5.y"
+#line 215 "../src/tp_5.y"
     {(yyval.mystruct) = (yyvsp[(1) - (1)].mystruct);;}
     break;
 
   case 60:
 
 /* Line 1455 of yacc.c  */
-#line 204 "../src/tp_5.y"
+#line 216 "../src/tp_5.y"
     { if((yyvsp[(1) - (3)].mystruct).tipo==(yyvsp[(3) - (3)].mystruct).tipo)
     { 
         if((yyvsp[(1) - (3)].mystruct).tipo==1)
@@ -1890,63 +1893,63 @@ yyreduce:
   case 62:
 
 /* Line 1455 of yacc.c  */
-#line 230 "../src/tp_5.y"
+#line 242 "../src/tp_5.y"
     {(yyval.mystruct) = (yyvsp[(1) - (1)].mystruct);;}
     break;
 
   case 66:
 
 /* Line 1455 of yacc.c  */
-#line 236 "../src/tp_5.y"
+#line 248 "../src/tp_5.y"
     {(yyval.mystruct) = (yyvsp[(1) - (1)].mystruct);;}
     break;
 
   case 68:
 
 /* Line 1455 of yacc.c  */
-#line 240 "../src/tp_5.y"
+#line 252 "../src/tp_5.y"
     {(yyval.mystruct) = (yyvsp[(1) - (1)].mystruct);;}
     break;
 
   case 80:
 
 /* Line 1455 of yacc.c  */
-#line 256 "../src/tp_5.y"
+#line 268 "../src/tp_5.y"
     {(yyval.mystruct) = (yyvsp[(1) - (1)].mystruct);;}
     break;
 
   case 89:
 
 /* Line 1455 of yacc.c  */
-#line 269 "../src/tp_5.y"
+#line 281 "../src/tp_5.y"
     {(yyval.mystruct) = (yyvsp[(1) - (1)].mystruct);;}
     break;
 
   case 93:
 
 /* Line 1455 of yacc.c  */
-#line 278 "../src/tp_5.y"
+#line 290 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (2)].valorString));;}
     break;
 
   case 94:
 
 /* Line 1455 of yacc.c  */
-#line 279 "../src/tp_5.y"
+#line 291 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (2)].valorString));;}
     break;
 
   case 95:
 
 /* Line 1455 of yacc.c  */
-#line 280 "../src/tp_5.y"
+#line 292 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (2)].valorString));;}
     break;
 
   case 98:
 
 /* Line 1455 of yacc.c  */
-#line 287 "../src/tp_5.y"
+#line 299 "../src/tp_5.y"
     { Simbolo* aux = devolverSimbolo((yyvsp[(1) - (1)].valorString));
                                                           if(aux == NULL){
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", (yyvsp[(1) - (1)].valorString), tempVar , cantLineas);
@@ -1960,7 +1963,7 @@ yyreduce:
   case 99:
 
 /* Line 1455 of yacc.c  */
-#line 296 "../src/tp_5.y"
+#line 308 "../src/tp_5.y"
     { Simbolo* aux = devolverSimbolo((yyvsp[(1) - (3)].valorString));
                                                           if(aux == NULL){
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", (yyvsp[(1) - (3)].valorString), tempVar, cantLineas);
@@ -1974,77 +1977,77 @@ yyreduce:
   case 100:
 
 /* Line 1455 of yacc.c  */
-#line 306 "../src/tp_5.y"
+#line 318 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (1)].valorString));;}
     break;
 
   case 101:
 
 /* Line 1455 of yacc.c  */
-#line 307 "../src/tp_5.y"
+#line 319 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (3)].valorString));;}
     break;
 
   case 108:
 
 /* Line 1455 of yacc.c  */
-#line 322 "../src/tp_5.y"
+#line 334 "../src/tp_5.y"
     {tempVar = strdup((yyvsp[(1) - (1)].valorString));;}
     break;
 
   case 110:
 
 /* Line 1455 of yacc.c  */
-#line 324 "../src/tp_5.y"
+#line 336 "../src/tp_5.y"
     {/*Sacamos nombre_typedef*/;}
     break;
 
   case 131:
 
 /* Line 1455 of yacc.c  */
-#line 369 "../src/tp_5.y"
+#line 381 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(2) - (2)].valorString));;}
     break;
 
   case 140:
 
 /* Line 1455 of yacc.c  */
-#line 388 "../src/tp_5.y"
+#line 400 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (1)].valorString));;}
     break;
 
   case 141:
 
 /* Line 1455 of yacc.c  */
-#line 389 "../src/tp_5.y"
+#line 401 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(2) - (3)].valorString));;}
     break;
 
   case 142:
 
 /* Line 1455 of yacc.c  */
-#line 390 "../src/tp_5.y"
+#line 402 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (4)].valorString));;}
     break;
 
   case 143:
 
 /* Line 1455 of yacc.c  */
-#line 391 "../src/tp_5.y"
+#line 403 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (4)].valorString));;}
     break;
 
   case 144:
 
 /* Line 1455 of yacc.c  */
-#line 392 "../src/tp_5.y"
+#line 404 "../src/tp_5.y"
     {(yyval.valorString) = strdup((yyvsp[(1) - (4)].valorString));;}
     break;
 
   case 150:
 
 /* Line 1455 of yacc.c  */
-#line 406 "../src/tp_5.y"
+#line 418 "../src/tp_5.y"
     {
                                                               parameters[pos] = crearParametro((yyvsp[(1) - (2)].valorString));
                                                               pos++;
@@ -2054,7 +2057,7 @@ yyreduce:
   case 179:
 
 /* Line 1455 of yacc.c  */
-#line 462 "../src/tp_5.y"
+#line 474 "../src/tp_5.y"
     { Simbolo* aux2 = devolverSimbolo((yyvsp[(2) - (3)].valorString));
                                                                       if(aux2 == NULL){
                                                                         fprintf(yyout, "\n Se declara la funcion: \'%s\' que devuelve: \'%s\' en linea %d\n", (yyvsp[(2) - (3)].valorString), (yyvsp[(1) - (3)].valorString),cantLineas);
@@ -2075,77 +2078,77 @@ yyreduce:
   case 195:
 
 /* Line 1455 of yacc.c  */
-#line 511 "../src/tp_5.y"
+#line 523 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia IF en linea %d\n", cantLineas);;}
     break;
 
   case 196:
 
 /* Line 1455 of yacc.c  */
-#line 512 "../src/tp_5.y"
+#line 524 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia IF y ELSE en linea %d\n", cantLineas);;}
     break;
 
   case 197:
 
 /* Line 1455 of yacc.c  */
-#line 513 "../src/tp_5.y"
+#line 525 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia SWITCH en lineas %d\n",cantLineas);;}
     break;
 
   case 198:
 
 /* Line 1455 of yacc.c  */
-#line 516 "../src/tp_5.y"
+#line 528 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia WHILE en linea %d\n", cantLineas);;}
     break;
 
   case 199:
 
 /* Line 1455 of yacc.c  */
-#line 517 "../src/tp_5.y"
+#line 529 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia DO WHILE en linea %d\n" ,cantLineas);;}
     break;
 
   case 200:
 
 /* Line 1455 of yacc.c  */
-#line 518 "../src/tp_5.y"
+#line 530 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia FOR en linea %d\n", cantLineas);;}
     break;
 
   case 207:
 
 /* Line 1455 of yacc.c  */
-#line 531 "../src/tp_5.y"
+#line 543 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia CONTINUE\n");;}
     break;
 
   case 208:
 
 /* Line 1455 of yacc.c  */
-#line 532 "../src/tp_5.y"
+#line 544 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia BREAK\n");;}
     break;
 
   case 209:
 
 /* Line 1455 of yacc.c  */
-#line 533 "../src/tp_5.y"
+#line 545 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia RETURN\n");;}
     break;
 
   case 210:
 
 /* Line 1455 of yacc.c  */
-#line 534 "../src/tp_5.y"
+#line 546 "../src/tp_5.y"
     {fprintf(yyout, "\nSe encontro la sentencia GO TO\n");;}
     break;
 
 
 
 /* Line 1455 of yacc.c  */
-#line 2149 "tp_5.tab.c"
+#line 2152 "tp_5.tab.c"
       default: break;
     }
   YY_SYMBOL_PRINT ("-> $$ =", yyr1[yyn], &yyval, &yyloc);
@@ -2357,7 +2360,7 @@ yyreturn:
 
 
 /* Line 1675 of yacc.c  */
-#line 539 "../src/tp_5.y"
+#line 551 "../src/tp_5.y"
 
 
 Simbolo* tablaSimbolos;

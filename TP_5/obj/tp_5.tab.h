@@ -93,7 +93,7 @@ typedef union YYSTYPE
 {
 
 /* Line 1676 of yacc.c  */
-#line 86 "../src/tp_5.y"
+#line 98 "../src/tp_5.y"
 
   struct yylval_struct
     {
@@ -101,9 +101,9 @@ typedef union YYSTYPE
         int valorEntero;
         float valorReal;
         char* valorCaracter;
-    } mystruct;
+    } mystruct;// Este campo se usa para guardar info (datos agrupados en un struct comun) de las constantes (enteras, decimales y caracteres)
 
-    char*  valorString;
+    char*  valorString;// Este campo se usa para guardar strings
 
 
 

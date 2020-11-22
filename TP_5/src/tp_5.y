@@ -215,13 +215,13 @@ exp_desp:   exp_aditiva
 exp_aditiva:   exp_multip {$<mystruct>$ = $<mystruct>1;}
              | exp_aditiva '+' exp_multip { if($<mystruct>1.tipo==$<mystruct>3.tipo)
     { 
-        if($<mystruct>1.tipo==1)
+        if($<mystruct>1.tipo==0)
     
         {
             $<mystruct>$.valorEntero=$<mystruct>1.valorEntero+$<mystruct>3.valorEntero;
         }
         
-        else if($<mystruct>1.tipo==2)
+        else if($<mystruct>1.tipo==1)
         
         {
             $<mystruct>$.valorReal=$<mystruct>1.valorReal+$<mystruct>3.valorReal;

@@ -529,12 +529,12 @@ int yy_flex_debug = 1;
 
 static yyconst short int yy_rule_linenum[55] =
     {   0,
-       84,   85,   86,   87,   88,   89,   90,   91,   92,   93,
-       94,   95,   96,   97,   98,   99,  100,  101,  102,  103,
-      104,  105,  106,  107,  108,  109,  110,  111,  112,  113,
-      117,  118,  120,  121,  122,  123,  124,  125,  126,  127,
-      128,  129,  130,  131,  132,  133,  134,  135,  136,  137,
-      138,  139,  140,  142
+       87,   88,   89,   90,   91,   92,   93,   94,   95,   96,
+       97,   98,   99,  100,  101,  102,  103,  104,  105,  106,
+      107,  108,  109,  110,  111,  112,  113,  114,  115,  116,
+      120,  121,  123,  124,  125,  126,  127,  128,  129,  130,
+      131,  132,  133,  134,  135,  136,  137,  138,  139,  140,
+      141,  142,  143,  145
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -554,12 +554,13 @@ char *yytext;
     #include "tp_5.tab.h"
 
     enum {ENTERO,REAL,CARACTER};
-    char* cadenaErronea = NULL;
-    unsigned errorFlag = 0;
-    extern unsigned cantLineas = 1;
+    char* cadenaErronea = NULL; // Guarda todos los caracteres que entran por el comodin en una cadena para despues mostrarla
+    unsigned errorFlag = 0; // Es una variable (flag) que se usa (en finalDeError) para detectar si hay un error e imprimirlo
+    extern unsigned cantLineas = 1; // Guarda la cantidad de saltos de linea
 
-    int printError(char*, int);
+    int printError(char*, int); // Imprime la cadena con caracteres que no entraron por ninguna regla
 
+    // Si es un caracter erroneo o cadena erronea (en el caso de que lea mas de un caracter por el comodin) lo añade a la cadena de caracteres erroneos
     void esError(char* charErroneo){
         if(cadenaErronea == NULL)
             cadenaErronea = strdup(charErroneo);
@@ -573,6 +574,7 @@ char *yytext;
         errorFlag = 1;
     } 
 
+    // Muestra la cadena erronea, si es que hay, entre cada regla
     void finalDeError(){
         if (errorFlag)
         {
@@ -582,6 +584,7 @@ char *yytext;
         errorFlag = 0;
     }
 
+    // Cuenta la cantidad de saltos de línea
     int cantidadSaltosDeLinea(char* data){
         int cant = 0;
         int i = 0;
@@ -594,7 +597,7 @@ char *yytext;
 
         return cant;
     }
-#line 598 "lex.yy.c"
+#line 601 "lex.yy.c"
 
 /* Macros after this point can all be overridden by user definitions in
  * section 1.
@@ -745,10 +748,10 @@ YY_DECL
 	register char *yy_cp, *yy_bp;
 	register int yy_act;
 
-#line 82 "../src/tp_5.l"
+#line 85 "../src/tp_5.l"
 
 
-#line 752 "lex.yy.c"
+#line 755 "lex.yy.c"
 
 	if ( yy_init )
 		{
@@ -848,280 +851,280 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 84 "../src/tp_5.l"
+#line 87 "../src/tp_5.l"
 {yylval.mystruct.valorEntero = atoi(yytext); yylval.mystruct.tipo = ENTERO;  finalDeError(); return NUM_ENTERO;}
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 85 "../src/tp_5.l"
+#line 88 "../src/tp_5.l"
 {yylval.mystruct.valorEntero = strtoll(yytext, NULL, 16); yylval.mystruct.tipo = ENTERO; finalDeError(); return NUM_ENTERO;}
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 86 "../src/tp_5.l"
+#line 89 "../src/tp_5.l"
 {yylval.mystruct.valorEntero = strtoll(yytext, NULL, 8); yylval.mystruct.tipo = ENTERO; finalDeError(); return NUM_ENTERO;}
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 87 "../src/tp_5.l"
+#line 90 "../src/tp_5.l"
 {yylval.mystruct.valorReal   = atof(yytext); yylval.mystruct.tipo = REAL; finalDeError(); return NUM_REAL;}
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 88 "../src/tp_5.l"
+#line 91 "../src/tp_5.l"
 {finalDeError(); return yytext[0];}
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 89 "../src/tp_5.l"
+#line 92 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return CONTINUE;}
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 90 "../src/tp_5.l"
+#line 93 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return BREAK;}
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 91 "../src/tp_5.l"
+#line 94 "../src/tp_5.l"
 {finalDeError();}
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 92 "../src/tp_5.l"
+#line 95 "../src/tp_5.l"
 {finalDeError();}
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 93 "../src/tp_5.l"
+#line 96 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return IF;}
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 94 "../src/tp_5.l"
+#line 97 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return ELSE;}
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 95 "../src/tp_5.l"
+#line 98 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return SWITCH;}
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 96 "../src/tp_5.l"
+#line 99 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return WHILE;}
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 97 "../src/tp_5.l"
+#line 100 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return DO;}
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 98 "../src/tp_5.l"
+#line 101 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return FOR;}
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 99 "../src/tp_5.l"
+#line 102 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return CASE;}
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 100 "../src/tp_5.l"
+#line 103 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return DEFAULT;}
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 101 "../src/tp_5.l"
+#line 104 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return RETURN;}
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 102 "../src/tp_5.l"
+#line 105 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return GOTO;}
 	YY_BREAK
 case 20:
 YY_RULE_SETUP
-#line 103 "../src/tp_5.l"
+#line 106 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return TIPO_DATO;}
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 104 "../src/tp_5.l"
+#line 107 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return CLASE_ALM;}
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 105 "../src/tp_5.l"
+#line 108 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return CALIF_TIPO;}
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 106 "../src/tp_5.l"
+#line 109 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return STRUCT_UNION;}
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 107 "../src/tp_5.l"
+#line 110 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return SIZEOF;}
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 108 "../src/tp_5.l"
+#line 111 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return ENUM;}
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 109 "../src/tp_5.l"
+#line 112 "../src/tp_5.l"
 {yylval.valorString = strdup(yytext); finalDeError(); return ID;}
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 110 "../src/tp_5.l"
+#line 113 "../src/tp_5.l"
 {finalDeError();}
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 111 "../src/tp_5.l"
+#line 114 "../src/tp_5.l"
 {cantLineas += cantidadSaltosDeLinea(yytext); finalDeError();}
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 112 "../src/tp_5.l"
+#line 115 "../src/tp_5.l"
 {cantLineas++;}
 	YY_BREAK
 case 30:
 YY_RULE_SETUP
-#line 113 "../src/tp_5.l"
+#line 116 "../src/tp_5.l"
 {finalDeError();}
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 117 "../src/tp_5.l"
+#line 120 "../src/tp_5.l"
 {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return CHAR;}
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 118 "../src/tp_5.l"
+#line 121 "../src/tp_5.l"
 {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return STRING;}
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 120 "../src/tp_5.l"
-{finalDeError(); return ASIG_MULT;}
+#line 123 "../src/tp_5.l"
+{finalDeError(); return ASIG_MULT;} // No necesita un campo de la variable ylval porque para cada token (categoría) solo se va a tener un unico valor (el string). No es lo mismo que apsa con la categoria identificador por ejemplo
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 121 "../src/tp_5.l"
+#line 124 "../src/tp_5.l"
 {finalDeError(); return ASIG_DIV;}
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 122 "../src/tp_5.l"
+#line 125 "../src/tp_5.l"
 {finalDeError(); return ASIG_MOD;}
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 123 "../src/tp_5.l"
+#line 126 "../src/tp_5.l"
 {finalDeError(); return ASIG_SUMA;}
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 124 "../src/tp_5.l"
+#line 127 "../src/tp_5.l"
 {finalDeError(); return ASIG_RESTA;}
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 125 "../src/tp_5.l"
+#line 128 "../src/tp_5.l"
 {finalDeError(); return ASIG_DESP_IZQ;}
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 126 "../src/tp_5.l"
+#line 129 "../src/tp_5.l"
 {finalDeError(); return ASIG_DESP_DER;}
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 127 "../src/tp_5.l"
+#line 130 "../src/tp_5.l"
 {finalDeError(); return ASIG_AND_BIN;}
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 128 "../src/tp_5.l"
+#line 131 "../src/tp_5.l"
 {finalDeError(); return ASIG_XOR_BIN;}
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 129 "../src/tp_5.l"
+#line 132 "../src/tp_5.l"
 {finalDeError(); return ASIG_OR_BIN;}
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 130 "../src/tp_5.l"
+#line 133 "../src/tp_5.l"
 {finalDeError(); return OP_INC;}
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 131 "../src/tp_5.l"
+#line 134 "../src/tp_5.l"
 {finalDeError(); return OP_DEC;}
 	YY_BREAK
 case 45:
 YY_RULE_SETUP
-#line 132 "../src/tp_5.l"
+#line 135 "../src/tp_5.l"
 {finalDeError(); return OP_IGUALDAD;}
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 133 "../src/tp_5.l"
+#line 136 "../src/tp_5.l"
 {finalDeError(); return OP_DESIGUALDAD;}
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 134 "../src/tp_5.l"
+#line 137 "../src/tp_5.l"
 {finalDeError(); return OP_AND;}
 	YY_BREAK
 case 48:
 YY_RULE_SETUP
-#line 135 "../src/tp_5.l"
+#line 138 "../src/tp_5.l"
 {finalDeError(); return OP_OR;}
 	YY_BREAK
 case 49:
 YY_RULE_SETUP
-#line 136 "../src/tp_5.l"
+#line 139 "../src/tp_5.l"
 {finalDeError(); return OP_MENOR_IGUAL;}
 	YY_BREAK
 case 50:
 YY_RULE_SETUP
-#line 137 "../src/tp_5.l"
+#line 140 "../src/tp_5.l"
 {finalDeError(); return OP_MAYOR_IGUAL;}
 	YY_BREAK
 case 51:
 YY_RULE_SETUP
-#line 138 "../src/tp_5.l"
+#line 141 "../src/tp_5.l"
 {finalDeError(); return OP_DESP_IZQ;}
 	YY_BREAK
 case 52:
 YY_RULE_SETUP
-#line 139 "../src/tp_5.l"
+#line 142 "../src/tp_5.l"
 {finalDeError(); return OP_DESP_DER;}
 	YY_BREAK
 case 53:
 YY_RULE_SETUP
-#line 140 "../src/tp_5.l"
+#line 143 "../src/tp_5.l"
 {finalDeError(); return OP_MIEMBRO_PUNT;}
 	YY_BREAK
 case 54:
 YY_RULE_SETUP
-#line 142 "../src/tp_5.l"
+#line 145 "../src/tp_5.l"
 {esError(yytext);}
 	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 143 "../src/tp_5.l"
+#line 146 "../src/tp_5.l"
 ECHO;
 	YY_BREAK
-#line 1125 "lex.yy.c"
+#line 1128 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2007,4 +2010,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 143 "../src/tp_5.l"
+#line 146 "../src/tp_5.l"
