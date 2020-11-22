@@ -1,41 +1,45 @@
 
-Se declara la variable: 'z' de tipo: 'int' en linea 4
+Se declara la variable: 'z' de tipo: 'int' en linea 8
 
-Se declara la variable: 'y' de tipo: 'int' en linea 4
+Se declara la variable: 'y' de tipo: 'int' en linea 8
 
-Se declara la variable: 'x' de tipo: 'int' en linea 4
+Se declara la variable: 'x' de tipo: 'int' en linea 8
 
-Se declara la variable: 't' de tipo: 'double' en linea 5
+Se declara la variable: 't' de tipo: 'double' en linea 9
 
-Se declara la variable: 'm' de tipo: 'double' en linea 6
+Se declara la variable: 'm' de tipo: 'double' en linea 10
 
-Se declara la variable: 'a' de tipo: 'double' en linea 7
+Se declara la variable: 'a' de tipo: 'double' en linea 11
 
-Error sintatico en linea 8
+Se declara la variable: 'r' de tipo: 'double' en linea 12
 
-Error sintatico en linea 8
+ERROR:Doble declaracion del simbolo |z| en linea 13 
 
-ERROR:Doble declaracion del simbolo |z| en linea 9 
+Se encontro la cadena lexicamente invalida: @ en la linea: 14
 
-Se declara la variable: 'j' de tipo: 'int' en linea 10
+Error sintatico en linea 14
 
-Se declara la variable: 'i' de tipo: 'int' en linea 11
+Error sintatico en linea 14
 
-Se declara la variable: 'c' de tipo: 'char' en linea 13
+Se declara la variable: 'c' de tipo: 'char' en linea 15
 
-ERROR: La variable/función 'r' no fue declarada.
+Se declara la variable: 'i' de tipo: 'int' en linea 16
 
-Los operandos son de distinto tipo en linea 14
+ERROR:Doble declaracion del simbolo |c| en linea 18 
 
-ERROR:Doble declaracion del simbolo |a| en linea 16 
+ERROR:Doble declaracion del simbolo |a| en linea 21 
 
-Se encontro la sentencia IF y ELSE en linea 24
+Se encontro la sentencia IF y ELSE en linea 29
 
 ERROR: La variable/función 'n' no fue declarada.
 
 ERROR: La variable/función 'printf' no fue declarada.
 
-Se encontro la sentencia FOR en linea 28
+ERROR: La variable/función 'j' no fue declarada.
+
+ERROR: La variable/función 'j' no fue declarada.
+
+Se encontro la sentencia FOR en linea 33
 
 ERROR: La variable/función 'sqrt' no fue declarada.
 
@@ -43,20 +47,20 @@ ERROR: La variable/función 'n' no fue declarada.
 
 ERROR: La variable/función 'printf' no fue declarada.
 
-Error sintatico en linea 31
+Error sintatico en linea 36
 
-Error sintatico en linea 31
+Error sintatico en linea 36
 
- Se declara la funcion: 'main' que devuelve: 'int' en linea 33
+ Se declara la funcion: 'main' que devuelve: 'int' en linea 38
 
  ----------------------Tabla de Simbolos --------------------------- 
 
 IDENTIFICADOR: a  -> TIPO: double
 IDENTIFICADOR: c  -> TIPO: char
 IDENTIFICADOR: i  -> TIPO: int
-IDENTIFICADOR: j  -> TIPO: int
 IDENTIFICADOR: m  -> TIPO: double
 IDENTIFICADOR: main  -> Parametro/s: int, int
+IDENTIFICADOR: r  -> TIPO: double
 IDENTIFICADOR: t  -> TIPO: double
 IDENTIFICADOR: x  -> TIPO: int
 IDENTIFICADOR: y  -> TIPO: int

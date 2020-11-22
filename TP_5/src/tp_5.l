@@ -7,12 +7,13 @@
     #include "tp_5.tab.h"
 
     enum {ENTERO,REAL,CARACTER};
-    char* cadenaErronea = NULL;
-    unsigned errorFlag = 0;
-    extern unsigned cantLineas = 1;
+    char* cadenaErronea = NULL; // Guarda todos los caracteres que entran por el comodin en una cadena para despues mostrarla
+    unsigned errorFlag = 0; // Es una variable (flag) que se usa (en finalDeError) para detectar si hay un error e imprimirlo
+    extern unsigned cantLineas = 1; // Guarda la cantidad de saltos de linea
 
-    int printError(char*, int);
+    int printError(char*, int); // Imprime la cadena con caracteres que no entraron por ninguna regla
 
+    // Si es un caracter erroneo o cadena erronea (en el caso de que lea mas de un caracter por el comodin) lo añade a la cadena de caracteres erroneos
     void esError(char* charErroneo){
         if(cadenaErronea == NULL)
             cadenaErronea = strdup(charErroneo);
@@ -26,6 +27,7 @@
         errorFlag = 1;
     } 
 
+    // Muestra la cadena erronea, si es que hay, entre cada regla
     void finalDeError(){
         if (errorFlag)
         {
@@ -35,6 +37,7 @@
         errorFlag = 0;
     }
 
+    // Cuenta la cantidad de saltos de línea
     int cantidadSaltosDeLinea(char* data){
         int cant = 0;
         int i = 0;
@@ -73,8 +76,8 @@ IDENTIFICADOR ({LETRA}|_)({LETRA}|{DECIMAL}|_)*
 COMENTARIO_LINEA "//".*
 COMENTARIO_BLOQUE "/*"([^*]|\*+[^/])*\*+\/
 
-INCLUDE #include(" ")+(\".+\"|<.+>)
-DEFINE #define(" ")+[^" "|"\n"]+(" ")*.*
+INCLUDE "#include"(" ")+(\".+\"|<.+>)
+DEFINE "#define"(" ")+[^" "|"\n"]+(" ")*.*
 
 ESPACIOS       " "|"\t"
 COMODIN        .
@@ -111,13 +114,13 @@ COMODIN        .
 {COMENTARIO_BLOQUE} {cantLineas += cantidadSaltosDeLinea(yytext); finalDeError();}
 "\n"               {cantLineas++;}
 {ESPACIOS}+        {finalDeError();}
-{COMODIN}          {esError(yytext);}
+
 
 
 {CONST_CHAR}       {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return CHAR;}
 {LITERAL_CADENA}   {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return STRING;}
 
-"*="               {finalDeError(); return ASIG_MULT;}
+"*="               {finalDeError(); return ASIG_MULT;} // No necesita un campo de la variable ylval porque para cada token (categoría) solo se va a tener un unico valor (el string). No es lo mismo que apsa con la categoria identificador por ejemplo
 "/="               {finalDeError(); return ASIG_DIV;}
 "%="               {finalDeError(); return ASIG_MOD;}
 "+="               {finalDeError(); return ASIG_SUMA;}
@@ -138,4 +141,6 @@ COMODIN        .
 "<<"               {finalDeError(); return OP_DESP_IZQ;}
 ">>"               {finalDeError(); return OP_DESP_DER;}
 "->"               {finalDeError(); return OP_MIEMBRO_PUNT;}
+
+{COMODIN}          {esError(yytext);}
 %%

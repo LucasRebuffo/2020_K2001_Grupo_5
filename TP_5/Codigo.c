@@ -1,3 +1,7 @@
+#include <stdlib.h>
+#include <stdio.h> 
+
+#define TABLA_H
 
 int main(int valor , double xxx)
 {   
@@ -5,13 +9,14 @@ int main(int valor , double xxx)
     double t=0;
     double m=4;
     double a;
-    double ;
+    double r;
     double z;
-    int j=1;
+    int j= @;
+    char c = 'a';
     for(int i=1;i<=100;i=i+x)
     {
         char c = 'A';
-        r=4 + 5.3;
+        r = 4 + 5 * 5;
         m = a + m/x;
         double a;
         if(a > 34)

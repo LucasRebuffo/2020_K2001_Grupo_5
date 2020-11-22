@@ -293,18 +293,18 @@ static void yy_fatal_error YY_PROTO(( yyconst char msg[] ));
 #define YY_END_OF_BUFFER 56
 static yyconst short int yy_accept[225] =
     {   0,
-        0,    0,   56,   31,   30,   29,    5,   31,   31,    5,
-        5,   31,    5,    5,    5,    5,    5,    3,    1,    5,
+        0,    0,   56,   54,   30,   29,    5,   54,   54,    5,
+        5,   54,    5,    5,    5,    5,    5,    3,    1,    5,
         5,    5,   26,    5,   26,   26,   26,   26,   26,   26,
        26,   26,   26,   26,   26,   26,   26,   26,   26,    5,
-       30,   47,    0,    0,    0,   36,   48,   41,    0,   34,
-       44,   37,   45,   38,   54,    0,   27,   35,    0,    3,
-        0,    0,    1,   52,   50,   46,   51,   53,   26,   42,
+       30,   46,    0,    0,    0,   35,   47,   40,    0,   33,
+       43,   36,   44,   37,   53,    0,   27,   34,    0,    3,
+        0,    0,    1,   51,   49,   45,   50,   52,   26,   41,
        26,   26,   26,   26,   26,   26,   14,   26,   26,   26,
        26,   26,   26,   10,   26,   26,   26,   26,   26,   26,
-       26,   26,   26,   26,   26,   43,   49,   33,    0,    0,
+       26,   26,   26,   26,   26,   42,   48,   32,    0,    0,
 
-       32,    0,    0,   27,    4,    2,   39,   40,   26,   26,
+       31,    0,    0,   27,    4,    2,   38,   39,   26,   26,
        26,   26,   26,   26,   26,   26,   26,   26,   26,   15,
        26,   20,   26,   26,   26,   26,   26,   26,   26,   26,
        26,   26,   26,   26,   26,   26,   26,    0,    0,    0,
@@ -532,9 +532,9 @@ static yyconst short int yy_rule_linenum[55] =
        84,   85,   86,   87,   88,   89,   90,   91,   92,   93,
        94,   95,   96,   97,   98,   99,  100,  101,  102,  103,
       104,  105,  106,  107,  108,  109,  110,  111,  112,  113,
-      114,  117,  118,  120,  121,  122,  123,  124,  125,  126,
-      127,  128,  129,  130,  131,  132,  133,  134,  135,  136,
-      137,  138,  139,  140
+      117,  118,  120,  121,  122,  123,  124,  125,  126,  127,
+      128,  129,  130,  131,  132,  133,  134,  135,  136,  137,
+      138,  139,  140,  142
     } ;
 
 /* The intent behind this definition is that it'll catch
@@ -998,127 +998,127 @@ YY_RULE_SETUP
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 114 "../src/tp_5.l"
-{esError(yytext);}
-	YY_BREAK
-case 32:
-YY_RULE_SETUP
 #line 117 "../src/tp_5.l"
 {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return CHAR;}
 	YY_BREAK
-case 33:
+case 32:
 YY_RULE_SETUP
 #line 118 "../src/tp_5.l"
 {yylval.mystruct.valorCaracter = strdup(yytext); yylval.mystruct.tipo = CARACTER; finalDeError(); return STRING;}
 	YY_BREAK
-case 34:
+case 33:
 YY_RULE_SETUP
 #line 120 "../src/tp_5.l"
 {finalDeError(); return ASIG_MULT;}
 	YY_BREAK
-case 35:
+case 34:
 YY_RULE_SETUP
 #line 121 "../src/tp_5.l"
 {finalDeError(); return ASIG_DIV;}
 	YY_BREAK
-case 36:
+case 35:
 YY_RULE_SETUP
 #line 122 "../src/tp_5.l"
 {finalDeError(); return ASIG_MOD;}
 	YY_BREAK
-case 37:
+case 36:
 YY_RULE_SETUP
 #line 123 "../src/tp_5.l"
 {finalDeError(); return ASIG_SUMA;}
 	YY_BREAK
-case 38:
+case 37:
 YY_RULE_SETUP
 #line 124 "../src/tp_5.l"
 {finalDeError(); return ASIG_RESTA;}
 	YY_BREAK
-case 39:
+case 38:
 YY_RULE_SETUP
 #line 125 "../src/tp_5.l"
 {finalDeError(); return ASIG_DESP_IZQ;}
 	YY_BREAK
-case 40:
+case 39:
 YY_RULE_SETUP
 #line 126 "../src/tp_5.l"
 {finalDeError(); return ASIG_DESP_DER;}
 	YY_BREAK
-case 41:
+case 40:
 YY_RULE_SETUP
 #line 127 "../src/tp_5.l"
 {finalDeError(); return ASIG_AND_BIN;}
 	YY_BREAK
-case 42:
+case 41:
 YY_RULE_SETUP
 #line 128 "../src/tp_5.l"
 {finalDeError(); return ASIG_XOR_BIN;}
 	YY_BREAK
-case 43:
+case 42:
 YY_RULE_SETUP
 #line 129 "../src/tp_5.l"
 {finalDeError(); return ASIG_OR_BIN;}
 	YY_BREAK
-case 44:
+case 43:
 YY_RULE_SETUP
 #line 130 "../src/tp_5.l"
 {finalDeError(); return OP_INC;}
 	YY_BREAK
-case 45:
+case 44:
 YY_RULE_SETUP
 #line 131 "../src/tp_5.l"
 {finalDeError(); return OP_DEC;}
 	YY_BREAK
-case 46:
+case 45:
 YY_RULE_SETUP
 #line 132 "../src/tp_5.l"
 {finalDeError(); return OP_IGUALDAD;}
 	YY_BREAK
-case 47:
+case 46:
 YY_RULE_SETUP
 #line 133 "../src/tp_5.l"
 {finalDeError(); return OP_DESIGUALDAD;}
 	YY_BREAK
-case 48:
+case 47:
 YY_RULE_SETUP
 #line 134 "../src/tp_5.l"
 {finalDeError(); return OP_AND;}
 	YY_BREAK
-case 49:
+case 48:
 YY_RULE_SETUP
 #line 135 "../src/tp_5.l"
 {finalDeError(); return OP_OR;}
 	YY_BREAK
-case 50:
+case 49:
 YY_RULE_SETUP
 #line 136 "../src/tp_5.l"
 {finalDeError(); return OP_MENOR_IGUAL;}
 	YY_BREAK
-case 51:
+case 50:
 YY_RULE_SETUP
 #line 137 "../src/tp_5.l"
 {finalDeError(); return OP_MAYOR_IGUAL;}
 	YY_BREAK
-case 52:
+case 51:
 YY_RULE_SETUP
 #line 138 "../src/tp_5.l"
 {finalDeError(); return OP_DESP_IZQ;}
 	YY_BREAK
-case 53:
+case 52:
 YY_RULE_SETUP
 #line 139 "../src/tp_5.l"
 {finalDeError(); return OP_DESP_DER;}
 	YY_BREAK
-case 54:
+case 53:
 YY_RULE_SETUP
 #line 140 "../src/tp_5.l"
 {finalDeError(); return OP_MIEMBRO_PUNT;}
 	YY_BREAK
+case 54:
+YY_RULE_SETUP
+#line 142 "../src/tp_5.l"
+{esError(yytext);}
+	YY_BREAK
 case 55:
 YY_RULE_SETUP
-#line 141 "../src/tp_5.l"
+#line 143 "../src/tp_5.l"
 ECHO;
 	YY_BREAK
 #line 1125 "lex.yy.c"
@@ -2007,4 +2007,4 @@ int main()
 	return 0;
 	}
 #endif
-#line 141 "../src/tp_5.l"
+#line 143 "../src/tp_5.l"

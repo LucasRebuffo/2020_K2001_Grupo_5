@@ -4,12 +4,14 @@
 
 #include "tabla.h"
 
+// Crea un nuevo nodo en la TS, completa el nombre del identificador, el tipo de identificador y el tipo de dato del identificador. Inicializa los campos de la union
+
 Simbolo* crearSimbolo(char* tipoDato, char* nombreID, int tipoID){
     Simbolo* nuevoNodo = (Simbolo*) malloc (sizeof(Simbolo));
 
-    nuevoNodo -> nombre   = strdup(nombreID);
-    nuevoNodo -> tipoDato = strdup(tipoDato);
-    nuevoNodo -> tipoID   = tipoID;
+    nuevoNodo -> nombre   = strdup(nombreID); // Asigna el nombre del identificador (nombre de la variable o funcion)
+    nuevoNodo -> tipoDato = strdup(tipoDato); // Asigna el tipo de dato del identificador (tipo de varibale o tipo de retorno de la funcion)
+    nuevoNodo -> tipoID   = tipoID; // Asigna del tipo de identificador, es decir, si es varibale o funcion (identificado con 1 o 2 por la estructura enum)
 
     switch(tipoID){
         default:
@@ -32,30 +34,32 @@ Simbolo* crearSimbolo(char* tipoDato, char* nombreID, int tipoID){
     return nuevoNodo;
 }
 
+// Busca un simbolo y si no lo encuentra lo agrega a la TS ordenadamente (en orden ascendente) por NOMBRE de simbolo (nombre de identificador)
 void insertarSimbolo(Simbolo* nuevoSimbolo){
     
-    Simbolo* nuevoNodo = devolverSimbolo(nuevoSimbolo -> nombre);
+    Simbolo* nuevoNodo = devolverSimbolo(nuevoSimbolo -> nombre);// Se busca el simbolo por nombre y si se lo encuentra lo almacenamos en nuevoNodo
 
-    if(! nuevoNodo){ 
+    if(! nuevoNodo){ // if (no se encontro)
 
         nuevoNodo = nuevoSimbolo;
 
         Simbolo* aux1 = tablaSimbolos;
         Simbolo* aux2;
 
-        while(aux1 != NULL && strcmp(toUpper(nuevoNodo -> nombre), toUpper(aux1 -> nombre)) > 0){
+        while(aux1 != NULL && strcmp(toUpper(nuevoNodo -> nombre), toUpper(aux1 -> nombre)) > 0){// Si el simbolo a insertar esta primero que el simbolo que esta en la tabla
             aux2 = aux1;
             aux1 = aux1 -> sig;
         }
 
-        if(tablaSimbolos == aux1)
+        if(tablaSimbolos == aux1) // Si la tabla de simbolos estaba vacia
             tablaSimbolos = nuevoNodo;
-        else
+        else // Inserta ente dos nodos si la tabla no estaba vacia y ademas el simbolo no estaba en la tabla
             aux2 -> sig = nuevoNodo;
         nuevoNodo -> sig = aux1;
     }    
 }
 
+// Crea la lista de parametros (el primer nodo) de la lsita de tipos de parametros de la funcion que se este analizando
 Funcion* crearParametro(char* parametro){
     Funcion* nuevoParam = (Funcion*) malloc (sizeof(Funcion));
     nuevoParam -> tipoDatoParam = strdup(parametro);
@@ -66,6 +70,7 @@ Funcion* crearParametro(char* parametro){
     return nuevoParam;
 }
 
+// Inserta un nuevo tipo de dato (modelado con un string; por ejemplo "float") a la lista de tipos de datos de la funcion
 void insertarParametro(Funcion** listaParametros, Funcion* parametro){
     Funcion* aux = parametro;
 
@@ -82,6 +87,7 @@ void insertarParametro(Funcion** listaParametros, Funcion* parametro){
     }  
 }
 
+//Funcion que dado el nombre del identificador del simbolo a buscar, devuelve el simbolo correspondiente
 Simbolo* devolverSimbolo(char* nombreID){
     Simbolo* aux = tablaSimbolos;
 
@@ -94,6 +100,7 @@ Simbolo* devolverSimbolo(char* nombreID){
 
 }
 
+// Confio en que graba en el archivo de salida la TS
 void mostrarTabla(FILE* archivoSalida){
 
     fprintf(archivoSalida, "\n");
@@ -119,6 +126,7 @@ void mostrarTabla(FILE* archivoSalida){
     }
 }
 
+// Graba en el archivo de salida todos los parametros de una funcion
 void mostrarParametros(FILE* archivoSalida, Funcion* listaParametros){
     fprintf(archivoSalida, " -> Parametro/s: ");
     for(Funcion* aux = listaParametros; aux != NULL; aux = aux -> sig){
@@ -131,7 +139,7 @@ void mostrarParametros(FILE* archivoSalida, Funcion* listaParametros){
     fprintf(archivoSalida, "\n");
 }
 
-
+// Funcion renombrada que se usa para comparar los nombres de los identificadores 
 char* toUpper(char* nombreID){
     char* temporal = strdup(nombreID);
     return strupr(temporal);

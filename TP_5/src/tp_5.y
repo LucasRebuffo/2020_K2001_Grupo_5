@@ -6,14 +6,14 @@
 #include <ctype.h>
 #include "tabla.h"
 
-#define YYDEBUG 1
+#define YYDEBUG 1 
+// PARA UTILIZAR EL DEBUG DE BISON
+
 // PROTORIPO DE FUNCIONES QUE SE VAN A USAR EN EL ANÁLISIS
 int yylex (); // --> COMUNICA EL ARCHIVO .l CON EL .y
 int yyerror (char*); // --> MUESTRA EL MENSAJE DE ERROR CUANDO HAY ERROR SINTÁCTICO
 int printError(char*, int); // --> MUESTRA CUANDO HAY ERROR LEXICO
 void variableNoDeclarada(char* nombreVariable); // --> MUESTRA ERROR DE SI UNA VARIABLE NO SE DECLARO
-
-unsigned count = 0;
 
 FILE* yyin; // --> ARCHIVO DE ENTRADA
 FILE* yyout; // --> ARCHIVO DE SALIDA
@@ -22,17 +22,27 @@ FILE* yyout; // --> ARCHIVO DE SALIDA
 char* tempVar = NULL;
 char* tempPointer = NULL;
 
+// Por que es un array de 20 Funcion si La estructura Funcion ya es recursiva (lista) ??
+// O sea, aca se crea un array de 20 listas de parametros de funciones (puede ser entonces que se puedan guardar hasta 20 funciones)
 Funcion* parameters[20]; // --> VA GUARDANDO LOS PARAMETROS CUANDO SE RECONOCEN
 int pos = 0; // --> CONTADOR PARA LOS PARAMETROS
-unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO
+
+unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO. 
 
 %}
+// %type define el campo que le corresponde a cada no terminal en la variable yylval. Se usa durante el proceso de evaluación/validaciones semánticas
+// %token define lo mismo pero para los terminales
 
+// valorString se usa para guardar strings
 %type <valorString> declarador_directo
 %type <valorString> decla
 %type <valorString> declarador
 %type <valorString> especificadores_declaracion
 %type <valorString> error
+
+// Para las ctes en el .l teniamos CHAR STRING NUM_REAL y NUM_ENTERO
+
+// No tienen un valor semántico asociado, directamente se guarda el string (ver linea )
 
 %token <mystruct> NUM_ENTERO
 %token <mystruct> NUM_REAL
@@ -59,6 +69,8 @@ unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO
 %token OP_DESP_IZQ
 %token OP_DESP_DER
 %token OP_MIEMBRO_PUNT
+
+// CHAR y STRING usaban el mismo campo: un string
 
 %token <valorString> CHAR
 %token <valorString> STRING
@@ -90,9 +102,9 @@ unsigned cantLineas; // --> CONTADOR DE LINEAS EN EL CÓDIGO
         int valorEntero;
         float valorReal;
         char* valorCaracter;
-    } mystruct;
+    } mystruct;// Este campo se usa para guardar info (datos agrupados en un struct comun) de las constantes (enteras, decimales y caracteres)
 
-    char*  valorString;
+    char*  valorString;// Este campo se usa para guardar strings
 }
 
 %%
