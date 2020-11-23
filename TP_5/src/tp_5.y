@@ -246,7 +246,7 @@ exp_multip:   exp_conversion {$<mystruct>$ = $<mystruct>1;}
 ;
 
 exp_conversion:   exp_unaria {$<mystruct>$ = $<mystruct>1;}
-                | '(' nombre_tipo ')' exp_conversion exp_unaria 
+                | '(' nombre_tipo ')' exp_conversion
 ;
 
 exp_unaria:   exp_sufijo {$<mystruct>$ = $<mystruct>1;}
@@ -267,11 +267,15 @@ op_unario:   '&'
 
 exp_sufijo:   exp_primaria {$<mystruct>$ = $<mystruct>1;}
             | exp_sufijo '[' expresion ']'        
-            | exp_sufijo '(' lista_argumentos ')' 
+            | exp_sufijo '(' lista_argumentos_opc ')' 
             | exp_sufijo '.' ID                   
             | exp_sufijo OP_MIEMBRO_PUNT ID       
             | exp_sufijo OP_INC                   
             | exp_sufijo OP_DEC                   
+;
+
+lista_argumentos_opc: /* Vacio */
+                      | lista_argumentos
 ;
 
 lista_argumentos:   exp_asignacion
@@ -284,7 +288,11 @@ exp_primaria:   const {$<mystruct>$ = $<mystruct>1;}
 ;
 
 
-declaracion: especificadores_declaracion lista_declaradores
+declaracion: especificadores_declaracion lista_declaradores_opc
+;
+
+lista_declaradores_opc: /* Vacio */
+                        | lista_declaradores
 ;
 
 especificadores_declaracion:   CLASE_ALM           especificadores_declaracion_opc  {$<valorString>$ = strdup($<valorString>1);}
@@ -305,7 +313,7 @@ lista_declaradores:   declarador                        { Simbolo* aux = devolve
                                                           }
                                                         }   
 
-                    | declarador ',' lista_declaradores { Simbolo* aux = devolverSimbolo($<valorString>1);
+                    | lista_declaradores  ',' declarador { Simbolo* aux = devolverSimbolo($<valorString>1);
                                                           if(aux == NULL){
                                                             fprintf(yyout, "\nSe declara la variable: \'%s\' de tipo: \'%s\' en linea %d\n", $<valorString>1, tempVar, cantLineas);
                                                             insertarSimbolo(crearSimbolo(tempVar,$<valorString>1,VAR));}
@@ -319,7 +327,7 @@ declarador:   decla                   {$<valorString>$ = strdup($<valorString>1)
             | decla '=' inicializador {$<valorString>$ = strdup($<valorString>1);}
 ;
 
-inicializador:   exp_asignacion
+inicializador:   _asignacion
                | '{' lista_inicializadores coma_opc '}' 
 ;
 
